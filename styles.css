@@ -10,13 +10,3 @@ html {
 pre {
   white-space: pre-wrap;
 }
-
-.keyword {
-  color: red;
-  font-weight: bold;
-}
-
-.control {
-  color: green;
-  font-weight: bold;
-}

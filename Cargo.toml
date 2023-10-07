@@ -8,3 +8,5 @@ edition = "2021"
 [dependencies]
 regex = "1.5"
 yew = { version = "0.21", features = ["csr"] }
+getrandom = { version = "0.2", features = ["js"] }
+rand = { version = "0.8.5"}
