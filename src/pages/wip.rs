@@ -1,13 +1,13 @@
 use yew::prelude::*;
 
-pub struct WIP;
+pub struct Wip;
 
 #[derive(Properties, PartialEq)]
 pub struct HomeProps {
     pub on_clicked: Callback<AttrValue>,
 }
 
-impl Component for WIP {
+impl Component for Wip {
     type Message = ();
     type Properties = HomeProps;
 

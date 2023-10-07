@@ -3,7 +3,7 @@ mod pages;
 mod utils;
 use pages::contact::Contact;
 use pages::home::Home;
-use pages::wip::WIP;
+use pages::wip::Wip;
 
 #[derive(Debug)]
 pub enum Page {
@@ -52,7 +52,7 @@ impl Component for App {
         let content = match self.active_page {
             Page::Contact => html! {<Contact {on_clicked} />},
             Page::Home => html! {<Home {on_clicked} />},
-            _ => html! {<WIP {on_clicked} />},
+            _ => html! {<Wip {on_clicked} />},
         };
         html! {content}
     }
