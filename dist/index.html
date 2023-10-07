@@ -1,10 +1,22 @@
-<!DOCTYPE html><html><head>
-        <meta charset="utf-8">
-        <title>Hello, World!</title>
-    
-<link rel="preload" href="/museum_of_code-2ff738bec75fa6c0_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
-<link rel="modulepreload" href="/museum_of_code-2ff738bec75fa6c0.js"></head>
-<body><script type="module">import init from '/museum_of_code-2ff738bec75fa6c0.js';init('/museum_of_code-2ff738bec75fa6c0_bg.wasm');</script><script>(function () {
+<!DOCTYPE html><html lang="en"><head><style>
+    body, html {
+        height: 100%;
+    }
+</style>
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yew Tailwind Example</title>
+    <link href="/styles.css" rel="stylesheet">
+
+<link rel="preload" href="/museum_of_code-4ac6972507c60ad4_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
+<link rel="modulepreload" href="/museum_of_code-4ac6972507c60ad4.js"></head>
+<body>
+    <div id="app"></div>
+    <script type="module" src="/main.js"></script>
+
+<script type="module">import init from '/museum_of_code-4ac6972507c60ad4.js';init('/museum_of_code-4ac6972507c60ad4_bg.wasm');</script><script>(function () {
     var protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     var url = protocol + '//' + window.location.host + '/_trunk/ws';
     var poll_interval = 5000;
