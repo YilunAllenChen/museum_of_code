@@ -1,25 +1,54 @@
 <!DOCTYPE html><html lang="en"><head><style>
-    body, html {
-        height: 100%;
+    body,
+    html {
+      height: 100%;
+      background-color: black;
     }
     pre {
-        white-space: pre-wrap;
+      white-space: pre-wrap;
     }
-</style>
 
+    .cls {
+      color: #00eeee;
+    }
+
+    .op {
+      color: #ccccff;
+    }
+
+    .var {
+      color: #8888ff;
+    }
+
+    .str {
+      color: #337733;
+    }
+
+    .bind, .control {
+      color: #aa55ff;
+      font-weight: bold;
+    }
+
+    .comments {
+      color: #555555;
+    }
+
+  </style>
+  
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yew Tailwind Example</title>
     <link href="/styles.css" rel="stylesheet">
-
-<link rel="preload" href="/museum_of_code-8bdf2ad4b78c20f0_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
-<link rel="modulepreload" href="/museum_of_code-8bdf2ad4b78c20f0.js"></head>
-<body>
+  
+<link rel="preload" href="/museum_of_code-62f462c40dd90cdd_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
+<link rel="modulepreload" href="/museum_of_code-62f462c40dd90cdd.js"></head>
+  <body>
     <div id="app"></div>
     <script type="module" src="/main.js"></script>
+  
 
-<script type="module">import init from '/museum_of_code-8bdf2ad4b78c20f0.js';init('/museum_of_code-8bdf2ad4b78c20f0_bg.wasm');</script><script>(function () {
+<script type="module">import init from '/museum_of_code-62f462c40dd90cdd.js';init('/museum_of_code-62f462c40dd90cdd_bg.wasm');</script><script>(function () {
     var protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     var url = protocol + '//' + window.location.host + '/_trunk/ws';
     var poll_interval = 5000;

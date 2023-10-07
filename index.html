@@ -1,23 +1,53 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<style>
-    body, html {
-        height: 100%;
-        background-color: black;
+  <style>
+    body,
+    html {
+      height: 100%;
+      background-color: black;
     }
     pre {
-        white-space: pre-wrap;
+      white-space: pre-wrap;
     }
-</style>
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    .cls {
+      color: #00eeee;
+    }
+
+    .op {
+      color: #ccccff;
+    }
+
+    .var {
+      color: #8888ff;
+    }
+
+    .str {
+      color: #337733;
+    }
+
+    .bind, .control {
+      color: #aa55ff;
+      font-weight: bold;
+    }
+
+    .comments {
+      color: #555555;
+    }
+
+  </style>
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Yew Tailwind Example</title>
-    <link href="/styles.css" rel="stylesheet">
-</head>
-<body>
+    <link href="/styles.css" rel="stylesheet" />
+  </head>
+  <body>
     <div id="app"></div>
     <script type="module" src="/main.js"></script>
-</body>
+  </body>
 </html>

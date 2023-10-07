@@ -1,24 +1,22 @@
 use yew::prelude::*;
+mod highlighter;
+use highlighter::Highlighter;
 
-struct Index;
-impl Component for Index {
-    type Message = ();
-    type Properties = ();
+#[function_component]
+fn App() -> Html {
+    let haskell = r#"
+-- QuickSort in Haskell
+qs :: (Ord a) => [a] -> [a]
+qs [] = []
+qs (x:xs) = qs bot ++ [x] ++ qs top
+  where
+    bot = [y | y <- xs, y <= x]
+    top = [y | y <- xs, y > x]
+    "#;
 
-    fn create(_: Self::Properties, _: ComponentLink<Self>) -> Self {
-        Self
-    }
+    let formatted_haskell = Highlighter::new().highlight(haskell.to_string());
 
-    fn update(&mut self, _: Self::Message) -> ShouldRender {
-        false
-    }
-
-    fn change(&mut self, _: Self::Properties) -> ShouldRender {
-        false
-    }
-
-    fn view(&self) -> Html {
-        html! {
+    html! {
             <div class="bg-black h-full">
             <header class="fixed inset-x-0 top-0 z-50">
                 <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
@@ -46,7 +44,7 @@ impl Component for Index {
                     <div class="text-center">
                         <h1 class="text-4xl font-bold tracking-tight text-gray-100 sm:text-6xl">{"A Museum of Code"}</h1>
                         <p class="mt-6 text-lg leading-8 text-gray-300">{"Code that ought to be put in a museum."}</p>
-                        <div class="mt-10 flex items-center justify-center gap-x-6 mb-8">
+                        <div class="mt-10 flex items-center justify-center gap-x-6 mb-20">
                             <a href="#"
                                 class="rounded-md disabled bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                 {"Take A Tour"}
@@ -56,16 +54,7 @@ impl Component for Index {
                     </div>
                     <div class="bg-gray-800 lg:pl-20 text-gray-300 p-4  rounded-md justify-left items-left">
                         <pre>
-                            <code class="text-sm font-mono text-left">{r#"
--- | Quicksort in Haskell
-qs :: (Ord a) => [a] -> [a]
-qs [] = []
-qs (x:xs) = qs [y | y <- xs, y <= x]
-            ++ [x] ++
-            qs [y | y <- xs, y > x]
-
-      "#}
-                            </code>
+                            {formatted_haskell}
                         </pre>
                     </div>
                 </div>
@@ -77,10 +66,23 @@ qs (x:xs) = qs [y | y <- xs, y <= x]
             </div>
         </div>
 
-          }
     }
 }
 
 fn main() {
-    yew::start_app::<Index>();
+    yew::Renderer::<App>::new().render();
 }
+
+// fn main() {
+//     let haskell = r#"
+// -- QuickSort in Haskell
+// qs :: (Ord a) => [a] -> [a]
+// qs [] = []
+// qs (x:xs) = qs bot ++ [x] ++ qs top
+//     where
+//         bot = [y | y <- xs, y <= x]
+//         top = [y | y <- xs, y > x]
+//     "#;
+//
+//     let formatted_haskell = Highlighter::new().highlight(haskell.to_string());
+// }
