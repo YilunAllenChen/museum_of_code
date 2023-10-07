@@ -1,3 +1,39 @@
-@import "tailwindcss/base";
+/* @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+ */
+
+body,
+html {
+  background-color: black;
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+.cls {
+  color: #00eeee;
+}
+
+.op {
+  color: #ccccff;
+}
+
+.var {
+  color: #8888ff;
+}
+
+.str {
+  color: #337733;
+}
+
+.bind,
+.control {
+  color: #aa55ff;
+  font-weight: bold;
+}
+
+.comments {
+  color: #555555;
+}
