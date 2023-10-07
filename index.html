@@ -1,79 +1,53 @@
 <!doctype html>
 <html lang="en">
-  <style>
+<style>
     body,
     html {
-      background-color: black;
+        background-color: black;
     }
+
     pre {
-      white-space: pre-wrap;
+        white-space: pre-wrap;
     }
 
     .cls {
-      color: #00eeee;
+        color: #00eeee;
     }
 
     .op {
-      color: #ccccff;
+        color: #ccccff;
     }
 
     .var {
-      color: #8888ff;
+        color: #8888ff;
     }
 
     .str {
-      color: #337733;
+        color: #337733;
     }
 
     .bind,
     .control {
-      color: #aa55ff;
-      font-weight: bold;
+        color: #aa55ff;
+        font-weight: bold;
     }
 
     .comments {
-      color: #555555;
+        color: #555555;
     }
+</style>
 
-    .animation-container {
-      background-color: #000; /* Dark background color */
-      width: 100%;
-      height: 100vh;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .particle {
-      position: absolute;
-      background-color: #559955; /* Particle color */
-      border-radius: 50%;
-      width: 10px;
-      height: 10px;
-      animation: move 20s ease-in infinite; /* Animation properties */
-      z-index: -9999; /* Set a high z-index value */
-    }
-
-    @keyframes move {
-      0% {
-        transform: translateY(-100vh);
-      }
-      100% {
-        transform: translateY(200vh); /* Animation direction */
-      }
-    }
-  </style>
-  <head>
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Museum of Code</title>
     <link href="/styles.css" rel="stylesheet" />
-  </head>
-  <body>
+</head>
+
+<body>
     <div id="app"></div>
     <script type="module" src="/main.js"></script>
-  </body>
+</body>
+
 </html>

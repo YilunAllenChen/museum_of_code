@@ -1,61 +1,60 @@
 use yew::prelude::*;
-mod highlighter;
-use highlighter::Highlighter;
+mod pages;
+mod utils;
+use pages::contact::Contact;
+use pages::home::Home;
+use pages::wip::WIP;
 
-#[function_component]
-fn App() -> Html {
-    let haskell = r#"
--- QuickSort in Haskell
-qs :: (Ord a) => [a] -> [a]
-qs [] = []
-qs (x:xs) = qs bot ++ [x] ++ qs top
-  where
-    bot = [y | y <- xs, y <= x]
-    top = [y | y <- xs, y > x]
-    "#;
+#[derive(Debug)]
+pub enum Page {
+    Home,
+    Contact,
+    WIP,
+}
 
-    let formatted_haskell = Highlighter::new().highlight(haskell.to_string());
+pub struct App {
+    active_page: Page,
+}
 
-    let particles = html! {
-        <div>
-            <div>
-                { for (0..200).map(|_| {
-                    let top = format!("{}vh", rand::random::<f32>() * 200.0 - 100.0);
-                    let left = format!("{}vw", rand::random::<f32>() * 200.0 - 100.0);
-                    html! {
-                        <div class="particle" style={format!("top: {}; left: {};", top, left)}>
-                        </div>
-                    }
-                })}
-            </div>
-        </div>
-    };
+pub enum Msg {
+    GoToPage(AttrValue),
+}
 
-    html! {
-        <div class="bg-black h-full animation-container">
-            <div class="relative isolate px-6 pt-14 lg:px-8">
-                <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56 bg-opacity-50">
-                    <div class="text-center">
-                        <h1 class="text-4xl font-bold tracking-tight text-gray-100 sm:text-6xl">{"A Museum of Code"}</h1>
-                        <p class="mt-6 text-lg leading-8 text-gray-300">{"Code that ought to be put in a museum."}</p>
-                        <div class="mt-10 flex items-center justify-center gap-x-6 mb-20">
-                            <a href="#"
-                                class="rounded-md disabled bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                {"Take A Tour"}
-                            </a>
-                            <a href="#" class="text-sm font-semibold leading-6 text-gray-100">{"(Gallery under construction)"}</a>
-                        </div>
-                    </div>
-                    <div class="bg-gray-800 lg:pl-20 text-gray-300 p-4  rounded-md justify-left items-left">
-                        <pre>
-                            {formatted_haskell}
-                        </pre>
-                    </div>
-                </div>
-                {particles}
-            </div>
-        </div>
+impl Component for App {
+    type Message = Msg;
+    type Properties = ();
 
+    fn create(_ctx: &Context<Self>) -> Self {
+        Self {
+            active_page: Page::Home,
+        }
+    }
+
+    fn changed(&mut self, _ctx: &Context<Self>, _old_props: &Self::Properties) -> bool {
+        false
+    }
+
+    fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
+        match msg {
+            Msg::GoToPage(childs_name) => {
+                self.active_page = match childs_name.as_str() {
+                    "Home" => Page::Home,
+                    "Contribute" => Page::Contact,
+                    _ => Page::WIP,
+                };
+                true
+            }
+        }
+    }
+
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let on_clicked = ctx.link().callback(Msg::GoToPage);
+        let content = match self.active_page {
+            Page::Contact => html! {<Contact {on_clicked} />},
+            Page::Home => html! {<Home {on_clicked} />},
+            _ => html! {<WIP {on_clicked} />},
+        };
+        html! {content}
     }
 }
 
