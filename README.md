@@ -1,8 +1,13 @@
 # museum_of_code
 A museum of code!
 
+Built with Rust, Yew and Tailwind CSS.
 
-## setup
+
+# [VISIT HERE!](https://yilunallenchen.github.io/museum_of_code/)
+
+
+# Developer setup
 1.  Install Rust
     ```bash
     curl https://sh.rustup.rs -sSf | sh
@@ -23,6 +28,3 @@ A museum of code!
     cargo clean
     cargo build
     ```
-
-
-# [VISIT HERE](https://yilunallenchen.github.io/museum_of_code/)

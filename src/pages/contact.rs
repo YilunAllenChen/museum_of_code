@@ -1,10 +1,12 @@
 use yew::prelude::*;
 
+use crate::Page;
+
 pub struct Contact;
 
 #[derive(Properties, PartialEq)]
 pub struct ContactProps {
-    pub on_clicked: Callback<AttrValue>,
+    pub on_clicked: Callback<Page>,
 }
 
 impl Component for Contact {
@@ -23,9 +25,9 @@ impl Component for Contact {
         false
     }
 
-    fn view(&self, ctx: &Context<Self>) -> Html {
+    fn view(&self, _ctx: &Context<Self>) -> Html {
         html! {
-            <div class="bg-black h-full animation-container">
+            <div class="bg-black h-full">
                 <div class="relative isolate px-6 pt-14 lg:px-8">
                     <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56 bg-opacity-50">
                         <div class="text-center">
@@ -34,11 +36,6 @@ impl Component for Contact {
                                 <a class="rounded-md disabled bg-yellow-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-yellow-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                     href="mailto:allenchenyilun1999@gmail.com"
                                 >{"📧Email Me📧"}</a>
-                                <button
-                                    onclick={ctx.props().on_clicked.reform(|_| "Home".into())}
-                                    class="rounded-md disabled bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                    {"Home"}
-                                </button>
                             </div>
                         </div>
                     </div>
