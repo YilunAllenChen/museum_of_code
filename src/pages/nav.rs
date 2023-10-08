@@ -51,12 +51,12 @@ impl Component for Nav {
 
                 <div class="flex-none rounded-full bg-blue-500/20 p-1">
                   <button
-                      class="w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center"
+                      class="w-16 h-16 bg-blue-500 text-white rounded-full flex items-center justify-center"
                       onclick={ctx.link().callback(|_| Msg::ToggleSidebar)}
                   >
                   <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      class="h-6 w-6 transform"
+                      class="h-9 w-9 transform"
                       fill="none"
                       viewBox="0 0 60 60"
                       stroke="currentColor"
