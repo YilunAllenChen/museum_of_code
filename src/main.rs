@@ -3,7 +3,7 @@ use std::fmt::Display;
 use yew::prelude::*;
 mod pages;
 mod utils;
-use pages::{Contact, Home, Tour, Wip, Nav};
+use pages::{Contact, Home, Nav, Tour, Wip};
 
 #[derive(Debug, Clone, PartialEq, Copy)]
 pub enum Page {

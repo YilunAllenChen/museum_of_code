@@ -35,7 +35,7 @@ impl Component for Nav {
             Msg::ToggleSidebar => {
                 self.show_sidebar = !self.show_sidebar;
                 true
-            },
+            }
             Msg::SelectPage(page) => {
                 self.show_sidebar = false;
                 ctx.props().on_clicked.emit(page);
@@ -70,7 +70,6 @@ impl Component for Nav {
                 </div>
             }
         } else {
-
             let nav_buttons = vec![Page::Home, Page::Contact, Page::Tour, Page::About]
             .into_iter()
             .map(|page| {
@@ -110,9 +109,9 @@ impl Component for Nav {
                               {"❌"}
                             </button>
                           </div>
-                          
+
                         </div>
-                        
+
                       </div>
                     </div>
                   </div>
