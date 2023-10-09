@@ -41,12 +41,14 @@ impl Component for Tour {
                 tags::Tag::CategoryTag(tags::Category {name: "Sorting".to_string(),})]
             }
             code={r#"
+
 qs :: Ord a => [a] -> [a]
 qs [] = []
 qs (x:xs) = qs lower ++ [x] ++ qs higher
   where
     lower = filter (<= x)
     higher = filter (> x)
+
 "#.to_string().trim().to_string()}
             desc={r#"
 Quick Sort is an extremely efficient sorting algorithm that uses divide and conquer strategy to sort a list of elements.
@@ -65,6 +67,7 @@ The Haskell implementation is a very elegant example of the language's expressiv
                 tags::Tag::CategoryTag(tags::Category {name: "concurrency".to_string(),})]
             }
             code={r#"
+
 use rayon::prelude::*;
 
 fn count_len(list: &[&str]) -> usize { 
@@ -74,6 +77,7 @@ fn count_len(list: &[&str]) -> usize {
     .map(|word| word.len())
     .sum() 
 }
+
 "#.to_string().trim().to_string()}
             desc={r#"
 This function counts the length of all the words in a list.
@@ -95,10 +99,12 @@ This is a great example of how Rust's traits and generics allow for easy extensi
                 tags::Tag::CategoryTag(tags::Category {name: "Fibonacci".to_string(),})]
             }
             code={r#"
+
 def fib(n):
     if n <= 1:
         return n
     return fib(n-1) + fib(n-2)
+
 "#.to_string().trim().to_string()}
             desc={r#"
 The function computes the nth Fibonacci number.
