@@ -195,7 +195,7 @@ This demonstrates the low level control that the language has given to the progr
             language={Language::C}
             status={EntryStatus::Maintenance}
             tags={vec![
-                tags::Tag::LanguageTag(Language::Haskell),
+                tags::Tag::LanguageTag(Language::C),
                 tags::Tag::CategoryTag(tags::Category {name: "Sorting".to_string(),})]
             }
             code={"".to_string()}
