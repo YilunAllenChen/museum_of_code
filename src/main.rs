@@ -1,8 +1,11 @@
 use std::fmt::Display;
 
+use log::info;
 use yew::prelude::*;
+
+mod code;
+mod html_utils;
 mod pages;
-mod utils;
 use pages::{Contact, Home, Nav, Tour, Wip};
 
 #[derive(Debug, Clone, PartialEq, Copy)]
@@ -85,5 +88,7 @@ impl Component for App {
 }
 
 fn main() {
+    wasm_logger::init(wasm_logger::Config::default());
+    info!("Logging initialized");
     yew::Renderer::<App>::new().render();
 }

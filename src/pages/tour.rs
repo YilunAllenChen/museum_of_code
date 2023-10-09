@@ -2,13 +2,10 @@ use std::vec;
 
 use yew::prelude::*;
 
+use crate::code::{Article, EntryStatus, Language};
 use crate::Page;
 
-mod articles;
-mod tags;
-
-use articles::{Article, EntryStatus};
-use tags::Tag;
+use crate::html_utils::tags;
 
 pub struct Tour;
 
@@ -34,49 +31,180 @@ impl Component for Tour {
     }
 
     fn view(&self, _ctx: &Context<Self>) -> Html {
-        let articles: Html = vec![
-            Article::haskell(
-                "Quick Sort",
-                "2023/10/08",
-                EntryStatus::OnExhibit,
-                vec![Tag::Category(tags::Category {
-                    name: "Sorting".to_string(),
-                })],
-            ),
-            Article::haskell("Dijkstra", "2023/10/08", EntryStatus::Maintenance, vec![]),
-            Article::rust("Rayon", "2023/10/08", EntryStatus::StagedForExhibit, vec![]),
-            Article::go(
-                "Goroutine",
-                "2023/10/08",
-                EntryStatus::OnExhibit,
-                vec![Tag::Category(tags::Category {
-                    name: "Concurrency".to_string(),
-                })],
-            ),
-            Article::python(
-                "Web Server",
-                "2023/10/08",
-                EntryStatus::StagedForExhibit,
-                vec![],
-            ),
-            Article::clojure("DFS", "2023/10/08", EntryStatus::OnExhibit, vec![]),
-            Article::javascript(
-                "Async/Await",
-                "2023/10/08",
-                EntryStatus::Maintenance,
-                vec![Tag::Category(tags::Category {
-                    name: "Concurrency".to_string(),
-                })],
-            ),
-            Article::c(
-                "Kernel",
-                "2023/10/08",
-                EntryStatus::StagedForExhibit,
-                vec![],
-            ),
+        let articles: Html = vec![html! {
+            <Article
+            title={"Quick Sort"}
+            language={Language::Haskell}
+            status={EntryStatus::OnExhibit}
+            tags={vec![
+                tags::Tag::LanguageTag(Language::Haskell),
+                tags::Tag::CategoryTag(tags::Category {name: "Sorting".to_string(),})]
+            }
+            code={r#"
+qs :: Ord a => [a] -> [a]
+qs [] = []
+qs (x:xs) = qs lower ++ [x] ++ qs higher
+  where
+    lower = filter (<= x)
+    higher = filter (> x)
+"#.to_string().trim().to_string()}
+            desc={r#"
+Quick Sort is an extremely efficient sorting algorithm that uses divide and conquer strategy to sort a list of elements.
+
+The Haskell implementation is a very elegant example of the language's expressiveness.
+"#.to_string().trim().to_string()}
+            />
+        },
+        html!{
+            <Article
+            title={"Rayon"}
+            language={Language::Rust}
+            status={EntryStatus::OnExhibit}
+            tags={vec![
+                tags::Tag::LanguageTag(Language::Rust),
+                tags::Tag::CategoryTag(tags::Category {name: "concurrency".to_string(),})]
+            }
+            code={r#"
+use rayon::prelude::*;
+
+fn count_len(list: &[&str]) -> usize { 
+  list
+    // .iter()
+    .par_iter()
+    .map(|word| word.len())
+    .sum() 
+}
+"#.to_string().trim().to_string()}
+            desc={r#"
+This function counts the length of all the words in a list.
+
+By leveraging the `rayon` crate, parallelism is made trivial - simply change `iter()` to `par_iter()`.
+
+This is a great example of how Rust's traits and generics allow for easy extension of existing code.
+"#.to_string().trim().to_string()}
+            />
+        },
+
+        html!{
+            <Article
+            title={"Fibonacci"}
+            language={Language::Python}
+            status={EntryStatus::OnExhibit}
+            tags={vec![
+                tags::Tag::LanguageTag(Language::Python),
+                tags::Tag::CategoryTag(tags::Category {name: "Fibonacci".to_string(),})]
+            }
+            code={r#"
+def fib(n):
+    if n <= 1:
+        return n
+    return fib(n-1) + fib(n-2)
+"#.to_string().trim().to_string()}
+            desc={r#"
+The function computes the nth Fibonacci number.
+
+This is a great example of how Python's simplicity allows for easy implementation of complex algorithms.
+"#.to_string().trim().to_string()}
+            />
+        },
+
+            html!{
+            <Article
+            title="Goroutines"
+            language={Language::Go}
+            status={EntryStatus::OnExhibit}
+            tags={vec![
+                tags::Tag::LanguageTag(Language::Go),
+                tags::Tag::CategoryTag(tags::Category {name: "concurrency".to_string(),})]
+            }
+            code={r#"
+package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func main() {
+    go say("world")
+    say("hello")
+}
+
+func say(s string) {
+    for i := 0; i < 5; i++ {
+        time.Sleep(100 * time.Millisecond)
+        fmt.Println(s)
+    }
+}
+"#.to_string().trim().to_string()}
+            desc={r#"
+This program prints "hello" and "world" 5 times each, but concurrently.
+
+This is a great example of how Go's concurrency primitives make it easy to write concurrent programs.
+
+"#.to_string().trim().to_string()}
+            />
+        },
+
+        html!{
+            <Article
+            title={"Factorial"}
+            language={Language::OCaml}
+            status={EntryStatus::OnExhibit}
+            tags={vec![
+                tags::Tag::LanguageTag(Language::OCaml),
+            ]}
+            code={r#"
+let rec factorial n =
+  if n <= 1 then 1
+  else n * factorial (n - 1)
+            "#.to_string()}
+            desc={r#"
+The function computes the factorial of a number.
+
+This is a great example of how OCaml's simplicity allows for easy implementation of complex algorithms."#.to_string()}
+            />
+        },
+
+        html!{
+            <Article
+            title={"Pointers"}
+            language={Language::C}
+            status={EntryStatus::StagedForExhibit}
+            tags={vec![
+                tags::Tag::LanguageTag(Language::C),
+            ]}
+            code={r#"
+int main() {
+    int x = 5;
+    int *y = &x;
+    printf("%d\n", *y);
+}
+            "#.to_string()}
+            desc={r#"
+This program prints the value of `x` by dereferencing the pointer `y`.
+
+This demonstrates the low level control that the language has given to the programmer.
+"#.to_string()}
+            />
+        },
+
+        html!{
+            <Article
+            title={"Linux Kernel"}
+            language={Language::C}
+            status={EntryStatus::Maintenance}
+            tags={vec![
+                tags::Tag::LanguageTag(Language::Haskell),
+                tags::Tag::CategoryTag(tags::Category {name: "Sorting".to_string(),})]
+            }
+            code={"".to_string()}
+            desc={"".to_string()}
+            />
+        },
+
         ]
         .into_iter()
-        .map(|entry| entry.to_html())
         .collect();
 
         html! {

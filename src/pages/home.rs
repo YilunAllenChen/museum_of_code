@@ -1,4 +1,4 @@
-use crate::{utils::highlighter::Highlighter, Page};
+use crate::{code::Language, Page};
 use yew::prelude::*;
 
 pub struct Home;
@@ -35,7 +35,7 @@ qs (x:xs) = qs bot ++ [x] ++ qs top
     top = [y | y <- xs, y > x]
     "#;
 
-        let formatted_haskell = Highlighter::new().highlight(haskell.to_string());
+        let formatted_haskell = Language::Haskell.highlight(haskell.to_string());
 
         html! {
             <div class="bg-black h-full">
