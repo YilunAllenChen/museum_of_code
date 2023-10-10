@@ -8,6 +8,8 @@ mod html_utils;
 mod pages;
 use pages::{Contact, Home, Nav, Tour, Wip};
 
+use crate::pages::About;
+
 #[derive(Debug, Clone, PartialEq, Copy)]
 pub enum Page {
     Home,
@@ -56,11 +58,6 @@ impl Component for App {
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::GoToPage(childs_name) => {
-                // self.active_page = match childs_name.as_str() {
-                //     "Home" => Page::Home,
-                //     "Contribute" => Page::Contact,
-                //     _ => Page::WIP,
-                // };
                 self.active_page = childs_name;
                 true
             }
@@ -77,6 +74,7 @@ impl Component for App {
             Page::Contact => html! {<Contact {on_clicked} />},
             Page::Home => html! {<Home {on_clicked} />},
             Page::Tour => html! {<Tour {on_clicked} />},
+            Page::About => html! {<About {on_clicked} />},
             _ => html! {<Wip {on_clicked} />},
         };
         html! {

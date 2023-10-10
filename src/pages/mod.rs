@@ -12,3 +12,6 @@ pub use tour::Tour;
 
 mod nav;
 pub use nav::Nav;
+
+mod about;
+pub use about::About;

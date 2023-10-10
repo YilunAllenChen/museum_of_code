@@ -5,13 +5,13 @@ use crate::Page;
 pub struct Wip;
 
 #[derive(Properties, PartialEq)]
-pub struct HomeProps {
+pub struct WipProps {
     pub on_clicked: Callback<Page>,
 }
 
 impl Component for Wip {
     type Message = ();
-    type Properties = HomeProps;
+    type Properties = WipProps;
 
     fn create(_ctx: &Context<Self>) -> Self {
         Self {}

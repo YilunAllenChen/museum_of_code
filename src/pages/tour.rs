@@ -215,7 +215,7 @@ This demonstrates the low level control that the language has given to the progr
 
         html! {
             <div class="bg-black h-full">
-                <ul role="list" class="text-white px-4 divide-y divide-gray-800">
+                <ul role="list" class="text-white px-4 md:px-40 md:py-10 divide-y divide-gray-800">
                     {articles}
                 </ul>
             </div>
