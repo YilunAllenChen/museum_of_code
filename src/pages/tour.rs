@@ -41,7 +41,6 @@ impl Component for Tour {
                 tags::Tag::CategoryTag(tags::Category {name: "Sorting".to_string(),})]
             }
             code={r#"
-
 qs :: Ord a => [a] -> [a]
 qs [] = []
 qs (x:xs) = qs lower ++ [x] ++ qs higher
@@ -49,12 +48,12 @@ qs (x:xs) = qs lower ++ [x] ++ qs higher
     lower = filter (<= x)
     higher = filter (> x)
 
-"#.to_string().trim().to_string()}
+"#.to_string()}
             desc={r#"
 Quick Sort is an extremely efficient sorting algorithm that uses divide and conquer strategy to sort a list of elements.
 
 The Haskell implementation is a very elegant example of the language's expressiveness.
-"#.to_string().trim().to_string()}
+"#.to_string()}
             />
         },
         html!{
@@ -67,7 +66,6 @@ The Haskell implementation is a very elegant example of the language's expressiv
                 tags::Tag::CategoryTag(tags::Category {name: "concurrency".to_string(),})]
             }
             code={r#"
-
 use rayon::prelude::*;
 
 fn count_len(list: &[&str]) -> usize { 
@@ -78,14 +76,14 @@ fn count_len(list: &[&str]) -> usize {
     .sum() 
 }
 
-"#.to_string().trim().to_string()}
+"#.to_string()}
             desc={r#"
 This function counts the length of all the words in a list.
 
 By leveraging the `rayon` crate, parallelism is made trivial - simply change `iter()` to `par_iter()`.
 
 This is a great example of how Rust's traits and generics allow for easy extension of existing code.
-"#.to_string().trim().to_string()}
+"#.to_string()}
             />
         },
 
@@ -99,18 +97,17 @@ This is a great example of how Rust's traits and generics allow for easy extensi
                 tags::Tag::CategoryTag(tags::Category {name: "Fibonacci".to_string(),})]
             }
             code={r#"
-
 def fib(n):
     if n <= 1:
         return n
     return fib(n-1) + fib(n-2)
 
-"#.to_string().trim().to_string()}
+"#.to_string()}
             desc={r#"
 The function computes the nth Fibonacci number.
 
 This is a great example of how Python's simplicity allows for easy implementation of complex algorithms.
-"#.to_string().trim().to_string()}
+"#.to_string()}
             />
         },
 
@@ -142,13 +139,14 @@ func say(s string) {
         fmt.Println(s)
     }
 }
-"#.to_string().trim().to_string()}
+
+"#.to_string()}
             desc={r#"
 This program prints "hello" and "world" 5 times each, but concurrently.
 
 This is a great example of how Go's concurrency primitives make it easy to write concurrent programs.
 
-"#.to_string().trim().to_string()}
+"#.to_string()}
             />
         },
 
@@ -172,28 +170,68 @@ This is a great example of how OCaml's simplicity allows for easy implementation
             />
         },
 
+
         html!{
             <Article
-            title={"Pointers"}
+            title={"Union Find with Path Compression"}
             language={Language::C}
-            status={EntryStatus::StagedForExhibit}
+            status={EntryStatus::OnExhibit}
             tags={vec![
                 tags::Tag::LanguageTag(Language::C),
             ]}
             code={r#"
-int main() {
-    int x = 5;
-    int *y = &x;
-    printf("%d\n", *y);
+int find(int x) {
+  return ( x != parent[x] ) 
+    ? parent[x] = find(parent[x])
+    : x;
 }
-            "#.to_string()}
-            desc={r#"
-This program prints the value of `x` by dereferencing the pointer `y`.
 
-This demonstrates the low level control that the language has given to the programmer.
+"#.to_string()}
+            desc={r#"
+This program implements the union find algorithm with path compression.
+
+It uses the ternary operator to implement the find function in a single line.
+
+To learn more about the union find algorithm, check this out! https://www.geeksforgeeks.org/introduction-to-disjoint-set-data-structure-or-union-find-algorithm/
 "#.to_string()}
             />
         },
+
+        html!{
+            <Article
+            title={"Merge Sort"}
+            language={Language::Haskell}
+            status={EntryStatus::OnExhibit}
+            tags={vec![
+                tags::Tag::LanguageTag(Language::Haskell),
+                tags::Tag::CategoryTag(tags::Category {name: "Sorting".to_string(),})
+            ]}
+            code={r#"
+sort :: Ord a => [a] -> [a]
+sort [] = []
+sort [x] = [x]
+sort xs = merge (sort left) (sort right)
+    where
+        (left, right) = splitAt (length xs `div` 2) xs
+
+merge :: Ord a => [a] -> [a] -> [a]
+merge [] [] = []
+merge xs [] = xs
+merge [] ys = ys
+merge (x:xs) (y:ys)
+    | x <= y = x : merge xs (y:ys)
+    | otherwise = y : merge (x:xs) ys
+
+            "#.to_string()}
+            desc={r#"
+This program implements the merge sort algorithm.
+
+It leverages Haskell's pattern matching to implement the merge function in a concise and expressive manner.
+
+"#.to_string()}
+            />
+        },
+
 
         html!{
             <Article
