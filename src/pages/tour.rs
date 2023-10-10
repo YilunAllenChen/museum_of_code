@@ -199,6 +199,22 @@ To learn more about the union find algorithm, check this out! https://www.geeksf
 
         html!{
             <Article
+            title={"Dijkstra's Algorithm"}
+            language={Language::Python}
+            status={EntryStatus::StagedForExhibit}
+            tags={vec![
+                tags::Tag::LanguageTag(Language::Python),
+            ]}
+            code={r#"
+"#.to_string()}
+            desc={r#"
+"#.to_string()}
+            />
+        },
+
+
+        html!{
+            <Article
             title={"Merge Sort"}
             language={Language::Haskell}
             status={EntryStatus::OnExhibit}
