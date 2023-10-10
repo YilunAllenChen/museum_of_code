@@ -197,21 +197,6 @@ To learn more about the union find algorithm, check this out! https://www.geeksf
             />
         },
 
-        html!{
-            <Article
-            title={"Dijkstra's Algorithm"}
-            language={Language::Python}
-            status={EntryStatus::StagedForExhibit}
-            tags={vec![
-                tags::Tag::LanguageTag(Language::Python),
-            ]}
-            code={r#"
-"#.to_string()}
-            desc={r#"
-"#.to_string()}
-            />
-        },
-
 
         html!{
             <Article
@@ -248,6 +233,20 @@ It leverages Haskell's pattern matching to implement the merge function in a con
             />
         },
 
+        html!{
+            <Article
+            title={"Dijkstra's Algorithm"}
+            language={Language::Python}
+            status={EntryStatus::StagedForExhibit}
+            tags={vec![
+                tags::Tag::LanguageTag(Language::Python),
+            ]}
+            code={r#"
+"#.to_string()}
+            desc={r#"
+"#.to_string()}
+            />
+        },
 
         html!{
             <Article
