@@ -74,20 +74,20 @@ impl Component for Nav {
             }
         } else {
             let nav_buttons = vec![Page::Home, Page::Contact, Page::Tour, Page::About]
-            .into_iter()
-            .map(|page| {
-                html! {
-                    <button
-                        onclick={ctx.link().callback(move |_| Msg::SelectPage(page))}
-                        class=r#"
+                .into_iter()
+                .map(|page| {
+                    html! {
+                        <button
+                            onclick={ctx.link().callback(move |_| Msg::SelectPage(page))}
+                            class=r#"
                             rounded-md w-full bg-cyan-500 my-2.5 px-3.5 py-2.5
                             text-sm font-semibold text-white shadow-sm hover:bg-cyan-300
                         "#
-                    >
-                    {page.to_string()}
-                    </button>
-                }
-            });
+                        >
+                        {page.to_string()}
+                        </button>
+                    }
+                });
 
             html! {
                 <div class="relative z-20" aria-labelledby="modal-title" role="dialog" aria-modal="true">
