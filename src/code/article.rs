@@ -86,24 +86,22 @@ impl Component for Article {
             }
         };
 
-        let tags: Html = ctx.props().tags.iter().map(|tag| tag.to_html()).collect();
+        let tags: Html = ctx
+            .props()
+            .tags
+            .iter()
+            .map(|tag| tag.to_html())
+            .map(|html_str| Html::from_html_unchecked(html_str.into()))
+            .collect();
 
         let rendered = match self.show {
             true => {
-                let highlighted_code = ctx.props().language.highlight(ctx.props().code.clone());
-                let tags = ctx
-                    .props()
-                    .tags
-                    .iter()
-                    .map(|tag| tag.to_html())
-                    .collect::<Html>();
-
                 let content = match ctx.props().status {
                     EntryStatus::OnExhibit => html! {
                       <>
                       <div class="bg-gray-800 text-xs sm:text-sm md:text-lg text-gray-300 p-1 rounded-md justify-left items-left">
                           <pre>
-                              {highlighted_code}
+                              {Html::from_html_unchecked(ctx.props().code.clone().into())}
                           </pre>
                       </div>
                       <pre class="my-4">
@@ -136,7 +134,7 @@ impl Component for Article {
                                   {ctx.props().title.clone()}
                                 </h3>
                                 <div class="my-4">
-                                  {tags}
+                                  {tags.clone()}
                                 </div>
                                 {content}
                                 <button

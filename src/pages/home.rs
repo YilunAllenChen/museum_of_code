@@ -35,7 +35,8 @@ qs (x:xs) = qs bot ++ [x] ++ qs top
     top = [y | y <- xs, y > x]
     "#;
 
-        let formatted_haskell = Language::Haskell.highlight(haskell.to_string());
+        let formatted_haskell =
+            Html::from_html_unchecked(include_str!("../artifacts/build/quicksort_hs.html").into());
 
         html! {
             <div class="bg-black h-full">

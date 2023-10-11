@@ -31,237 +31,123 @@ impl Component for Tour {
     }
 
     fn view(&self, _ctx: &Context<Self>) -> Html {
-        let articles: Html = vec![html! {
-            <Article
-            title={"Quick Sort"}
-            language={Language::Haskell}
-            status={EntryStatus::OnExhibit}
-            tags={vec![
-                tags::Tag::LanguageTag(Language::Haskell),
-                tags::Tag::CategoryTag(tags::Category {name: "Sorting".to_string(),})]
-            }
-            code={r#"
-qs :: Ord a => [a] -> [a]
-qs [] = []
-qs (x:xs) = qs lower ++ [x] ++ qs higher
-  where
-    lower = filter (<= x)
-    higher = filter (> x)
+        let qs = include_str!("../artifacts/build/quicksort_hs.html");
+        let rayon = include_str!("../artifacts/build/rayon_rs.html");
+        let goroutines = include_str!("../artifacts/build/goroutines_go.html");
+        let fac = include_str!("../artifacts/build/factorial_ml.html");
+        let merge = include_str!("../artifacts/build/mergesort_hs.html");
+        let uf_pc = include_str!("../artifacts/build/uf_pc_c.html");
 
-"#.to_string()}
-            desc={r#"
-Quick Sort is an extremely efficient sorting algorithm that uses divide and conquer strategy to sort a list of elements.
-
-The Haskell implementation is a very elegant example of the language's expressiveness.
-"#.to_string()}
-            />
-        },
-        html!{
-            <Article
-            title={"Rayon"}
-            language={Language::Rust}
-            status={EntryStatus::OnExhibit}
-            tags={vec![
-                tags::Tag::LanguageTag(Language::Rust),
-                tags::Tag::CategoryTag(tags::Category {name: "concurrency".to_string(),})]
-            }
-            code={r#"
-use rayon::prelude::*;
-
-fn count_len(list: &[&str]) -> usize { 
-  list
-    // .iter()
-    .par_iter()
-    .map(|word| word.len())
-    .sum() 
-}
-
-"#.to_string()}
-            desc={r#"
-This function counts the length of all the words in a list.
-
-By leveraging the `rayon` crate, parallelism is made trivial - simply change `iter()` to `par_iter()`.
-
-This is a great example of how Rust's traits and generics allow for easy extension of existing code.
-"#.to_string()}
-            />
-        },
-
-        html!{
-            <Article
-            title={"Fibonacci"}
-            language={Language::Python}
-            status={EntryStatus::OnExhibit}
-            tags={vec![
-                tags::Tag::LanguageTag(Language::Python),
-                tags::Tag::CategoryTag(tags::Category {name: "Fibonacci".to_string(),})]
-            }
-            code={r#"
-def fib(n):
-    if n <= 1:
-        return n
-    return fib(n-1) + fib(n-2)
-
-"#.to_string()}
-            desc={r#"
-The function computes the nth Fibonacci number.
-
-This is a great example of how Python's simplicity allows for easy implementation of complex algorithms.
-"#.to_string()}
-            />
-        },
-
-            html!{
-            <Article
-            title="Goroutines"
-            language={Language::Go}
-            status={EntryStatus::OnExhibit}
-            tags={vec![
-                tags::Tag::LanguageTag(Language::Go),
-                tags::Tag::CategoryTag(tags::Category {name: "concurrency".to_string(),})]
-            }
-            code={r#"
-package main
-
-import (
-    "fmt"
-    "time"
-)
-
-func main() {
-    go say("world")
-    say("hello")
-}
-
-func say(s string) {
-    for i := 0; i < 5; i++ {
-        time.Sleep(100 * time.Millisecond)
-        fmt.Println(s)
-    }
-}
-
-"#.to_string()}
-            desc={r#"
-This program prints "hello" and "world" 5 times each, but concurrently.
-
-This is a great example of how Go's concurrency primitives make it easy to write concurrent programs.
-
-"#.to_string()}
-            />
-        },
-
-        html!{
-            <Article
-            title={"Factorial"}
-            language={Language::OCaml}
-            status={EntryStatus::OnExhibit}
-            tags={vec![
-                tags::Tag::LanguageTag(Language::OCaml),
-            ]}
-            code={r#"
-let rec factorial n =
-  if n <= 1 then 1
-  else n * factorial (n - 1)
-            "#.to_string()}
-            desc={r#"
-The function computes the factorial of a number.
-
-This is a great example of how OCaml's simplicity allows for easy implementation of complex algorithms."#.to_string()}
-            />
-        },
-
-
-        html!{
-            <Article
-            title={"Union Find with Path Compression"}
-            language={Language::C}
-            status={EntryStatus::OnExhibit}
-            tags={vec![
-                tags::Tag::LanguageTag(Language::C),
-            ]}
-            code={r#"
-int find(int x) {
-  return ( x != parent[x] ) 
-    ? parent[x] = find(parent[x])
-    : x;
-}
-
-"#.to_string()}
-            desc={r#"
-This program implements the union find algorithm with path compression.
-
-It uses the ternary operator to implement the find function in a single line.
-
-To learn more about the union find algorithm, check this out! https://www.geeksforgeeks.org/introduction-to-disjoint-set-data-structure-or-union-find-algorithm/
-"#.to_string()}
-            />
-        },
-
-
-        html!{
-            <Article
-            title={"Merge Sort"}
-            language={Language::Haskell}
-            status={EntryStatus::OnExhibit}
-            tags={vec![
-                tags::Tag::LanguageTag(Language::Haskell),
-                tags::Tag::CategoryTag(tags::Category {name: "Sorting".to_string(),})
-            ]}
-            code={r#"
-sort :: Ord a => [a] -> [a]
-sort [] = []
-sort [x] = [x]
-sort xs = merge (sort left) (sort right)
-    where
-        (left, right) = splitAt (length xs `div` 2) xs
-
-merge :: Ord a => [a] -> [a] -> [a]
-merge [] [] = []
-merge xs [] = xs
-merge [] ys = ys
-merge (x:xs) (y:ys)
-    | x <= y = x : merge xs (y:ys)
-    | otherwise = y : merge (x:xs) ys
-
-            "#.to_string()}
-            desc={r#"
-This program implements the merge sort algorithm.
-
-It leverages Haskell's pattern matching to implement the merge function in a concise and expressive manner.
-
-"#.to_string()}
-            />
-        },
-
-        html!{
-            <Article
-            title={"Dijkstra's Algorithm"}
-            language={Language::Python}
-            status={EntryStatus::StagedForExhibit}
-            tags={vec![
-                tags::Tag::LanguageTag(Language::Python),
-            ]}
-            code={r#"
-"#.to_string()}
-            desc={r#"
-"#.to_string()}
-            />
-        },
-
-        html!{
-            <Article
-            title={"Linux Kernel"}
-            language={Language::C}
-            status={EntryStatus::Maintenance}
-            tags={vec![
-                tags::Tag::LanguageTag(Language::C),
-                tags::Tag::CategoryTag(tags::Category {name: "Sorting".to_string(),})]
-            }
-            code={"".to_string()}
-            desc={"".to_string()}
-            />
-        },
-
+        let articles: Html = vec![
+            html! {
+                <Article
+                title={"Quick Sort"}
+                language={Language::Haskell}
+                status={EntryStatus::OnExhibit}
+                tags={vec![
+                    tags::Tag::LanguageTag(Language::Haskell),
+                    tags::Tag::CategoryTag(tags::Category {name: "Sorting".to_string(),})]
+                }
+                code={qs.to_string()}
+                desc={r#"Quick Sort is an extremely efficient sorting algorithm that uses divide and conquer strategy to sort a list of elements. The Haskell implementation is a very elegant example of the language's expressiveness."#.to_string()}
+                />
+            },
+            html! {
+                <Article
+                title={"Rayon"}
+                language={Language::Rust}
+                status={EntryStatus::OnExhibit}
+                tags={vec![
+                    tags::Tag::LanguageTag(Language::Rust),
+                    tags::Tag::CategoryTag(tags::Category {name: "Concurrency".to_string(),})]
+                }
+                code={rayon.to_string()}
+                desc={r#"This short snippet demonstrates how, by leveraging the `rayon` crate, parallelism is made trivial - simply change `iter()` to `par_iter()`."#.to_string()}
+                />
+            },
+            html! {
+                <Article
+                title={"Goroutines"}
+                language={Language::Go}
+                status={EntryStatus::OnExhibit}
+                tags={vec![
+                    tags::Tag::LanguageTag(Language::Go),
+                    tags::Tag::CategoryTag(tags::Category {name: "Concurrency".to_string(),})]
+                }
+                code={goroutines.to_string()}
+                desc={r#"This short snippet demonstrates the use of goroutines in Go. This is a great example of how Go's concurrency primitives make it easy to write concurrent programs.ms."#.to_string()}
+                />
+            },
+            html! {
+                <Article
+                title={"Fibonacci"}
+                language={Language::Python}
+                status={EntryStatus::OnExhibit}
+                tags={vec![ tags::Tag::LanguageTag(Language::Python) ]}
+                code={goroutines.to_string()}
+                desc={r#"This simple function computes the nth Fibonacci number. It demonstrates the incredible readability of the language."#.to_string()}
+                />
+            },
+            html! {
+                <Article
+                title={"Factorial"}
+                language={Language::OCaml}
+                status={EntryStatus::OnExhibit}
+                tags={vec![
+                    tags::Tag::LanguageTag(Language::OCaml),
+                ]}
+                code={fac}
+                desc={r#"This is one of the first programs OCaml programmers write. It is a simple recursive function that computes the factorial of a number. It demonstrates the syntax of OCaml, as well as the use of pattern matching and recursion."#.to_string()}
+                />
+            },
+            html! {
+                <Article
+                title={"Merge Sort"}
+                language={Language::Haskell}
+                status={EntryStatus::OnExhibit}
+                tags={vec![
+                    tags::Tag::LanguageTag(Language::Haskell),
+                ]}
+                code={merge}
+                desc={r#"This program implements the merge sort algorithm. It leverages Haskell's pattern matching to implement the merge function in a concise and expressive manner."#.to_string()}
+                />
+            },
+            html! {
+                <Article
+                title={"Union Find with Path Compression"}
+                language={Language::C}
+                status={EntryStatus::OnExhibit}
+                tags={vec![
+                    tags::Tag::LanguageTag(Language::C),
+                ]}
+                code={uf_pc}
+                desc={r#"Union Find is a data structure that allows for efficient union and find operations on disjoint sets. This implementation uses path compression to achieve amortized constant time find operations."#.to_string()}
+                />
+            },
+            html! {
+                <Article
+                title={"Dijkstra's Algorithm"}
+                language={Language::Python}
+                status={EntryStatus::StagedForExhibit}
+                tags={vec![
+                    tags::Tag::LanguageTag(Language::Python),
+                ]}
+                code={r#""#.to_string()}
+                desc={r#""#.to_string()}
+                />
+            },
+            html! {
+                <Article
+                title={"Linux Kernel"}
+                language={Language::C}
+                status={EntryStatus::Maintenance}
+                tags={vec![
+                    tags::Tag::LanguageTag(Language::C),
+                ]}
+                code={"".to_string()}
+                desc={"".to_string()}
+                />
+            },
         ]
         .into_iter()
         .collect();

@@ -1,12 +1,9 @@
-use yew::prelude::*;
-
 use crate::code::Language;
 
 #[derive(Clone, PartialEq)]
 pub struct Category {
     pub name: String,
 }
-impl HTMLTag for Category {}
 
 #[derive(Clone, PartialEq)]
 pub enum Tag {
@@ -15,23 +12,26 @@ pub enum Tag {
 }
 
 impl Tag {
-    pub fn to_html(&self) -> Html {
-        match self {
-            Tag::LanguageTag(lang) => lang.to_html(),
-            Tag::CategoryTag(cat) => match cat.name.as_str() {
-                "Sorting" => cat.tag("Sorting", "blue"),
-                "Concurrency" => cat.tag("Concurrency", "green"),
-                c => cat.tag(c, "gray"),
-            },
-        }
-    }
-}
-
-pub trait HTMLTag {
-    fn tag(&self, text: &str, color: &str) -> Html {
+    fn make_tag(text: &str, color: &str) -> String {
         let color_class = format!("inline-flex items-center rounded-md mr-2 px-2 py-1 text-xs font-medium ring-1 ring-inset bg-{}-500/20 text-{}-400 ring-{}-500/80", color, color, color);
-        html! {
-            <span class={color_class}>{text}</span>
+        format!(r#"<span class="{}">{}</span>"#, color_class, text).into()
+    }
+
+    pub fn to_html(&self) -> String {
+        match self {
+            Tag::LanguageTag(lang) => match lang {
+                Language::Haskell => Self::make_tag("Haskell", "purple"),
+                Language::Rust => Self::make_tag("Rust", "orange"),
+                Language::Python => Self::make_tag("Python", "yellow"),
+                Language::Go => Self::make_tag("Go", "cyan"),
+                Language::C => Self::make_tag("C", "gray"),
+                Language::OCaml => Self::make_tag("OCaml", "blue"),
+            },
+            Tag::CategoryTag(cat) => match cat.name.as_str() {
+                "Sorting" => Self::make_tag("Sorting", "blue"),
+                "Concurrency" => Self::make_tag("Concurrency", "green"),
+                c => Self::make_tag(c, "gray"),
+            },
         }
     }
 }

@@ -1,7 +1,6 @@
-mod articles;
-mod highlighter;
+mod article;
 mod lang;
+mod lang_utils;
 
-pub use articles::{Article, EntryStatus};
-pub use highlighter::Highlighter;
+pub use article::{Article, EntryStatus};
 pub use lang::Language;

@@ -1,0 +1,5 @@
+int find(int x) {
+  return (x != parent[x])
+    ? parent[x] = find(parent[x])
+    : x;
+}

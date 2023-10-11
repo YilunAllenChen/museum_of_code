@@ -1,0 +1,7 @@
+-- Quick Sort in Haskell
+qs :: Ord a => [a] -> [a]
+qs [] = []
+qs (x:xs) = qs lower ++ [x] ++ qs higher
+  where
+    lower = filter (<= x)
+    higher = filter (> x)

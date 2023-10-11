@@ -1,0 +1,9 @@
+use rayon::prelude::*;
+
+fn count_len(list: &[&str]) -> usize { 
+  list
+    // .iter()
+    .par_iter()
+    .map(|word| word.len())
+    .sum() 
+}

@@ -1,6 +1,5 @@
 use log::info;
 use regex::Regex;
-use yew::Html;
 
 pub struct TokenType {
     name: &'static str,
@@ -44,7 +43,7 @@ impl Highlighter {
         input: String,
         tokenizer_pattern: Regex,
         token_types: Vec<TokenType>,
-    ) -> Html {
+    ) -> String {
         // let tokens: Vec<&str> =
         let res = tokenizer_pattern
             .captures_iter(input.as_str())
@@ -63,6 +62,6 @@ impl Highlighter {
             })
             .collect::<String>();
 
-        Html::from_html_unchecked(res.into())
+        res.into()
     }
 }
