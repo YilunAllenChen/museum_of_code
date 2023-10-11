@@ -136,6 +136,7 @@ fn main() {
                 captures.get(1).unwrap().as_str(),
                 captures.get(2).unwrap().as_str(),
             );
+            println!("name: {}, ext: {}", name, ext);
             let content = fs::read_to_string(&path).expect("Failed to read the file");
             let output_str = format!("src/artifacts/build/{}_{}.html", name, ext);
             let output_path = Path::new(&output_str);
@@ -150,6 +151,12 @@ fn main() {
                     panic!("Unknown extension: {}", ext)
                 }
             };
+
+            // make dir if not exists
+            let parent = output_path.parent().unwrap();
+            if !parent.exists() {
+                fs::create_dir_all(parent).expect("Failed to create the dir");
+            }
 
             fs::write(output_path, processed).expect("Failed to write the processed content");
         });
