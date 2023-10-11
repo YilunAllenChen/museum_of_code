@@ -31,19 +31,22 @@ impl Component for About {
             <div class="relative isolate px-6 pt-14 lg:px-8">
                 <div class="mx-auto max-w-2xl py-16 lg:py-56 bg-opacity-50">
 
-                    <figure class="bg-slate-100 rounded-xl p-8 dark:bg-slate-800">
-                    <img class="w-36 h-36 rounded-full mx-auto" src="https://avatars.githubusercontent.com/u/32376517?v=4" alt="" width="384" height="512"/>
+                    <figure class="bg-slate-100 rounded-xl p-8 bg-slate-800">
+                    // <img class="w-36 h-36 rounded-full mx-auto" src="https://avatars.githubusercontent.com/u/32376517?v=4" alt="" width="384" height="512"/>
                     <div class="pt-6 text-center space-y-4">
                       <blockquote>
-                        <p class="text-lg font-medium text-slate-400">
+                        <p class="text-lg font-medium text-slate-100">
                           {"“Some code is so exquisite, it belongs in a digital museum, celebrated like timeless art.”"}
                         </p>
                       </blockquote>
                       <figcaption class="font-medium">
-                        <div class="text-sky-500">
+                        <div class="text-sky-500 my-4">
                             {"Allen Chen"}
+                            <div class="text-xs text-slate-600">
+                                {"(or perhaps ChatGPT)"}
+                            </div>
                         </div>
-                        <div class="text-slate-500">
+                        <div class="text-slate-400">
                             {"Chief Curator, The Museum of Code"}
                         </div>
                       </figcaption>

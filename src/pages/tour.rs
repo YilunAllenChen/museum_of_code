@@ -35,6 +35,7 @@ impl Component for Tour {
         let rayon = include_str!("../artifacts/build/rayon_rs.html");
         let goroutines = include_str!("../artifacts/build/goroutines_go.html");
         let fac = include_str!("../artifacts/build/factorial_ml.html");
+        let fib = include_str!("../artifacts/build/fibonacci_py.html");
         let merge = include_str!("../artifacts/build/mergesort_hs.html");
         let uf_pc = include_str!("../artifacts/build/uf_pc_c.html");
 
@@ -84,7 +85,7 @@ impl Component for Tour {
                 language={Language::Python}
                 status={EntryStatus::OnExhibit}
                 tags={vec![ tags::Tag::LanguageTag(Language::Python) ]}
-                code={goroutines.to_string()}
+                code={fib.to_string()}
                 desc={r#"This simple function computes the nth Fibonacci number. It demonstrates the incredible readability of the language."#.to_string()}
                 />
             },

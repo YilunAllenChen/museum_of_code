@@ -100,7 +100,7 @@ impl Component for Article {
                     EntryStatus::OnExhibit => html! {
                       <>
                       <div class="bg-gray-800 text-xs sm:text-sm md:text-lg text-gray-300 p-1 rounded-md justify-left items-left">
-                          <pre>
+                          <pre class="py-4 px-1 sm:px-4">
                               {Html::from_html_unchecked(ctx.props().code.clone().into())}
                           </pre>
                       </div>

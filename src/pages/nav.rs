@@ -79,7 +79,10 @@ impl Component for Nav {
                 html! {
                     <button
                         onclick={ctx.link().callback(move |_| Msg::SelectPage(page))}
-                        class="rounded-md w-full bg-indigo-600 my-2.5 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        class=r#"
+                            rounded-md w-full bg-cyan-500 my-2.5 px-3.5 py-2.5
+                            text-sm font-semibold text-white shadow-sm hover:bg-cyan-300
+                        "#
                     >
                     {page.to_string()}
                     </button>
@@ -105,7 +108,7 @@ impl Component for Nav {
                             {for nav_buttons}
                             <button
                               type="button"
-                              class="inline-flex mt-20 w-full justify-center rounded-md bg-red-100 px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-red-500"
+                              class="inline-flex mt-20 w-full justify-center rounded-md bg-red-100 px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-red-300"
                               onclick={ctx.link().callback(|_| Msg::ToggleSidebar)}
                             >
                               {"❌"}
