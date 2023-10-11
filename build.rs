@@ -1,6 +1,4 @@
-use std::fmt::format;
 use std::fs;
-use std::os::windows::process;
 use std::path::Path;
 extern crate regex;
 
@@ -39,7 +37,7 @@ impl TokenType {
 
 pub fn tokenize(input: String, tokenizer_pattern: Regex, token_types: Vec<TokenType>) -> String {
     // let tokens: Vec<&str> =
-    let res = tokenizer_pattern
+    tokenizer_pattern
         .captures_iter(input.as_str())
         .filter_map(|cap| cap.get(1))
         .map(|s| s.as_str())
@@ -53,9 +51,7 @@ pub fn tokenize(input: String, tokenizer_pattern: Regex, token_types: Vec<TokenT
                 Either::NotMatched(r) => format!("<span class='{}'>{}</span>", "var", r),
             }
         })
-        .collect::<String>();
-
-    res.into()
+        .collect::<String>()
 }
 
 pub fn highlight(lang: Language, code: String) -> String {
@@ -128,7 +124,6 @@ fn main() {
 
     fs::read_dir("src/artifacts")
         .unwrap()
-        .into_iter()
         .map(|f| f.unwrap())
         .filter(|f| f.metadata().unwrap().is_file())
         .map(|f| f.path())
@@ -156,6 +151,6 @@ fn main() {
                 }
             };
 
-            fs::write(&output_path, processed).expect("Failed to write the processed content");
+            fs::write(output_path, processed).expect("Failed to write the processed content");
         });
 }

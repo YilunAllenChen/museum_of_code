@@ -1,4 +1,4 @@
-use crate::{code::Language, Page};
+use crate::Page;
 use yew::prelude::*;
 
 pub struct Home;
@@ -25,16 +25,6 @@ impl Component for Home {
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {
-        let haskell = r#"
--- QuickSort in Haskell
-qs :: (Ord a) => [a] -> [a]
-qs [] = []
-qs (x:xs) = qs bot ++ [x] ++ qs top
-  where
-    bot = [y | y <- xs, y <= x]
-    top = [y | y <- xs, y > x]
-    "#;
-
         let formatted_haskell =
             Html::from_html_unchecked(include_str!("../artifacts/build/quicksort_hs.html").into());
 
