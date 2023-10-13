@@ -54,7 +54,6 @@ impl Highlighter {
                 for token_type in &token_types {
                     maybe_match = token_type.parse(maybe_match);
                 }
-                info!("token: {:?}", maybe_match);
                 match maybe_match {
                     Either::Matched(r) => r,
                     Either::NotMatched(r) => format!("<span class='{}'>{}</span>", "var", r),

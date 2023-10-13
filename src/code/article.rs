@@ -1,4 +1,3 @@
-use log::info;
 use yew::prelude::*;
 
 use crate::html_utils::make_tag;
@@ -6,11 +5,33 @@ use crate::html_utils::make_tag;
 use super::lang::Language;
 use serde::Deserialize;
 
-#[derive(Clone, PartialEq, Deserialize, Debug)]
+#[derive(Clone, PartialEq, Deserialize, Debug, Eq)]
 pub enum EntryStatus {
     OnExhibit,
     StagedForExhibit,
     Maintenance,
+}
+
+impl EntryStatus {
+    fn priority(&self) -> u8 {
+        match self {
+            EntryStatus::OnExhibit => 0,
+            EntryStatus::StagedForExhibit => 100,
+            EntryStatus::Maintenance => 200,
+        }
+    }
+}
+
+impl PartialOrd for EntryStatus {
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl Ord for EntryStatus {
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+        self.priority().cmp(&other.priority())
+    }
 }
 
 pub struct Article {
@@ -46,7 +67,6 @@ impl Component for Article {
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             ArticleMsg::Toggle => {
-                info!("toggling {} -> {}", self.show, !self.show);
                 self.show = !self.show;
                 true
             }
@@ -141,10 +161,7 @@ impl Component for Article {
                                 <button
                                   type="button"
                                   class="inline-flex mt-20 w-full justify-center rounded-md bg-red-100 px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-red-500"
-                                  onclick={ctx.link().callback(|_| {
-                                    info!("clicked");
-                                    ArticleMsg::Toggle
-                                  })}
+                                  onclick={ctx.link().callback(|_| ArticleMsg::Toggle)}
                                 >
                                   {"❌"}
                                 </button>

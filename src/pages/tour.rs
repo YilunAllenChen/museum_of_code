@@ -1,4 +1,3 @@
-use log::info;
 use yew::prelude::*;
 
 use crate::code::{Article, ArticleProps, MetaYaml};
@@ -40,10 +39,9 @@ impl Component for Tour {
         let yaml = include_str!("../artifacts/build/compiled.yaml");
         let built_yaml: BuiltYaml = serde_yaml::from_str(yaml).unwrap();
 
-        info!("built_yaml: {:?}", built_yaml);
-
-        let articles = built_yaml
-            .artifacts
+        let mut article_props = built_yaml.artifacts;
+        article_props.sort_by(|a, b| a.status.cmp(&b.status));
+        let articles = article_props
             .into_iter()
             .map(|props| {
                 html! {
