@@ -1,0 +1,12 @@
+title: Factorial
+language: OCaml
+status: OnExhibit
+tags: ["Recursion", "Functional"]
+code: |-
+  let rec factorial n =
+    if n <= 1 then 1
+    else n * factorial (n - 1)
+desc: |-
+  This is one of the first programs OCaml programmers write.
+  It is a simple recursive function that computes the factorial of a number.
+  It demonstrates the syntax of OCaml, as well as the use of pattern matching and recursion.

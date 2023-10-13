@@ -1,0 +1,15 @@
+title: Quick Sort
+language: Haskell
+status: OnExhibit
+tags: ["Recursion", "Functional", "Sorting"]
+code: |-
+  -- Quick Sort in Haskell
+  qs :: Ord a => [a] -> [a]
+  qs [] = []
+  qs (x:xs) = qs lower ++ [x] ++ qs higher
+    where
+      lower = filter (<= x)
+      higher = filter (> x)
+desc: |-
+  Quick Sort is an extremely efficient sorting algorithm that uses divide and conquer strategy to sort a list of elements.
+  The Haskell implementation is a very elegant example of the language's expressiveness.

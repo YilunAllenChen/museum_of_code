@@ -1,3 +1,5 @@
+use crate::html_utils::make_tag;
+
 use super::Language;
 use yew::Html;
 impl Language {
@@ -19,4 +21,17 @@ impl Language {
         };
         Html::from_html_unchecked(icon.into())
     }
+
+    pub fn to_tag(&self) -> String {
+        match self {
+            Language::Haskell => make_tag("Haskell", "purple"),
+            Language::Rust => make_tag("Rust", "orange"),
+            Language::Python => make_tag("Python", "yellow"),
+            Language::Go => make_tag("Go", "cyan"),
+            Language::C => make_tag("C", "gray"),
+            Language::OCaml => make_tag("OCaml", "blue"),
+        }
+    }
 }
+
+// derive deserialize for Language

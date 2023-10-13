@@ -1,1 +1,2 @@
-pub mod tags;
+mod tags;
+pub use tags::make_tag;

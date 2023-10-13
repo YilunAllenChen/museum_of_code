@@ -1,7 +1,6 @@
 use std::fs;
 use std::path::Path;
 extern crate regex;
-
 use regex::Regex;
 
 include!("src/code/lang.rs");
@@ -9,6 +8,12 @@ include!("src/code/lang.rs");
 pub struct TokenType {
     name: &'static str,
     pattern: Regex,
+}
+
+#[derive(Debug, Serialize)]
+struct BuiltYaml {
+    artifacts: Vec<RawArticle>,
+    meta: MetaYaml,
 }
 
 #[derive(Debug)]
@@ -58,9 +63,9 @@ pub fn highlight(lang: Language, code: String) -> String {
     match lang {
         Language::Haskell => tokenize(
             code,
-            Regex::new(r"(--.*|\n|\.|\s+|\[|\:+|\]|\(|\)|\{|\}|\w+|\S+)").unwrap(),
+            Regex::new(r"(--.*\n|\n|\.|\s+|\[|\:+|\]|\(|\)|\{|\}|\w+|\S+)").unwrap(),
             vec![
-                TokenType::new("comments", r"--.*"),
+                TokenType::new("comments", r"--.*\n"),
                 TokenType::new("control", r"\b(if|else|case|of|then)\b"),
                 TokenType::new("bind", r"\b(let|in|where|data|newtype|type)\b"),
                 TokenType::new("op", r"->|\||<-|\.\.|::|:|=|@|~|\+\+|>|<"),
@@ -103,7 +108,7 @@ pub fn highlight(lang: Language, code: String) -> String {
             );
             tokenize(
                 code,
-                Regex::new(r"(--.*|\/\/.*|\n|\.|\s+|\[|\:+|\]|\(|\)|\{|\}|\w+|\S+)").unwrap(),
+                Regex::new(r"(--.*\n|\/\/.*|\n|\.|\s+|\[|\:+|\]|\(|\)|\{|\}|\w+|\S+)").unwrap(),
                 vec![
                     TokenType::new("comments", r"\/\/.*"),
                     TokenType::new(
@@ -119,45 +124,72 @@ pub fn highlight(lang: Language, code: String) -> String {
     }
 }
 
-fn main() {
-    let path_pattern = Regex::new(r"src/artifacts(.*)\.(.*)\.artifact").unwrap();
+#[derive(PartialEq, Debug, Serialize, Deserialize)]
+pub struct RawArticle {
+    pub title: String,
+    pub language: String,
+    pub status: String,
+    pub tags: Vec<String>,
+    pub code: String,
+    pub desc: String,
+}
 
-    fs::read_dir("src/artifacts")
+fn main() {
+    let path_pattern = Regex::new(r"src/artifacts.*\.yaml").unwrap();
+
+    let articles: Vec<RawArticle> = fs::read_dir("src/artifacts")
         .unwrap()
         .map(|f| f.unwrap())
         .filter(|f| f.metadata().unwrap().is_file())
         .map(|f| f.path())
-        .for_each(|path| {
+        .map(|path| {
             let path_str = path.to_str().unwrap();
-            println!("Processing {:?}", path_str);
-            let captures = path_pattern.captures(path_str).unwrap();
-
-            let (name, ext) = (
-                captures.get(1).unwrap().as_str(),
-                captures.get(2).unwrap().as_str(),
-            );
-            println!("name: {}, ext: {}", name, ext);
-            let content = fs::read_to_string(&path).expect("Failed to read the file");
-            let output_str = format!("src/artifacts/build/{}_{}.html", name, ext);
-            let output_path = Path::new(&output_str);
-            let processed = match ext {
-                "rs" => highlight(Language::Rust, content),
-                "hs" => highlight(Language::Haskell, content),
-                "py" => highlight(Language::Python, content),
-                "go" => highlight(Language::Go, content),
-                "ml" => highlight(Language::OCaml, content),
-                "c" => highlight(Language::C, content),
-                _ => {
-                    panic!("Unknown extension: {}", ext)
+            match path_pattern.captures(path.to_str().unwrap()) {
+                Some(_) => path_str.to_string(),
+                None => {
+                    panic!("Invalid file detected under artifact: {}", path_str);
                 }
-            };
-
-            // make dir if not exists
-            let parent = output_path.parent().unwrap();
-            if !parent.exists() {
-                fs::create_dir_all(parent).expect("Failed to create the dir");
             }
+        })
+        .map(|path| {
+            let raw_artifact: RawArticle = serde_yaml::from_str(
+                fs::read_to_string(path)
+                    .expect("Failed to read the file")
+                    .as_str(),
+            )
+            .unwrap();
 
-            fs::write(output_path, processed).expect("Failed to write the processed content");
-        });
+            let lang: Language = serde_yaml::from_str(raw_artifact.language.as_str()).unwrap();
+            let highlighted_code = highlight(lang, raw_artifact.code);
+            RawArticle {
+                title: raw_artifact.title,
+                language: raw_artifact.language,
+                status: raw_artifact.status,
+                tags: raw_artifact.tags,
+                code: highlighted_code,
+                desc: raw_artifact.desc,
+            }
+            // make dir if not exists
+        })
+        .collect();
+
+    // build is millis since epoch
+    let meta = MetaYaml {
+        build: chrono::Utc::now().timestamp_millis().to_string(),
+    };
+
+    let built_yaml = BuiltYaml {
+        artifacts: articles,
+        meta,
+    };
+
+    let output_path = Path::new("src/artifacts/build/compiled.yaml");
+    let parent = output_path.parent().unwrap();
+    if !parent.exists() {
+        fs::create_dir_all(parent).expect("Failed to create the dir");
+    }
+    match fs::write(output_path, serde_yaml::to_string(&built_yaml).unwrap()) {
+        Ok(_) => println!("Successfully wrote to {}", output_path.display()),
+        Err(e) => panic!("Failed to write to {}: {}", output_path.display(), e),
+    }
 }

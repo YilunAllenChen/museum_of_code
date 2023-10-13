@@ -1,11 +1,12 @@
+use log::info;
 use yew::prelude::*;
 
-use crate::html_utils::tags::Tag;
-use log::info;
+use crate::html_utils::make_tag;
 
 use super::lang::Language;
+use serde::Deserialize;
 
-#[derive(Clone, PartialEq)]
+#[derive(Clone, PartialEq, Deserialize, Debug)]
 pub enum EntryStatus {
     OnExhibit,
     StagedForExhibit,
@@ -20,12 +21,12 @@ pub enum ArticleMsg {
     Toggle,
 }
 
-#[derive(Properties, PartialEq)]
+#[derive(Properties, PartialEq, Deserialize, Debug)]
 pub struct ArticleProps {
     pub title: String,
     pub language: Language,
     pub status: EntryStatus,
-    pub tags: Vec<Tag>,
+    pub tags: Vec<String>,
     pub code: String,
     pub desc: String,
 }
@@ -90,8 +91,7 @@ impl Component for Article {
             .props()
             .tags
             .iter()
-            .map(|tag| tag.to_html())
-            .map(|html_str| Html::from_html_unchecked(html_str.into()))
+            .map(|tag| Html::from_html_unchecked(make_tag(tag, "gray").into()))
             .collect();
 
         let rendered = match self.show {
@@ -100,7 +100,7 @@ impl Component for Article {
                     EntryStatus::OnExhibit => html! {
                       <>
                       <div class="bg-gray-800 text-xs sm:text-sm md:text-lg text-gray-300 p-1 rounded-md justify-left items-left">
-                          <pre class="py-4 px-1 sm:px-4">
+                          <pre class="py-2 md:py-4 px-1 sm:px-4">
                               {Html::from_html_unchecked(ctx.props().code.clone().into())}
                           </pre>
                       </div>
@@ -134,6 +134,7 @@ impl Component for Article {
                                   {ctx.props().title.clone()}
                                 </h3>
                                 <div class="my-4">
+                                  {Html::from_html_unchecked(ctx.props().language.to_tag().into())}
                                   {tags.clone()}
                                 </div>
                                 {content}
@@ -162,16 +163,16 @@ impl Component for Article {
         html! {
             <>
               <li class="flex justify-between gap-x-6 py-5"
-                  onclick={ctx.link().callback(|_| {
-                    info!("opening up");
-                    ArticleMsg::Toggle
-                  })}
+                  onclick={ctx.link().callback(|_| ArticleMsg::Toggle)}
               >
                   <div class="flex min-w-0 gap-x-4">
                       {ctx.props().language.icon()}
                       <div class="min-w-0 flex-auto">
                       <p class="text-sm font-semibold leading-6 text-gray-100">{ctx.props().title.clone()}</p>
-                      <p class="mt-1 truncate text-xs leading-5 text-gray-300">{tags}</p>
+                      <p class="mt-1 truncate text-xs leading-5 text-gray-300">
+                      {Html::from_html_unchecked(ctx.props().language.to_tag().into())}
+                      {tags}
+                      </p>
                       </div>
                   </div>
                   <div class="shrink-0 flex flex-col items-end">

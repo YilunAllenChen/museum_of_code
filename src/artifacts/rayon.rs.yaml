@@ -1,0 +1,16 @@
+title: Rayon
+language: Rust
+status: OnExhibit
+tags: ["Concurrency"]
+code: |-
+  use rayon::prelude::*;
+
+  fn count_len(list: &[&str]) -> usize { 
+    list
+      // .iter()
+      .par_iter()
+      .map(|word| word.len())
+      .sum() 
+  }
+desc: |-
+  This short snippet demonstrates how, by leveraging the `rayon` crate, parallelism is made trivial - simply change `iter()` to `par_iter()`.

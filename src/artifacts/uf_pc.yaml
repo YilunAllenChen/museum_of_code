@@ -1,0 +1,13 @@
+title: Union Find
+language: C
+status: OnExhibit
+tags: ["Graph"]
+code: |-
+  int find(int x) {
+    return (x != parent[x])
+      ? parent[x] = find(parent[x])
+      : x;
+  }
+desc: |-
+  Union Find is a data structure that allows for efficient union and find operations on disjoint sets.
+  This implementation uses path compression to achieve amortized constant time find operations.

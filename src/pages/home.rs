@@ -25,8 +25,9 @@ impl Component for Home {
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {
-        let formatted_haskell =
-            Html::from_html_unchecked(include_str!("../artifacts/build/quicksort_hs.html").into());
+        let formatted_haskell = Html::from_html_unchecked(
+            include_str!("../artifacts/featured/quicksort_hs.html").into(),
+        );
 
         html! {
             <div class="bg-black h-full">
@@ -53,7 +54,7 @@ impl Component for Home {
                                 </button>
                             </div>
                         </div>
-                        <div class="bg-gray-800 lg:pl-20 text-gray-300 p-4  rounded-md justify-left items-left">
+                        <div class="bg-gray-800 lg:pl-20 text-gray-300 p-4 md:py-8 rounded-md justify-left items-left">
                             <pre>
                                 {formatted_haskell}
                             </pre>

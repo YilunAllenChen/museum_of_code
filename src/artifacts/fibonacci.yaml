@@ -1,0 +1,12 @@
+title: Fibonacci
+language: Python
+status: OnExhibit
+tags: ["Recursion"]
+code: |-
+  def fib(n):
+      if n <= 1:
+          return n
+      return fib(n-1) + fib(n-2)
+desc: |-
+  This simple function computes the nth Fibonacci number.
+  It demonstrates the incredible readability of the language.

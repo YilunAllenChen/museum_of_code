@@ -1,0 +1,22 @@
+title: Merge Sort
+language: Haskell
+status: OnExhibit
+tags: ["Sorting", "Recursion", "Functional"]
+code: |-
+  sort :: Ord a => [a] -> [a]
+  sort [] = []
+  sort [x] = [x]
+  sort xs = merge (sort left) (sort right)
+      where
+          (left, right) = splitAt (length xs `div` 2) xs
+
+  merge :: Ord a => [a] -> [a] -> [a]
+  merge [] [] = []
+  merge xs [] = xs
+  merge [] ys = ys
+  merge (x:xs) (y:ys)
+      | x <= y = x : merge xs (y:ys)
+      | otherwise = y : merge (x:xs) ys
+desc: |-
+  This program implements the merge sort algorithm.
+  It leverages Haskell's pattern matching to implement the merge function in a concise and expressive manner.

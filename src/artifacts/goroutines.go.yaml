@@ -1,0 +1,26 @@
+title: Goroutines
+language: Go
+status: OnExhibit
+tags: ["Concurrency"]
+code: |-
+  package main
+
+  import (
+      "fmt"
+      "time"
+  )
+
+  func main() {
+      go say("world")
+      say("hello")
+  }
+
+  func say(s string) {
+      for i := 0; i < 5; i++ {
+          time.Sleep(100 * time.Millisecond)
+          fmt.Println(s)
+      }
+  }
+desc: |-
+  This short snippet demonstrates the use of goroutines in Go.
+  This is a great example of how Go's concurrency primitives make it easy to write concurrent programs.
