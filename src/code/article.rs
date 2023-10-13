@@ -111,7 +111,23 @@ impl Component for Article {
             .props()
             .tags
             .iter()
-            .map(|tag| Html::from_html_unchecked(make_tag(tag, "gray").into()))
+            .map(|tag| {
+                Html::from_html_unchecked(
+                    make_tag(
+                        tag,
+                        match tag.as_str() {
+                            "Functional" => "green",
+                            "Recursion" => "yellow",
+                            "Sorting" => "blue",
+                            "Graph" => "purple",
+                            "Concurrency" => "cyan",
+                            "OS" => "red",
+                            _ => "gray",
+                        },
+                    )
+                    .into(),
+                )
+            })
             .collect();
 
         let rendered = match self.show {
