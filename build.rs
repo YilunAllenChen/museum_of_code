@@ -3,17 +3,11 @@ use std::path::Path;
 extern crate regex;
 use regex::Regex;
 
-include!("src/code/lang.rs");
+include!("src/code/raw_artifact.rs");
 
 pub struct TokenType {
     name: &'static str,
     pattern: Regex,
-}
-
-#[derive(Debug, Serialize)]
-struct BuiltYaml {
-    artifacts: Vec<RawArticle>,
-    meta: MetaYaml,
 }
 
 #[derive(Debug)]
@@ -40,7 +34,7 @@ impl TokenType {
     }
 }
 
-pub fn tokenize(input: String, tokenizer_pattern: Regex, token_types: Vec<TokenType>) -> String {
+pub fn highlight_html(input: String, tokenizer_pattern: Regex, token_types: Vec<TokenType>) -> String {
     // let tokens: Vec<&str> =
     tokenizer_pattern
         .captures_iter(input.as_str())
@@ -61,7 +55,7 @@ pub fn tokenize(input: String, tokenizer_pattern: Regex, token_types: Vec<TokenT
 
 pub fn highlight(lang: Language, code: String) -> String {
     match lang {
-        Language::Haskell => tokenize(
+        Language::Haskell => highlight_html(
             code,
             Regex::new(r"(--.*\n|\n|\.|\s+|\[|\:+|\]|\(|\)|\{|\}|\w+|\S+)").unwrap(),
             vec![
@@ -73,7 +67,7 @@ pub fn highlight(lang: Language, code: String) -> String {
                 TokenType::new("cls", r"[A-Z]\w+"),
             ],
         ),
-        Language::Rust => tokenize(
+        Language::Rust => highlight_html(
             code,
             Regex::new(r"(\/\/.*|\n|\.|\s+|\[|\:+|\]|\(|\)|\{|\}|\w+|\S+)").unwrap(),
             vec![
@@ -87,7 +81,7 @@ pub fn highlight(lang: Language, code: String) -> String {
                 TokenType::new("cls", r"[A-Z]\w+"),
             ],
         ),
-        Language::Python => tokenize(
+        Language::Python => highlight_html(
             code,
             Regex::new(r"(#.*\n|\n|\.|\s+|\[|\:+|\]|\(|\)|\{|\}|\w+|\S+)").unwrap(),
             vec![
@@ -106,7 +100,7 @@ pub fn highlight(lang: Language, code: String) -> String {
                 "Highlighting for {:?} not implemented yet; using generic parser",
                 lang
             );
-            tokenize(
+            highlight_html(
                 code,
                 Regex::new(r"(--.*\n|\/\/.*|\n|\.|\s+|\[|\:+|\]|\(|\)|\{|\}|\w+|\S+)").unwrap(),
                 vec![
@@ -122,16 +116,6 @@ pub fn highlight(lang: Language, code: String) -> String {
             )
         }
     }
-}
-
-#[derive(PartialEq, Debug, Serialize, Deserialize)]
-pub struct RawArticle {
-    pub title: String,
-    pub language: String,
-    pub status: String,
-    pub tags: Vec<String>,
-    pub code: String,
-    pub desc: String,
 }
 
 fn main() {

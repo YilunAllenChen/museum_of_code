@@ -1,11 +1,10 @@
 use crate::html_utils::make_tag;
-
 use super::Language;
-use yew::Html;
+
 impl Language {
-    pub fn icon(&self) -> Html {
+    pub fn icon(&self) -> &'static str {
         // https://devicon.dev/
-        let icon = match self {
+        match self {
             Language::Haskell => {
                 r#"<i class="devicon-haskell-plain colored" style="font-size: 3rem"></i>"#
             }
@@ -18,8 +17,7 @@ impl Language {
             Language::OCaml => {
                 r#"<i class="devicon-ocaml-plain colored" style="font-size: 3rem"></i>"#
             }
-        };
-        Html::from_html_unchecked(icon.into())
+        }
     }
 
     pub fn to_tag(&self) -> String {

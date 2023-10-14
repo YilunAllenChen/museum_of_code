@@ -1,6 +1,6 @@
-mod article;
-mod lang;
+mod artifact;
+mod raw_artifact;
 mod lang_utils;
 
-pub use article::{Article, ArticleProps, EntryStatus};
-pub use lang::{Language, MetaYaml};
+pub use artifact::{Article, ArticleProps, EntryStatus};
+pub use raw_artifact::{Language, MetaYaml};

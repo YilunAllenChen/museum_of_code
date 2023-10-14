@@ -30,9 +30,7 @@ impl Component for About {
         <div class="bg-black h-full">
             <div class="relative isolate px-6 pt-14 lg:px-8">
                 <div class="mx-auto max-w-2xl py-16 lg:py-56 bg-opacity-50">
-
                     <figure class="bg-slate-100 rounded-xl p-8 bg-slate-800">
-                    // <img class="w-36 h-36 rounded-full mx-auto" src="https://avatars.githubusercontent.com/u/32376517?v=4" alt="" width="384" height="512"/>
                     <div class="pt-6 text-center space-y-4">
                       <blockquote>
                         <p class="text-lg font-medium text-slate-100">

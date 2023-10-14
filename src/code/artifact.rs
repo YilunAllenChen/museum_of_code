@@ -2,7 +2,7 @@ use yew::prelude::*;
 
 use crate::html_utils::make_tag;
 
-use super::lang::Language;
+use super::raw_artifact::Language;
 use serde::Deserialize;
 
 #[derive(Clone, PartialEq, Deserialize, Debug, Eq)]
@@ -18,6 +18,14 @@ impl EntryStatus {
             EntryStatus::OnExhibit => 0,
             EntryStatus::StagedForExhibit => 100,
             EntryStatus::Maintenance => 200,
+        }
+    }
+
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            EntryStatus::OnExhibit => "On Exhibit",
+            EntryStatus::StagedForExhibit => "Staged",
+            EntryStatus::Maintenance => "Maintenance",
         }
     }
 }
@@ -135,14 +143,14 @@ impl Component for Article {
                 let content = match ctx.props().status {
                     EntryStatus::OnExhibit => html! {
                       <>
-                      <div class="bg-gray-800 text-xs sm:text-sm md:text-lg text-gray-300 p-1 rounded-md justify-left items-left">
-                          <pre class="py-2 md:py-4 px-1 sm:px-4">
-                              {Html::from_html_unchecked(ctx.props().code.clone().into())}
-                          </pre>
-                      </div>
-                      <pre class="my-4">
-                      {ctx.props().desc.clone()}
-                      </pre>
+                        <div class="bg-gray-800 text-xs sm:text-sm md:text-lg text-gray-300 p-1 rounded-md justify-left items-left">
+                            <pre class="py-2 md:py-4 px-1 sm:px-4">
+                                {Html::from_html_unchecked(ctx.props().code.clone().into())}
+                            </pre>
+                        </div>
+                        <pre class="my-4">
+                        {ctx.props().desc.clone()}
+                        </pre>
                       </>
                     },
                     EntryStatus::StagedForExhibit => html! {
@@ -199,7 +207,7 @@ impl Component for Article {
                   onclick={ctx.link().callback(|_| ArticleMsg::Toggle)}
               >
                   <div class="flex min-w-0 gap-x-4">
-                      {ctx.props().language.icon()}
+                      {Html::from_html_unchecked(ctx.props().language.icon().into())}
                       <div class="min-w-0 flex-auto">
                       <p class="text-sm font-semibold leading-6 text-gray-100">{ctx.props().title.clone()}</p>
                       <p class="mt-1 truncate text-xs leading-5 text-gray-300">
