@@ -20,14 +20,6 @@ impl EntryStatus {
             EntryStatus::Maintenance => 200,
         }
     }
-
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            EntryStatus::OnExhibit => "On Exhibit",
-            EntryStatus::StagedForExhibit => "Staged",
-            EntryStatus::Maintenance => "Maintenance",
-        }
-    }
 }
 
 impl PartialOrd for EntryStatus {

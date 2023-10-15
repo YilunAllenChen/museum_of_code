@@ -1,5 +1,5 @@
-use crate::html_utils::make_tag;
 use super::Language;
+use crate::html_utils::make_tag;
 
 impl Language {
     pub fn icon(&self) -> &'static str {

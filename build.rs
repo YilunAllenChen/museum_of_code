@@ -34,7 +34,11 @@ impl TokenType {
     }
 }
 
-pub fn highlight_html(input: String, tokenizer_pattern: Regex, token_types: Vec<TokenType>) -> String {
+pub fn highlight_html(
+    input: String,
+    tokenizer_pattern: Regex,
+    token_types: Vec<TokenType>,
+) -> String {
     // let tokens: Vec<&str> =
     tokenizer_pattern
         .captures_iter(input.as_str())
