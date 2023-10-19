@@ -1,0 +1,17 @@
+title: Infinite Memory
+language: C
+status: OnExhibit
+tags: ["Dangerous"]
+hall: HallOfTroll
+code: |-
+  \#include <malloc.h>
+  int main() {
+      for (;;) {
+          malloc(1);
+      }
+      return 0;
+  }
+desc: |-
+  Don't try this at home!
+  This is a dumb dumb, a malicious program that infinitely requests memory for itself until the systsem runs out of memory.
+  You can kill it pretty easily though

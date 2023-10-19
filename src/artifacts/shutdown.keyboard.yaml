@@ -1,0 +1,10 @@
+title: Shutdown
+language: ?
+status: OnExhibit
+tags: ["Dangerous"]
+hall: HallOfTroll
+code: |-
+  Alt + F4
+desc: |-
+  Don't try this at home!
+  This, with pretty high probably and confidence, kills your window.
