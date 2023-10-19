@@ -2,7 +2,7 @@ title: Merge Sort
 language: Haskell
 status: OnExhibit
 hall: HallOfExpressiveness
-tags: ["Sorting", "Recursion", "Functional"]
+tags: ["Sorting", "Functional", "Recursion"]
 code: |-
   sort :: Ord a => [a] -> [a]
   sort [] = []

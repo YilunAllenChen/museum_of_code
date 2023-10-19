@@ -147,9 +147,12 @@ fn main() {
             )
             .unwrap();
 
+            let mut tags_sorted = raw_artifact.tags.clone();
+            tags_sorted.sort();
             let highlighted_code = highlight(&raw_artifact.language, raw_artifact.code.as_str());
             Article {
                 code: highlighted_code,
+                tags: tags_sorted,
                 ..raw_artifact
             }
             // make dir if not exists

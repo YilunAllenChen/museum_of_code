@@ -1,0 +1,22 @@
+title: Linked List
+language: Python
+status: OnExhibit
+hall: HallOfHelloWorld
+tags: []
+code: |-
+  class Node:
+      def __init__(self, data):
+          self.data = data
+          self.next: Optional[Node] = None
+
+  class LinkedList:
+      def __init__(self):
+          self.head: Optional[Node] = None
+
+desc: |-
+  Linked lists are a fundamental data structure in computer science.
+  They are a linear collection of data elements, called nodes, each
+  pointing to the next node by means of a pointer.
+
+  The readability of Python makes the implementation of linked lists
+  simple and intuitive.
