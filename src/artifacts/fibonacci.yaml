@@ -2,6 +2,7 @@ title: Fibonacci
 language: Python
 status: OnExhibit
 tags: ["Recursion"]
+hall: Uncategorized
 code: |-
   def fib(n):
       if n <= 1:

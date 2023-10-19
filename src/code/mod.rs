@@ -1,6 +1,6 @@
 mod artifact;
+mod artifact_model;
 mod lang_utils;
-mod raw_artifact;
 
-pub use artifact::{Article, ArticleProps, EntryStatus};
-pub use raw_artifact::{Language, MetaYaml};
+pub use artifact::{ArticleComponent, ArticleProps};
+pub use artifact_model::{BuiltYaml, ExhibitionHall, Language, MetaYaml};

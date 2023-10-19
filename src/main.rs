@@ -6,7 +6,7 @@ use yew::prelude::*;
 mod code;
 mod html_utils;
 mod pages;
-use pages::{Contact, Home, Nav, Tour, Wip};
+use pages::{Contact, HallComponent, Home, Nav, Wip};
 
 use crate::pages::About;
 
@@ -14,7 +14,7 @@ use crate::pages::About;
 pub enum Page {
     Home,
     Contact,
-    Tour,
+    ExhibitionHall,
     About,
 
     Wip,
@@ -22,14 +22,7 @@ pub enum Page {
 
 impl Display for Page {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let name = match self {
-            Page::Home => "Home",
-            Page::Contact => "Contact",
-            Page::Tour => "Tour",
-            Page::About => "About",
-            Page::Wip => "WIP",
-        };
-        write!(f, "{}", name)
+        write!(f, "{:?}", self)
     }
 }
 
@@ -73,7 +66,7 @@ impl Component for App {
         let content = match self.active_page {
             Page::Contact => html! {<Contact {on_clicked} />},
             Page::Home => html! {<Home {on_clicked} />},
-            Page::Tour => html! {<Tour {on_clicked} />},
+            Page::ExhibitionHall => html! {<HallComponent {on_clicked} />},
             Page::About => html! {<About {on_clicked} />},
             _ => html! {<Wip {on_clicked} />},
         };

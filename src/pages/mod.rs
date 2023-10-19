@@ -7,8 +7,8 @@ pub use home::Home;
 mod wip;
 pub use wip::Wip;
 
-mod tour;
-pub use tour::Tour;
+mod hall;
+pub use hall::HallComponent;
 
 mod nav;
 pub use nav::Nav;

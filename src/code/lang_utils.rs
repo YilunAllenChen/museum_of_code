@@ -17,6 +17,9 @@ impl Language {
             Language::OCaml => {
                 r#"<i class="devicon-ocaml-plain colored" style="font-size: 3rem"></i>"#
             }
+            Language::Bash => {
+                r#"<i class="devicon-bash-plain colored" style="font-size: 3rem"></i>"#
+            }
         }
     }
 
@@ -28,6 +31,7 @@ impl Language {
             Language::Go => make_tag("Go", "cyan"),
             Language::C => make_tag("C", "gray"),
             Language::OCaml => make_tag("OCaml", "blue"),
+            Language::Bash => make_tag("Bash", "green"),
         }
     }
 }

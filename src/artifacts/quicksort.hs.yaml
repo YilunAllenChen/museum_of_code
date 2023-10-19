@@ -1,6 +1,7 @@
 title: Quick Sort
 language: Haskell
 status: OnExhibit
+hall: HallOfExpressiveness
 tags: ["Recursion", "Functional", "Sorting"]
 code: |-
   -- Quick Sort in Haskell

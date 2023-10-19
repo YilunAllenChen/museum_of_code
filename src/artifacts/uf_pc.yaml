@@ -2,6 +2,7 @@ title: Union Find
 language: C
 status: OnExhibit
 tags: ["Graph"]
+hall: Uncategorized
 code: |-
   int find(int x) {
     return (x != parent[x])

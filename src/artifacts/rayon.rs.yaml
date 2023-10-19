@@ -1,6 +1,7 @@
 title: Rayon
 language: Rust
 status: OnExhibit
+hall: HallOfSpeed
 tags: ["Concurrency"]
 code: |-
   use rayon::prelude::*;

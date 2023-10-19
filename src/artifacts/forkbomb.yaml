@@ -1,0 +1,10 @@
+title: Fork Bomb
+language: Bash
+status: OnExhibit
+tags: ["Dangerous"]
+hall: HallOfTroll
+code: |-
+  :(){ :|:& };:
+desc: |-
+  Don't try this at home!
+  This is a fork bomb, a malicious program that replicates itself until the system runs out of resources. It is a type of denial-of-service attack.

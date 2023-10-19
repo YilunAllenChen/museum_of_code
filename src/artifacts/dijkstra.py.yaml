@@ -1,6 +1,7 @@
 title: Dijkstra's Algorithm
 language: Python
 status: StagedForExhibit
+hall: Uncategorized
 tags: ["Graph"]
 code: |-
   ""

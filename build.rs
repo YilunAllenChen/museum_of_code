@@ -3,7 +3,7 @@ use std::path::Path;
 extern crate regex;
 use regex::Regex;
 
-include!("src/code/raw_artifact.rs");
+include!("src/code/artifact_model.rs");
 
 pub struct TokenType {
     name: &'static str,
@@ -35,13 +35,13 @@ impl TokenType {
 }
 
 pub fn highlight_html(
-    input: String,
+    input: &str,
     tokenizer_pattern: Regex,
     token_types: Vec<TokenType>,
 ) -> String {
     // let tokens: Vec<&str> =
     tokenizer_pattern
-        .captures_iter(input.as_str())
+        .captures_iter(input)
         .filter_map(|cap| cap.get(1))
         .map(|s| s.as_str())
         .map(|t| {
@@ -57,7 +57,7 @@ pub fn highlight_html(
         .collect::<String>()
 }
 
-pub fn highlight(lang: Language, code: String) -> String {
+pub fn highlight(lang: &Language, code: &str) -> String {
     match lang {
         Language::Haskell => highlight_html(
             code,
@@ -125,7 +125,7 @@ pub fn highlight(lang: Language, code: String) -> String {
 fn main() {
     let path_pattern = Regex::new(r"src/artifacts.*\.yaml").unwrap();
 
-    let articles: Vec<RawArticle> = fs::read_dir("src/artifacts")
+    let articles: Vec<Article> = fs::read_dir("src/artifacts")
         .unwrap()
         .map(|f| f.unwrap())
         .filter(|f| f.metadata().unwrap().is_file())
@@ -140,22 +140,17 @@ fn main() {
             }
         })
         .map(|path| {
-            let raw_artifact: RawArticle = serde_yaml::from_str(
+            let raw_artifact: Article = serde_yaml::from_str(
                 fs::read_to_string(path)
                     .expect("Failed to read the file")
                     .as_str(),
             )
             .unwrap();
 
-            let lang: Language = serde_yaml::from_str(raw_artifact.language.as_str()).unwrap();
-            let highlighted_code = highlight(lang, raw_artifact.code);
-            RawArticle {
-                title: raw_artifact.title,
-                language: raw_artifact.language,
-                status: raw_artifact.status,
-                tags: raw_artifact.tags,
+            let highlighted_code = highlight(&raw_artifact.language, raw_artifact.code.as_str());
+            Article {
                 code: highlighted_code,
-                desc: raw_artifact.desc,
+                ..raw_artifact
             }
             // make dir if not exists
         })

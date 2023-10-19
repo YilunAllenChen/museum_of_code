@@ -1,40 +1,13 @@
 use yew::prelude::*;
 
-use crate::html_utils::make_tag;
+use crate::{code::artifact_model::EntryStatus, html_utils::make_tag};
 
-use super::raw_artifact::Language;
 use serde::Deserialize;
 
-#[derive(Clone, PartialEq, Deserialize, Debug, Eq)]
-pub enum EntryStatus {
-    OnExhibit,
-    StagedForExhibit,
-    Maintenance,
-}
+use super::artifact_model::Article;
 
-impl EntryStatus {
-    fn priority(&self) -> u8 {
-        match self {
-            EntryStatus::OnExhibit => 0,
-            EntryStatus::StagedForExhibit => 100,
-            EntryStatus::Maintenance => 200,
-        }
-    }
-}
-
-impl PartialOrd for EntryStatus {
-    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
-        Some(self.cmp(other))
-    }
-}
-
-impl Ord for EntryStatus {
-    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
-        self.priority().cmp(&other.priority())
-    }
-}
-
-pub struct Article {
+#[derive(Deserialize, Debug, PartialEq)]
+pub struct ArticleComponent {
     show: bool,
 }
 
@@ -42,17 +15,18 @@ pub enum ArticleMsg {
     Toggle,
 }
 
-#[derive(Properties, PartialEq, Deserialize, Debug)]
+#[derive(Properties, Deserialize, Debug)]
 pub struct ArticleProps {
-    pub title: String,
-    pub language: Language,
-    pub status: EntryStatus,
-    pub tags: Vec<String>,
-    pub code: String,
-    pub desc: String,
+    pub article: Article,
 }
 
-impl Component for Article {
+impl PartialEq for ArticleProps {
+    fn eq(&self, other: &Self) -> bool {
+        self.article == other.article
+    }
+}
+
+impl Component for ArticleComponent {
     type Message = ArticleMsg;
     type Properties = ArticleProps;
 
@@ -61,7 +35,7 @@ impl Component for Article {
     }
 
     fn changed(&mut self, _ctx: &Context<Self>, _old_props: &Self::Properties) -> bool {
-        false
+        true
     }
 
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
@@ -74,7 +48,7 @@ impl Component for Article {
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {
-        let dot_and_text = match ctx.props().status {
+        let dot_and_text = match ctx.props().article.status {
             EntryStatus::OnExhibit => {
                 html! {
                     <div class="mt-1 flex items-center gap-x-1.5">
@@ -109,6 +83,7 @@ impl Component for Article {
 
         let tags: Html = ctx
             .props()
+            .article
             .tags
             .iter()
             .map(|tag| {
@@ -121,7 +96,7 @@ impl Component for Article {
                             "Sorting" => "blue",
                             "Graph" => "purple",
                             "Concurrency" => "cyan",
-                            "OS" => "red",
+                            "OS" | "Dangerous" => "red",
                             _ => "gray",
                         },
                     )
@@ -132,16 +107,16 @@ impl Component for Article {
 
         let rendered = match self.show {
             true => {
-                let content = match ctx.props().status {
+                let content = match ctx.props().article.status {
                     EntryStatus::OnExhibit => html! {
                       <>
                         <div class="bg-gray-800 text-xs sm:text-sm md:text-lg text-gray-300 p-1 rounded-md justify-left items-left">
                             <pre class="py-2 md:py-4 px-1 sm:px-4">
-                                {Html::from_html_unchecked(ctx.props().code.clone().into())}
+                                {Html::from_html_unchecked(ctx.props().article.code.clone().into())}
                             </pre>
                         </div>
-                        <pre class="my-4">
-                        {ctx.props().desc.clone()}
+                        <pre class="my-4 font-sans">
+                        {ctx.props().article.desc.clone()}
                         </pre>
                       </>
                     },
@@ -167,10 +142,10 @@ impl Component for Article {
                             <div class="sm:flex sm:items-start">
                               <div class="mt-3 sm:ml-4 sm:mt-0 text-left">
                                 <h3 class="text-lg leading-6 font-medium text-gray-100" id="modal-title">
-                                  {ctx.props().title.clone()}
+                                  {ctx.props().article.title.clone()}
                                 </h3>
-                                <div class="my-4">
-                                  {Html::from_html_unchecked(ctx.props().language.to_tag().into())}
+                                <div class="my-4 truncate">
+                                  {Html::from_html_unchecked(ctx.props().article.language.to_tag().into())}
                                   {tags.clone()}
                                 </div>
                                 {content}
@@ -199,11 +174,11 @@ impl Component for Article {
                   onclick={ctx.link().callback(|_| ArticleMsg::Toggle)}
               >
                   <div class="flex min-w-0 gap-x-4">
-                      {Html::from_html_unchecked(ctx.props().language.icon().into())}
+                      {Html::from_html_unchecked(ctx.props().article.language.icon().into())}
                       <div class="min-w-0 flex-auto">
-                      <p class="text-sm font-semibold leading-6 text-gray-100">{ctx.props().title.clone()}</p>
+                      <p class="text-sm font-semibold leading-6 text-gray-100">{ctx.props().article.title.clone()}</p>
                       <p class="mt-1 truncate text-xs leading-5 text-gray-300">
-                      {Html::from_html_unchecked(ctx.props().language.to_tag().into())}
+                      {Html::from_html_unchecked(ctx.props().article.language.to_tag().into())}
                       {tags}
                       </p>
                       </div>

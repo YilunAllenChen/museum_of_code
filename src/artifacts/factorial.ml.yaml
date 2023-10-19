@@ -1,6 +1,7 @@
 title: Factorial
 language: OCaml
 status: OnExhibit
+hall: HallOfHelloWorld
 tags: ["Recursion", "Functional"]
 code: |-
   let rec factorial n =

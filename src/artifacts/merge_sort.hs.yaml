@@ -1,6 +1,7 @@
 title: Merge Sort
 language: Haskell
 status: OnExhibit
+hall: HallOfExpressiveness
 tags: ["Sorting", "Recursion", "Functional"]
 code: |-
   sort :: Ord a => [a] -> [a]

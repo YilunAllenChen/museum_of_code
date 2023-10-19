@@ -1,6 +1,7 @@
 title: Goroutines
 language: Go
 status: OnExhibit
+hall: HallOfSpeed
 tags: ["Concurrency"]
 code: |-
   package main

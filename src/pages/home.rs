@@ -38,14 +38,14 @@ impl Component for Home {
                             <p class="mt-6 text-lg leading-8 text-gray-300">{"A curated exhibit of exquisite programming artifacts."}</p>
                             <div class="mt-10 flex flex-wrap items-center justify-center gap-x-6 mb-20">
                                 <button
-                                    onclick={ctx.props().on_clicked.reform(|_| Page::Tour)}
+                                    onclick={ctx.props().on_clicked.reform(|_| Page::ExhibitionHall)}
                                     class="rounded-md w-full md:w-1/4 bg-indigo-600 my-2.5 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                    {"Take A Tour"}
+                                    {"Enter the Museum"}
                                 </button>
                                 <button
                                     onclick={ctx.props().on_clicked.reform(|_| Page::Contact)}
                                     class="rounded-md w-full md:w-1/4 bg-green-600 my-2.5 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                    {"Contribute"}
+                                    {"Contact"}
                                 </button>
                                 <button
                                     onclick={ctx.props().on_clicked.reform(|_| Page::About)}
