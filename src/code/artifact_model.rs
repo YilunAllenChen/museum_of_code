@@ -2,7 +2,7 @@ use std::fmt::Display;
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
+#[derive(Clone, PartialEq, Debug, Deserialize, Serialize, Eq)]
 pub enum Language {
     Haskell,
     Rust,
@@ -11,6 +11,7 @@ pub enum Language {
     C,
     OCaml,
     Bash,
+    Clojure,
 }
 
 #[derive(Deserialize, Debug, Serialize)]
@@ -44,10 +45,9 @@ impl ExhibitionHall {
     pub fn desc(&self) -> &'static str {
         match self {
             ExhibitionHall::HallOfExpressiveness => {
-                r#"The Hall of Expressiveness houses artifacts that are extremely elegant and concise,
-                making them a joy to read and appreciate. They may not be the fastest, or the easiest 
-                to read at first glance, but once you understand them, you will be amazed by the
-                beauty of their design."#
+                r#"The Hall of Expressiveness houses artifacts that are extremely elegant and concise.
+                They may not be the fastest, or the easiest to read at first glance, but once you understand
+                them, you will be amazed by the beauty of their design."#
             }
             ExhibitionHall::HallOfHelloWorld => {
                 r#"The Hall of Hello World contains artifacts that bring back memories of the first time
@@ -61,7 +61,7 @@ impl ExhibitionHall {
             }
             ExhibitionHall::HallOfTroll => {
                 r#"Who said programming has to be serious? The Hall of Troll contains artifacts that are
-                designed to be funny, useless, or, even be dangerous! These artifacts are
+                designed to be funny, useless, or, even dangerous! These artifacts are
                 sure to make you laugh, or at least make you go "what the heck?""#
             }
             ExhibitionHall::Uncategorized => {

@@ -1,0 +1,32 @@
+title: Sweajure
+language: Clojure
+status: OnExhibit
+tags: ["huh?"]
+hall: HallOfTroll
+code: |-
+  ((->>
+    (>>' (- $ ! (/ (- ++) (+ (*) (*))))
+        (+ $ (*))
+        (+ $ ++)
+        (+ $ ++)
+        (+ $ (#(* % (+ % % %)) (+ (*) (*))) (- (*)))
+        !
+        (- (+ $ !) (*) (#(* % (+ % % %)) (+ (*) (*))))
+        (+ $ (#(* % (+ % % %)) (+ (*) (*))) (- (*)))
+        (+ $ (#(* % (+ (*) % % %)) (+ (*) (*))))
+        (+ $ ++)
+        $
+        (+ ! (*))
+        (#(* % (+ (*) % %)) (+ (*) (*))))
+    #()
+    (-> [$ ++ !]))
+  (#(* % % (+ (*) (* % %)) (+ (*) (* % %))) (+ (*) (*)))
+  (#(* % % %) (+ (*) (*)))
+  (#(* % % % % %) (+ (*) (*))))
+desc: |-
+  This program prints "Hello World!" to the screen. (Yes, really!)
+
+  Sweajure is a dialet of Clojure that doesn't have alphanumeric characters.
+  Although seemingly impossible, you can do almost anything with just symbols (you'd be surprised)!
+
+  If this interests you, I'd recommmend this video: https://www.youtube.com/watch?v=WUVBlKPWgmE&t=0s

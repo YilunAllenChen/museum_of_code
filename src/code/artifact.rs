@@ -110,7 +110,7 @@ impl Component for ArticleComponent {
                 let content = match ctx.props().article.status {
                     EntryStatus::OnExhibit => html! {
                       <>
-                        <div class="bg-gray-800 text-xs sm:text-sm md:text-lg text-gray-300 p-1 rounded-md justify-left items-left">
+                        <div class="bg-gray-800 text-xs sm:text-sm text-gray-300 p-1 rounded-md justify-left items-left">
                             <pre class="py-2 md:py-4 px-1 sm:px-4">
                                 {Html::from_html_unchecked(ctx.props().article.code.clone().into())}
                             </pre>
@@ -137,9 +137,9 @@ impl Component for ArticleComponent {
                     <div class="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity"></div>
                     <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
                       <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                        <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                        <div class="relative transform overflow-hidden rounded-lg text-left shadow-xl transition-all sm:my-8 sm:mx-20 md:mx-36 sm:w-full lg:px-36">
                           <div class="bg-black px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                            <div class="sm:flex sm:items-start">
+                            <div class="justify-between">
                               <div class="mt-3 sm:ml-4 sm:mt-0 text-left">
                                 <h3 class="text-lg leading-6 font-medium text-gray-100" id="modal-title">
                                   {ctx.props().article.title.clone()}
