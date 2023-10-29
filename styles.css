@@ -3,6 +3,41 @@ html {
   background-color: black;
 }
 
+/* animations */
+
+@keyframes enter_bottom {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+.enter-exit-bottom {
+  animation: enter_bottom 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes ease_in {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.ease-in {
+  animation: ease_in 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.delayed {
+  animation-delay: 1s;
+}
+
+/* preformatted code */
 pre {
   white-space: pre-wrap;
 }

@@ -13,7 +13,6 @@ impl Ord for Language {
     }
 }
 
-
 impl Language {
     pub fn icon(&self) -> &'static str {
         // https://devicon.dev/
@@ -32,7 +31,7 @@ impl Language {
             }
             Language::Bash => {
                 r#"<i class="devicon-bash-plain colored" style="font-size: 3rem"></i>"#
-            },
+            }
             Language::Clojure => {
                 r#"<i class="devicon-clojure-plain colored" style="font-size: 3rem"></i>"#
             }

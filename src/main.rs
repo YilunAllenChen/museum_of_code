@@ -2,6 +2,7 @@ use std::fmt::Display;
 
 use log::info;
 use yew::prelude::*;
+use yew_router::prelude::*;
 
 mod code;
 mod html_utils;
@@ -10,28 +11,42 @@ use pages::{Contact, HallComponent, Home, Nav, Wip};
 
 use crate::pages::About;
 
-#[derive(Debug, Clone, PartialEq, Copy)]
-pub enum Page {
+#[derive(Debug, Clone, PartialEq, Routable)]
+pub enum Route {
+    #[at("/")]
     Home,
+    #[at("/contact")]
     Contact,
+    #[at("/exhibition")]
     ExhibitionHall,
+    #[at("/about")]
     About,
-
-    Wip,
+    #[at("/*_path")]
+    Wip { _path: String },
 }
 
-impl Display for Page {
+fn switch(route: Route) -> Html {
+    match route {
+        Route::Home => html! {<Home />},
+        Route::Contact => html! {<Contact/>},
+        Route::About => html! {<About />},
+        Route::ExhibitionHall => html! {<HallComponent />},
+        Route::Wip { _path } => html! {<Wip />},
+    }
+}
+
+impl Display for Route {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{:?}", self)
     }
 }
 
 pub struct App {
-    active_page: Page,
+    active_page: Route,
 }
 
 pub enum Msg {
-    GoToPage(Page),
+    GoToPage(Route),
 }
 
 impl Component for App {
@@ -40,7 +55,7 @@ impl Component for App {
 
     fn create(_ctx: &Context<Self>) -> Self {
         Self {
-            active_page: Page::Home,
+            active_page: Route::Home,
         }
     }
 
@@ -57,24 +72,13 @@ impl Component for App {
         }
     }
 
-    fn view(&self, ctx: &Context<Self>) -> Html {
-        let on_clicked = ctx.link().callback(Msg::GoToPage);
-        let nav = html! {
-            <Nav {on_clicked} />
-        };
-        let on_clicked = ctx.link().callback(Msg::GoToPage);
-        let content = match self.active_page {
-            Page::Contact => html! {<Contact {on_clicked} />},
-            Page::Home => html! {<Home {on_clicked} />},
-            Page::ExhibitionHall => html! {<HallComponent {on_clicked} />},
-            Page::About => html! {<About {on_clicked} />},
-            _ => html! {<Wip {on_clicked} />},
-        };
+    fn view(&self, _ctx: &Context<Self>) -> Html {
         html! {
-        <>
-        {nav}
-        {content}
-        </>}
+            <BrowserRouter>
+                <Nav />
+                <Switch<Route> render={switch} /> // <- must be child of <BrowserRouter>
+            </BrowserRouter>
+        }
     }
 }
 

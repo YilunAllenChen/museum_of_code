@@ -1,13 +1,12 @@
 use yew::prelude::*;
+use yew_router::scope_ext::RouterScopeExt;
 
-use crate::Page;
+use crate::Route;
 
 pub struct Wip;
 
 #[derive(Properties, PartialEq)]
-pub struct WipProps {
-    pub on_clicked: Callback<Page>,
-}
+pub struct WipProps {}
 
 impl Component for Wip {
     type Message = ();
@@ -26,6 +25,9 @@ impl Component for Wip {
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {
+        let navigator = ctx.link().navigator().unwrap();
+        let nav = |page| Callback::from(move |_| navigator.push(&page));
+
         html! {
             <div class="bg-black h-full">
                 <div class="relative isolate px-6 pt-14 lg:px-8">
@@ -35,7 +37,7 @@ impl Component for Wip {
                             <p class="mt-6 text-sm md:text-lg leading-8 text-gray-300">{"This Page is Still Under Construction. Check back later!"}</p>
                             <div class="mt-10 flex items-center justify-center gap-x-6 mb-20">
                                 <button
-                                    onclick={ctx.props().on_clicked.reform(|_| Page::Home)}
+                                    onclick={nav(Route::Home)}
                                     class="rounded-md disabled bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                     {"Home"}
                                 </button>

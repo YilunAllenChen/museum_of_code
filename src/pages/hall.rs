@@ -3,7 +3,6 @@ use yew::prelude::*;
 use crate::code::ArticleComponent;
 use crate::code::BuiltYaml;
 use crate::code::ExhibitionHall;
-use crate::Page;
 
 pub struct HallComponent {
     active_hall: Option<ExhibitionHall>,
@@ -11,9 +10,7 @@ pub struct HallComponent {
 }
 
 #[derive(Properties, PartialEq)]
-pub struct HallProps {
-    pub on_clicked: Callback<Page>,
-}
+pub struct HallProps {}
 
 pub enum HallMsg {
     ToggleMenu,
@@ -133,7 +130,7 @@ impl Component for HallComponent {
             .collect::<Vec<Html>>();
 
         html! {
-            <div class="bg-black h-full">
+            <div class="ease-in bg-black h-full">
                 {menu}
                 <h1 class="text-center text-white text-4xl px-8 md:px-40">
                 <button class={format!("w-full text-white text-center py-6 my-4 text-4xl rounded-lg ring-1 ring-inset bg-gray-500/20 text-gray-400 ring-gray-500/80",)}
