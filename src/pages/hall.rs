@@ -113,7 +113,6 @@ impl Component for HallComponent {
             }
         };
 
-
         let mut loaded_articles = built_yaml.artifacts;
         loaded_articles.sort_by(|a, b| a.language.cmp(&b.language));
         loaded_articles.sort_by(|a, b| a.status.cmp(&b.status));
