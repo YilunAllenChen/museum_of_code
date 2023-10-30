@@ -74,10 +74,10 @@ impl Component for App {
 
     fn view(&self, _ctx: &Context<Self>) -> Html {
         html! {
-            <BrowserRouter basename="/museum_of_code">
+            <HashRouter>
                 <Nav />
                 <Switch<Route> render={switch} /> // <- must be child of <BrowserRouter>
-            </BrowserRouter>
+            </HashRouter>
         }
     }
 }
