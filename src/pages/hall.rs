@@ -82,7 +82,7 @@ impl Component for HallComponent {
                     <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
                     <div class="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity"></div>
                     <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-                      <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                      <div class="flex min-h-screen items-end justify-center p-4 text-center sm:items-center sm:p-0">
                         <div class="relative w-full transform overflow-hidden rounded-lg bg-white text-center shadow-xl transition-all sm:my-8 sm:max-w-lg">
                           <div class="bg-black px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                             <div class="sm:flex sm:items-start">
@@ -112,6 +112,8 @@ impl Component for HallComponent {
                 }
             }
         };
+
+
         let mut loaded_articles = built_yaml.artifacts;
         loaded_articles.sort_by(|a, b| a.language.cmp(&b.language));
         loaded_articles.sort_by(|a, b| a.status.cmp(&b.status));
@@ -129,14 +131,18 @@ impl Component for HallComponent {
             })
             .collect::<Vec<Html>>();
 
+        let menu_button = html!(
+            <button class={format!("w-full text-white text-center py-4 my-3 text-2xl rounded-lg ring-1 ring-inset bg-gray-500/20 text-gray-400 ring-gray-500/80",)}
+                onclick={ctx.link().callback(|_| HallMsg::ToggleMenu)}>
+                {hall_name}
+            </button>
+        );
+
         html! {
             <div class="ease-in bg-black h-full">
                 {menu}
                 <h1 class="text-center text-white text-4xl px-8 md:px-40">
-                <button class={format!("w-full text-white text-center py-6 my-4 text-4xl rounded-lg ring-1 ring-inset bg-gray-500/20 text-gray-400 ring-gray-500/80",)}
-                    onclick={ctx.link().callback(|_| HallMsg::ToggleMenu)}>
-                    {hall_name}
-                </button>
+                {menu_button}
                 <p class="text-base text-gray-300 py-5 px-8">{match &self.active_hall {
                     Some(hall) => hall.desc(),
                     None => r#"All Artifacts (click on "All Artifacts" to filter by hall)"#,
@@ -147,6 +153,16 @@ impl Component for HallComponent {
                 <ul role="list" class="text-white px-4 md:px-40 md:py-10 divide-y divide-gray-800">
                     {articles}
                 </ul>
+
+                <div class="my-20 mx-12 text-center text-gray-300 space-y-4">
+                    <p>{"You've reached the end of the this room."}</p>
+                    <p>{"Hope you enjoyed your visit!"}</p>
+                    <p>{"If you want to see more, check out the other halls!"}</p>
+                </div>
+
+                <div class="mt-36 mb-20 text-center text-gray-600">
+                {"Museum of Code © 2023, All Rights Reserved"}
+                </div>
             </div>
         }
     }

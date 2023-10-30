@@ -32,8 +32,8 @@ impl Component for Home {
         let nav = |page| Callback::from(move |_| navigator.push(&page));
 
         html! {
-            <div class="ease-in bg-black h-100vh">
-                <div class="mx-6 sm:mx-10 md:mx-16 lg:mx-36 mt-24 lg:mt-40">
+            <div class="ease-in bg-black h-full">
+                <div class="mx-6 sm:mx-10 md:mx-16 lg:mx-36 mt-12 lg:mt-40">
                     <div class="text-center">
                         <h1 class="text-4xl font-bold tracking-wider text-gray-100 sm:text-6xl font-mono">{"Museum of Code"}</h1>
                         <p class="mt-6 text-lg leading-8 text-gray-300">{"A curated exhibit of exquisite programming artifacts."}</p>
@@ -55,7 +55,8 @@ impl Component for Home {
                             </button>
                         </div>
                     </div>
-                    <div class="bg-gray-800 lg:pl-20 text-gray-300 p-4 md:py-8 rounded-md justify-left items-left">
+                    <div class="bg-gray-800 lg:pl-20 text-gray-300 p-4 md:py-8 mb-8 rounded-md justify-left items-left">
+                        <div class="mx-auto text-center w-3/4 py-2 bg-gray-700 rounded-lg relative -top-8 text-xl text-gray-300">{"Featured Artifact"}</div>
                         <pre>
                             {formatted_haskell}
                         </pre>

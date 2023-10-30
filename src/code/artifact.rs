@@ -2,9 +2,9 @@ use yew::prelude::*;
 
 use crate::{code::artifact_model::EntryStatus, html_utils::make_tag};
 
-use serde::Deserialize;
-
 use super::artifact_model::Article;
+use serde::Deserialize;
+use web_sys::{window, ScrollBehavior, ScrollIntoViewOptions};
 
 #[derive(Deserialize, Debug, PartialEq)]
 pub struct ArticleComponent {
@@ -12,7 +12,7 @@ pub struct ArticleComponent {
 }
 
 pub enum ArticleMsg {
-    Toggle,
+    Toggle(bool),
 }
 
 #[derive(Properties, Deserialize, Debug)]
@@ -38,10 +38,24 @@ impl Component for ArticleComponent {
         true
     }
 
-    fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
+    fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
-            ArticleMsg::Toggle => {
-                self.show = !self.show;
+            ArticleMsg::Toggle(tf) => {
+                self.show = tf;
+
+                // Scroll to the article if it is toggled on
+                if tf {
+                    if let Some(window) = window() {
+                        let document = window.document().unwrap();
+                        if let Some(element) =
+                            document.get_element_by_id(ctx.props().article.title.as_str())
+                        {
+                            let mut options = ScrollIntoViewOptions::new();
+                            options.behavior(ScrollBehavior::Smooth);
+                            element.scroll_into_view_with_scroll_into_view_options(&options);
+                        }
+                    }
+                }
                 true
             }
         }
@@ -132,30 +146,44 @@ impl Component for ArticleComponent {
                     },
                 };
 
+                let x = html! {
+                  <button
+                    type="button"
+                    class="inline-flex w-full justify-center rounded-md bg-red-200 p-1 text-sm font-semibold text-black shadow-sm hover:bg-red-500"
+                    onclick={ctx.link().callback(|_| ArticleMsg::Toggle(false))}
+                  >
+                    {"❌"}
+                  </button>
+                };
+
                 html! {
                     <div class="relative top-0 z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-                    <div class="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity"></div>
-                    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-                      <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                        <div class="relative transform overflow-hidden rounded-lg text-left shadow-xl transition-all sm:my-8 sm:mx-20 md:mx-36 sm:w-full lg:px-36">
+                    <div class="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity"
+                          onclick={ctx.link().callback(|_| ArticleMsg::Toggle(false))}
+                    ></div>
+                    <div class="inset-0 z-10 w-100 overflow-y-auto">
+                      <div class="flex items-end justify-center text-center sm:items-center sm:p-0">
+                        <div class="enter-unfold overflow-x-hidden relative transform overflow-hidden rounded-lg text-left shadow-xl transition-all w-full">
                           <div class="bg-black px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                             <div class="justify-between">
                               <div class="mt-3 sm:ml-4 sm:mt-0 text-left">
                                 <h3 class="text-lg leading-6 font-medium text-gray-100" id="modal-title">
-                                  {ctx.props().article.title.clone()}
+                                  <div class="flex">
+                                    <div class="mr-auto self-center">
+                                      {ctx.props().article.title.clone()}
+                                    </div>
+                                    <div class="w-1/8">
+                                      {x.clone()}
+                                    </div>
+                                  </div>
                                 </h3>
                                 <div class="my-4 truncate">
                                   {Html::from_html_unchecked(ctx.props().article.language.to_tag().into())}
                                   {tags.clone()}
                                 </div>
                                 {content}
-                                <button
-                                  type="button"
-                                  class="inline-flex mt-20 w-full justify-center rounded-md bg-red-100 px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-red-500"
-                                  onclick={ctx.link().callback(|_| ArticleMsg::Toggle)}
-                                >
-                                  {"❌"}
-                                </button>
+                                <div class="mt-20"/>
+                                {x}
                               </div>
                             </div>
                           </div>
@@ -170,8 +198,10 @@ impl Component for ArticleComponent {
 
         html! {
             <>
-              <li class="flex justify-between gap-x-6 py-5"
-                  onclick={ctx.link().callback(|_| ArticleMsg::Toggle)}
+              <li
+                  id={ctx.props().article.title.clone()}
+                  class="flex justify-between gap-x-6 py-5"
+                  onclick={ctx.link().callback(|_| ArticleMsg::Toggle(true))}
               >
                   <div class="flex min-w-0 gap-x-4">
                       {Html::from_html_unchecked(ctx.props().article.language.icon().into())}
