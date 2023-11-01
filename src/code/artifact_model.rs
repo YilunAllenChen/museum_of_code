@@ -31,11 +31,11 @@ pub enum ExhibitionHall {
 impl Display for ExhibitionHall {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let st = match self {
-            ExhibitionHall::HallOfExpressiveness => "Hall of Expressiveness",
-            ExhibitionHall::HallOfTroll => "Hall of Troll",
-            ExhibitionHall::HallOfSpeed => "Hall of Speed",
-            ExhibitionHall::HallOfHelloWorld => "Hall of Hello World",
-            ExhibitionHall::Uncategorized => "Uncategorized",
+            ExhibitionHall::HallOfExpressiveness => "🎨 Hall of Expressiveness",
+            ExhibitionHall::HallOfTroll => "😄 Hall of Troll",
+            ExhibitionHall::HallOfSpeed => "🏎️ Hall of Speed",
+            ExhibitionHall::HallOfHelloWorld => "👋 Hall of Hello World",
+            ExhibitionHall::Uncategorized => "❓ Uncategorized",
         };
         write!(f, "{}", st)
     }

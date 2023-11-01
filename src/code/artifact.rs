@@ -1,10 +1,12 @@
 use yew::prelude::*;
 
-use crate::{code::artifact_model::EntryStatus, html_utils::make_tag};
+use crate::{
+    code::artifact_model::EntryStatus,
+    html_utils::{make_tag, scroll::try_scroll_to},
+};
 
 use super::artifact_model::Article;
 use serde::Deserialize;
-use web_sys::{window, ScrollBehavior, ScrollIntoViewOptions};
 
 #[derive(Deserialize, Debug, PartialEq)]
 pub struct ArticleComponent {
@@ -45,16 +47,8 @@ impl Component for ArticleComponent {
 
                 // Scroll to the article if it is toggled on
                 if tf {
-                    if let Some(window) = window() {
-                        let document = window.document().unwrap();
-                        if let Some(element) =
-                            document.get_element_by_id(ctx.props().article.title.as_str())
-                        {
-                            let mut options = ScrollIntoViewOptions::new();
-                            options.behavior(ScrollBehavior::Smooth);
-                            element.scroll_into_view_with_scroll_into_view_options(&options);
-                        }
-                    }
+                    let article_id = ctx.props().article.title.clone();
+                    try_scroll_to(&article_id);
                 }
                 true
             }
@@ -206,7 +200,7 @@ impl Component for ArticleComponent {
                   <div class="flex min-w-0 gap-x-4">
                       {Html::from_html_unchecked(ctx.props().article.language.icon().into())}
                       <div class="min-w-0 flex-auto">
-                      <p class="text-sm font-semibold leading-6 text-gray-100">{ctx.props().article.title.clone()}</p>
+                      <p class="text-sm leading-6 text-gray-100">{ctx.props().article.title.clone()}</p>
                       <p class="mt-1 truncate text-xs leading-5 text-gray-300">
                       {Html::from_html_unchecked(ctx.props().article.language.to_tag().into())}
                       {tags}
