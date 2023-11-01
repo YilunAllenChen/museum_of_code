@@ -2,7 +2,7 @@ title: Factorial
 language: OCaml
 status: OnExhibit
 hall: HallOfHelloWorld
-tags: ["Recursion", "Functional"]
+tags: ["Recursion", "Math"]
 code: |-
   let rec factorial n =
     if n <= 1 then 1

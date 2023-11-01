@@ -1,0 +1,15 @@
+title: Safe Divide
+language: OCaml
+status: OnExhibit
+hall: HallOfSafety
+tags: ["ADT"]
+code: |-
+  let divide x y =
+      if y = 0 then None else Some (x / y);;
+
+desc: |-
+  How many times have you run into a division by zero error?
+
+  This function is a safe version of the division operator. It returns a `None` value if the denominator is zero, and a `Some` value otherwise. 
+  
+  This concept of an `Option` type signals to the user that the function may fail, and they should explicitly handle the case where the denominator is zero.

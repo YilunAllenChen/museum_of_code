@@ -1,0 +1,15 @@
+title: Inline Assembly
+language: Rust
+status: OnExhibit
+hall: HallOfSpeed
+tags: ["Bare Metal"]
+code: |-
+  unsafe fn add(a: i32, b: i32) -> i32 {
+    let sum;
+    asm!("add {0}, {1}, {2}", out(reg) sum, in(reg) a, in(reg) b);
+    sum
+  }
+desc: |-
+  Rust is a systems programming language with incredible features - one of which is allowing programmers to write inline assembly code for the most performance-critical parts of their program.
+  The `asm!` macro tells the compiler to insert the given assembly code into the program.
+  Note that the language continues to remind the programmer that they are writing unsafe code with the `unsafe` keyword, and that the compiler will not be able to check the correctness of the assembly code.

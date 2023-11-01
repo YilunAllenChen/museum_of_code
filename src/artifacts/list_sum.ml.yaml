@@ -1,0 +1,17 @@
+title: Recursive Sum of a List
+language: OCaml
+status: OnExhibit
+hall: HallOfExpressiveness
+tags: ["Recursion"]
+code: |-
+  let rec sum u =
+    match u with
+    | [] -> 0
+    | x :: v -> x + sum v;;
+
+desc: |-
+  This function in OCaml blends well the essence of recursion and mathematical induction.
+
+  It uses pattern matching to match over the base case and inductive case of the list, and then recursively calls itself on the tail of the list.
+
+  Any list with 0 element will be considered as the base case, and the sum of the list will be 0. Otherwise, the sum of the list will be the head of the list plus the sum of the tail of the list.

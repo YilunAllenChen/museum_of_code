@@ -1,8 +1,8 @@
-title: Union Find
+title: Union Find with Path Compression
 language: C
 status: OnExhibit
 tags: ["Graph"]
-hall: Uncategorized
+hall: HallOfSpeed 
 code: |-
   int find(int x) {
     return (x != parent[x])

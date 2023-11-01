@@ -1,8 +1,8 @@
 title: Fast Inverse Square Root
 language: C
 status: OnExhibit
-tags: ["math"]
-hall: Uncategorized
+tags: ["Math"]
+hall: HallOfSpeed
 code: |-
   float q_rsqrt(float number)
   {

@@ -1,4 +1,4 @@
-use std::fmt::Display;
+use std::{fmt::Display, f32::consts::E};
 
 use serde::{Deserialize, Serialize};
 
@@ -25,17 +25,21 @@ pub enum ExhibitionHall {
     HallOfTroll,
     HallOfSpeed,
     HallOfHelloWorld,
+    HallOfSafety,
+    HallOfArt,
     Uncategorized,
 }
 
 impl Display for ExhibitionHall {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let st = match self {
-            ExhibitionHall::HallOfExpressiveness => "🎨 Hall of Expressiveness",
+            ExhibitionHall::HallOfExpressiveness => "🪄 Hall of Expressiveness",
             ExhibitionHall::HallOfTroll => "😄 Hall of Troll",
             ExhibitionHall::HallOfSpeed => "🏎️ Hall of Speed",
+            ExhibitionHall::HallOfSafety => "🛡️ Hall of Safety",
             ExhibitionHall::HallOfHelloWorld => "👋 Hall of Hello World",
             ExhibitionHall::Uncategorized => "❓ Uncategorized",
+            ExhibitionHall::HallOfArt => "🎨 Hall of Art",
         };
         write!(f, "{}", st)
     }
@@ -67,6 +71,19 @@ impl ExhibitionHall {
             ExhibitionHall::Uncategorized => {
                 r#"The Hall of Uncategorized contains artifacts that currently do not fit into any of the other
                 halls."#
+            },
+            ExhibitionHall::HallOfSafety => {
+                r#"When designing large-scale software, safety and reliability becomes utterly important. Hall Of Safety
+                is the home of artifacts that emphasize on extreme robustness, allowing programmers to interact with them
+                with confidence, and sleep well at night.
+                "#
+            },
+            ExhibitionHall::HallOfArt => {
+                r#"Although most computer programs are pragmatic and utilitarian, it doesn't restrict people from
+                fully leveraging their creativity and imagination. The Hall of Art contains artifacts that dare to
+                challenge the status quo, and push the boundary of people's perception of what a computer program
+                can be.
+                "#
             }
         }
     }

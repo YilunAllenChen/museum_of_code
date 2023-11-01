@@ -71,13 +71,15 @@ impl Component for HallComponent {
                     ExhibitionHall::HallOfHelloWorld,
                     ExhibitionHall::HallOfExpressiveness,
                     ExhibitionHall::HallOfSpeed,
+                    ExhibitionHall::HallOfSafety,
+                    ExhibitionHall::HallOfArt,
                     ExhibitionHall::HallOfTroll,
                     ExhibitionHall::Uncategorized,
                 ].into_iter().map(|hall|{
                     let hall_name = hall.to_string();
                     html! {
                         <button
-                            class="block w-full text-left md:pl-8 my-2 py-2 text:base md:text-xl text-gray-400"
+                            class="block w-full text-left md:pl-8 py-2 text:base md:text-xl text-gray-400"
                             role="menuitem"
                             onclick={ctx.link().callback(move |_| HallMsg::GoToHall(Some(hall.clone())))}
                         >
@@ -179,7 +181,7 @@ impl Component for HallComponent {
                         {desc}
                     </div>
                 </div>
-                <ul role="list" class="text-white px-4 md:px-40 md:py-10 divide-y divide-gray-800">
+                <ul role="list" class="select-none text-white px-4 md:px-40 md:py-10 divide-y divide-gray-800">
                     {articles}
                 </ul>
 

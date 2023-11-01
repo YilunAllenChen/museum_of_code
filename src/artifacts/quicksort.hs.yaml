@@ -2,7 +2,7 @@ title: Quick Sort
 language: Haskell
 status: OnExhibit
 hall: HallOfExpressiveness
-tags: ["Recursion", "Functional", "Sorting"]
+tags: ["Recursion", "Sorting"]
 code: |-
   qs :: Ord a => [a] -> [a]
   qs [] = []

@@ -1,0 +1,18 @@
+title: Chained Operations
+language: Rust
+status: OnExhibit
+hall: HallOfExpressiveness
+tags: []
+code: |-
+  let sum: i32 = vec![1, 2, 3]
+    .iter()
+    .filter(|&&x| x % 2 == 1)
+    .map(|&x| x * x)
+    .sum();
+
+desc: |-
+  Rust is a language heavily inspired by functional programming. 
+  
+  This snippet demonstrates how Rust's iterators can be chained together to perform a series of operations on a collection. 
+  
+  The code is concise and expressive, and the compiler, with its zero-cost abstraction promise, is able to optimize the code to be as efficient as a hand-written loop.

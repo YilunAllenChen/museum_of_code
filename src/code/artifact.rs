@@ -99,12 +99,13 @@ impl Component for ArticleComponent {
                     make_tag(
                         tag,
                         match tag.as_str() {
-                            "Functional" => "green",
+                            "ADT" => "green",
                             "Recursion" => "yellow",
                             "Sorting" => "blue",
                             "Graph" => "purple",
+                            "Math" => "sky",
                             "Concurrency" => "cyan",
-                            "OS" | "Dangerous" => "red",
+                            "OS" | "Dangerous" | "Bare Metal" => "red",
                             _ => "gray",
                         },
                     )

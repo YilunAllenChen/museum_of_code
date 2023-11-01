@@ -1,17 +1,17 @@
 title: Linked List
 language: Python
 status: OnExhibit
-hall: HallOfHelloWorld
+hall: HallOfExpressiveness
 tags: []
 code: |-
   class Node:
       def __init__(self, data):
           self.data = data
-          self.next: Optional[Node] = None
+          self.next = None
 
   class LinkedList:
       def __init__(self):
-          self.head: Optional[Node] = None
+          self.head: = None
 
 desc: |-
   Linked lists are a fundamental data structure in computer science.

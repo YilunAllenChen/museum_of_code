@@ -1,8 +1,8 @@
 title: Mandelbrot Set
 language: Python
 status: OnExhibit
-tags: ["art"]
-hall: Uncategorized
+tags: ["Art"]
+hall: HallOfArt
 code: |-
   _                                      =   (
                                           255,

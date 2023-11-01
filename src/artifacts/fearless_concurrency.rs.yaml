@@ -1,0 +1,34 @@
+title: Fearless Concurrency
+language: Rust
+status: OnExhibit
+hall: HallOfSafety
+tags: ["Concurrency"]
+code: |-
+  use std::thread;
+  use std::sync::mpsc;
+
+  fn main() {
+      // Create a channel for communication
+      let (sender, receiver) = mpsc::channel();
+
+      // Spawn two threads
+      for i in 0..2 {
+          let sender = sender.clone();
+          thread::spawn(move || {
+              sender.send(i).unwrap();
+          });
+      }
+
+      // Collect values from the threads
+      let mut values = Vec::new();
+      for _ in 0..2 {
+          values.push(receiver.recv().unwrap());
+      }
+
+      println!("Received values: {:?}", values);
+  }
+
+desc: |-
+  "Fearless concurrency" in Rust refers to the language's design principles that prioritize safety and reliability in concurrent programming. When writing concurrent programs in Rust, the compiler will catch many common mistakes that would otherwise lead to bugs or crashes.
+
+  In other words, in Rust, race conditions are by definition, unrepresentable.
