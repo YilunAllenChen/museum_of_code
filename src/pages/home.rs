@@ -44,12 +44,12 @@ impl Component for Home {
                                 {"Enter the Museum"}
                             </button>
                             <button
-                                onclick={nav(Route::About)}
+                                onclick={nav.clone()(Route::About)}
                                 class="rounded-md w-full md:w-1/4 bg-yellow-600 my-2.5 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-yellow-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                 {"About the Museum"}
                             </button>
                             <button
-                                onclick={nav.clone()(Route::Contact)}
+                                onclick={nav(Route::Contact)}
                                 class="rounded-md w-full md:w-1/4 bg-green-600 my-2.5 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                 {"Help the Museum"}
                             </button>
