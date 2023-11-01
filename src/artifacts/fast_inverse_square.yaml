@@ -23,4 +23,4 @@ desc: |-
   This function computes (approximates) the inverse square root of a number.
   The algorithm almost looks like magic, but it is backed by profound mathematics.
 
-  You can learn more at: https://en.wikipedia.org/wiki/Fast_inverse_square_root
+  You can learn more [at this link](https://en.wikipedia.org/wiki/Fast_inverse_square_root)

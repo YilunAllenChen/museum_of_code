@@ -36,8 +36,12 @@ html {
   }
 }
 
+.enter-exit-bottom::before {
+  transform: translateY(-100%);
+}
+
 .enter-exit-bottom {
-  animation: enter_bottom 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-property: transform;
 }
 
 @keyframes ease_in {
@@ -60,6 +64,13 @@ html {
 }
 
 /* preformatted code */
+
+pre a {
+  font-style: normal;
+  font-weight: bold;
+  color: #8888ff;
+}
+
 pre {
   white-space: pre-wrap;
 }

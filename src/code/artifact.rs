@@ -124,7 +124,7 @@ impl Component for ArticleComponent {
                             </pre>
                         </div>
                         <pre class="my-4 font-sans">
-                        {ctx.props().article.desc.clone()}
+                        {Html::from_html_unchecked(ctx.props().article.desc.clone().into())}
                         </pre>
                       </>
                     },

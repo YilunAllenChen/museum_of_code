@@ -152,6 +152,7 @@ fn main() {
             let highlighted_code = highlight(&raw_artifact.language, raw_artifact.code.as_str());
             Article {
                 code: highlighted_code,
+                desc: markdown::to_html(raw_artifact.desc.as_str()),
                 tags: tags_sorted,
                 ..raw_artifact
             }
