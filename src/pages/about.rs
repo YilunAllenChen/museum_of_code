@@ -33,8 +33,8 @@ impl Component for About {
 
         html! {
         <div class="ease-in bg-black h-full">
-            <figure class="m-4 md:mx-auto md:my-16 md:w-3/4 lg:w-1/2 lg:mx-40 pb-12 bg-slate-200 rounded-xl px-8 bg-slate-800">
-            <div class="pt-4 md:pt-6text-left divide-y divide-gray-700 space-y-8 md:space-y-12">
+            <figure class="m-4 md:mx-auto md:my-16 md:w-3/4 lg:w-1/2 pb-12 bg-slate-200 rounded-xl px-8 bg-slate-800">
+            <div class="pt-4 self-center md:pt-6text-left divide-y divide-gray-700 space-y-8 md:space-y-12">
                 <div>
                     <h1 class={title_cls}>{"What is the Museum of Code?"}</h1>
                     <p class={text_cls}>
@@ -87,7 +87,7 @@ impl Component for About {
                             your own code snippets (artifacts) to the museum!
                         "#
                     }</p>
-                    <div class="flex">
+                    <div class="flex justify-center">
                     <a class="inline-flex mt-4 text-center rounded-full bg-emerald-700 px-3.5 py-2.5 text-xs text-white shadow-sm hover:bg-emerald-500"
                         href="https://github.com/sponsors/YilunAllenChen"
                     >{"Become a Sponsor!"}</a>
@@ -112,12 +112,13 @@ impl Component for About {
                         "#}
                     </p>
                 </div>
-
-                <button
-                    onclick={nav(Route::Home)}
-                    class="rounded-md mt-10 bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white hover:bg-indigo-500">
-                    {"Home"}
-                </button>
+                <div class="flex justify-end">
+                    <button
+                        onclick={nav(Route::Home)}
+                        class="justify-self-end rounded-md mt-10 bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white hover:bg-indigo-500">
+                        {"Home"}
+                    </button>
+                </div>
             </div>
             </figure>
         </div>

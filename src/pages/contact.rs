@@ -30,27 +30,34 @@ impl Component for Contact {
 
         html! {
             <div class="ease-in bg-black h-full">
-                <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56 bg-opacity-50">
-                    <div class="text-center">
-                        <h1 class="text-4xl font-bold tracking-tight text-gray-100 sm:text-4xl">{"Be A Part of MoCo!"}</h1>
-                        <div class="p-2 mt-10 flex flex-col items-center justify-center gap-x-6">
-                            <a class="rounded-md w-1/2 bg-blue-700 px-3.5 py-2.5 text-lg text-white shadow-sm hover:bg-blue-500"
-                                href="mailto:allenchenyilun1999@gmail.com"
-                            >{"Email Me"}</a>
-                            <p class="pt-1text-gray-400 text-xs md:text-sm">{"@allenchenyilun1999@gmail.com"}</p>
+                <figure class="m-4 md:mx-auto md:my-16 md:w-3/4 lg:w-1/2 pb-12 bg-slate-200 rounded-xl px-2 md:px-8 bg-slate-800">
+                    <div class="mt-12 pt-16 self-center text-left divide-y divide-gray-500 space-y-8 md:space-y-8">
+                        <p class="text-2xl text-center md:text-4xl font-bold tracking-tight text-gray-100">{"Getting Involved"}</p>
+                        <div class="text-center px-8 divide-y divide-gray-700 space-y-8">
+                            <div class="text-center flex flex-col items-center justify-center gap-x-6">
+                                <p class="pt-1 my-4 text-gray-200 text-xs md:text-sm">{"⚒️ Want to help build the museum? Let's get in touch!"}</p>
+                                <a class="rounded-md w-1/2 bg-blue-700 px-3.5 py-2.5 text-base text-white shadow-sm hover:bg-blue-500"
+                                    href="mailto:allenchenyilun1999@gmail.com"
+                                >{"Email Us!"}</a>
+                                <p class="pt-1 text-gray-400 text-xs md:text-sm">{"@allenchenyilun1999@gmail.com"}</p>
+                            </div>
+                            <div class="flex flex-col items-center justify-center gap-x-6 mb-20">
+                                <p class="pt-1 my-4 text-gray-200 text-xs md:text-sm">{"🤝 Want to put your name/logo in the museum?"}</p>
+                                <a class="rounded-md w-1/2 bg-emerald-700 px-3.5 py-2.5 text-base text-white shadow-sm hover:bg-emerald-500"
+                                    href="https://github.com/sponsors/YilunAllenChen"
+                                >{"Sponsor Us!"}</a>
+                                <p class="pt-1 text-gray-400 text-xs md:text-sm">{"via GitHub Sponsor"}</p>
+                            </div>
+                            <div class="flex justify-end md:justify-end">
+                                <button
+                                    onclick={nav(Route::Home)}
+                                    class="mt-8 rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm text-white shadow-sm hover:bg-indigo-500">
+                                    {"Go Back"}
+                                </button>
+                            </div>
                         </div>
-                        <div class="p-2 mt-4 flex items-center justify-center gap-x-6 mb-20">
-                            <a class="rounded-md w-1/2 bg-emerald-700 px-3.5 py-2.5 text-lg text-white shadow-sm hover:bg-emerald-500"
-                                href="https://github.com/sponsors/YilunAllenChen"
-                            >{"Sponsor Us!"}</a>
-                        </div>
-                        <button
-                            onclick={nav(Route::Home)}
-                            class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm text-white shadow-sm hover:bg-indigo-500">
-                            {"Go Back"}
-                        </button>
                     </div>
-                </div>
+                </figure>
             </div>
         }
     }
