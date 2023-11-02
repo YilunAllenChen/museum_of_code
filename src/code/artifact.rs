@@ -65,10 +65,12 @@ impl Component for ArticleComponent {
         let outer_dot_class = format!("rounded-full bg-{dot_color}-500/20 p-1");
         let inner_dot_class = format!("h-1.5 w-1.5 rounded-full bg-{dot_color}-500");
         let dot_and_text = html! {
-            <div class="mt-1 flex items-center gap-x-1.5">
-              <p class="text-xs flex-none leading-5 text-gray-400">{text}</p>
-              <div class={outer_dot_class}>
-                <div class={inner_dot_class}></div>
+            <div class="">
+              <div class="items-center gap-x-1.5 flex">
+                <div class="text-xs flex-none leading-5 text-gray-400">{text}</div>
+                <div class={outer_dot_class}>
+                  <div class={inner_dot_class}/>
+                </div>
               </div>
             </div>
         };
@@ -156,7 +158,7 @@ impl Component for ArticleComponent {
                                     </div>
                                   </div>
                                 </h3>
-                                <div class="my-4 truncate">
+                                <div class="my-4 leading-8">
                                   {Html::from_html_unchecked(ctx.props().article.language.to_tag().into())}
                                   {tags.clone()}
                                 </div>
@@ -184,18 +186,20 @@ impl Component for ArticleComponent {
               >
                   <div class="flex gap-x-2 md:gap-x-4">
                     {Html::from_html_unchecked(ctx.props().article.language.icon().into())}
-                    <div class="w-full space-y-1">
-                      <div class="flex flex-auto">
-                        <p class="text-sm flex-1 leading-6 text-gray-100 w-100">{ctx.props().article.title.clone()}</p>
-                        <div class="items-end">
-                            {dot_and_text}
-                        </div>
-                      </div>
-                      <div class="flex-none max-w-1/2 overflow-hidden">
+                    <div class="w-full">
+                      <div class="space-y-1">
                         <div class="flex">
-                          <p class="truncate flex-auto">
-                          {Html::from_html_unchecked(ctx.props().article.language.to_tag().into())}{tags}
-                          </p>
+                          <p class="text-sm flex-auto leading-6 text-gray-100">{ctx.props().article.title.clone()}</p>
+                          <div class="">
+                              {dot_and_text}
+                          </div>
+                        </div>
+                        <div class="flex-none overflow-hidden">
+                          <div class="flex w-72 lg:w-96">
+                            <p class="truncate flex-auto">
+                              {Html::from_html_unchecked(ctx.props().article.language.to_tag().into())}{tags}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>

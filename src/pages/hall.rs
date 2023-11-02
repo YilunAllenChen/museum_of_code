@@ -91,19 +91,15 @@ impl Component for HallComponent {
                 html! {
                     <div class="relative z-40" aria-labelledby="modal-title" role="dialog" aria-modal="true">
                     <div class="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity"></div>
-                    <div class="fixed inset-0 z-50 w-screen overflow-y-auto" onclick={
+                    <div class="select-none fixed inset-0 z-50 w-screen overflow-y-auto" onclick={
                         ctx.link().callback(|_| HallMsg::ToggleMenu(false))
                     }>
-                      <div class="flex enter-exit-bottom min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                      <div class="flex ease-in min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                         <div class="w-full overflow-hidden rounded-lg text-left sm:max-w-2xl">
-                          <div class="bg-black px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                            <div class="md:mx-12">
-                                <div class="text-lg text-gray-300">
-                                    {"Now in: "}{hall_name.clone()}
-                                </div>
-                                <div class="text-sm text-gray-500 mb-4">
-                                    {desc}
-                                </div>
+                          <div class="bg-black px-4 py-4 md:p-8">
+                            <div class="mx-4 md:mx-12">
+                                <div class="text-lg text-center mb-4 text-gray-100"> {"🏛️ Hall Navigation"} </div>
+                                <div class="text-base text-center text-gray-500 mb-2 md:mb-6"> {"Now in: "}{hall_name.clone()} </div>
                             </div>
                             <div class="mt-3 px-6 sm:mt-0 w-full divide-y divide-gray-700 space-y-1">
                                 {page_buttons}
@@ -133,20 +129,6 @@ impl Component for HallComponent {
                 }
             }
         };
-        let menu_button = match self.menu_active {
-            true => html! {""},
-            false => html!(
-                <div class="select-none z-30 enter-exit-bottom fixed left-16 bottom-4 left-20 ">
-                <div class="flex-none rounded-full bg-cyan-500/20 p-1">
-                    <button
-                        class="w-12 h-12 bg-cyan-500 text-white rounded-full text-2xl flex items-center justify-center"
-                        onclick={ctx.link().callback(|_| HallMsg::ToggleMenu(true))}>
-                    {"🏛️"}
-                    </button>
-                </div>
-                </div>
-            ),
-        };
 
         let mut loaded_articles = built_yaml.artifacts;
         loaded_articles.sort_by(|a, b| a.language.cmp(&b.language));
@@ -164,6 +146,21 @@ impl Component for HallComponent {
                 }
             })
             .collect::<Vec<Html>>();
+
+        let menu_button = match self.menu_active {
+            true => html! {""},
+            false => html!(
+                <div class="select-none z-30 enter-exit-bottom fixed left-16 bottom-4 left-20 ">
+                <div class="flex-none rounded-full bg-cyan-500/20 p-1">
+                    <button
+                        class="w-12 h-12 bg-cyan-500 text-white rounded-full text-2xl flex items-center justify-center"
+                        onclick={ctx.link().callback(|_| HallMsg::ToggleMenu(true))}>
+                    {"🏛️"}
+                    </button>
+                </div>
+                </div>
+            ),
+        };
 
         html! {
             <>
@@ -187,9 +184,9 @@ impl Component for HallComponent {
                 </ul>
 
                 <div class="my-20 mx-12 text-center text-gray-300 space-y-4">
-                    <p>{"You've reached the end of the this hall."}</p>
+                    <p>{"You've reached the end of the this room."}</p>
                     <p>{"Hope you enjoyed your visit!"}</p>
-                    <p>{"If you want to see more, check out the other halls!"}</p>
+                    <p>{"If you want to see more, check out the other halls (🏛️)!"}</p>
                 </div>
 
                 <div class="mt-36 mb-20 text-center text-gray-600">
