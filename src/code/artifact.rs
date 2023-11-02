@@ -56,7 +56,6 @@ impl Component for ArticleComponent {
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {
-
         let (dot_color, text) = match ctx.props().article.status {
             EntryStatus::OnExhibit => ("emerald", "On Exhibit"),
             EntryStatus::StagedForExhibit => ("yellow", "Staged"),
