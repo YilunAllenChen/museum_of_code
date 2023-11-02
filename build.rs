@@ -80,6 +80,43 @@ pub fn highlight(lang: &Language, code: &str) -> String {
                     "control",
                     r"\b(if|else|match|for|while|in|return|fn|struct|enum|impl|trait|use|pub|mod|as|from|break|continue)\b",
                 ),
+                TokenType::new("bind", r"\b(let|mut)\b"),
+                TokenType::new("op", r"->|\||<-|\.\.|::|:|=|@|~|\+\+|>|<"),
+                TokenType::new("structs", r"[\[\](){}]"),
+                TokenType::new("cls", r"[A-Z]\w+"),
+            ],
+        ),
+        Language::Go => highlight_html(
+            code,
+            Regex::new(r"(\/\/.*|\n|\.|\s+|\[|\:+|\]|\(|\)|\{|\}|\w+|\S+)").unwrap(),
+            vec![
+                TokenType::new("comments", r"\/\/.*"),
+                TokenType::new(
+                    "control",
+                    r"\b(if|else|match|for|while|in|return|fn|struct|enum|impl|trait|use|pub|mod|as|from|break|continue)\b",
+                ),
+                TokenType::new(
+                    "bind",
+                    r"\b(package|import|func)\b",
+                ),
+                TokenType::new("op", r"->|\||<-|\.\.|::|:|=|@|~|\+\+|>|<"),
+                TokenType::new("structs", r"[\[\](){}]"),
+                TokenType::new("cls", r"[A-Z]\w+"),
+            ],
+        ),
+        Language::C => highlight_html(
+            code,
+            Regex::new(r"(\/\/.*|\n|\.|\s+|\[|\:+|\]|\(|\)|\{|\}|\w+|\S+)").unwrap(),
+            vec![
+                TokenType::new("comments", r"\/\/.*"),
+                TokenType::new(
+                    "control",
+                    r"\b(if|else|match|for|while|in|return|fn|struct|enum|impl|trait|use|pub|mod|as|from|break|continue)\b",
+                ),
+                TokenType::new(
+                    "bind",
+                    r"\b(float|long|const|int)\b",
+                ),
                 TokenType::new("op", r"->|\||<-|\.\.|::|:|=|@|~|\+\+|>|<"),
                 TokenType::new("structs", r"[\[\](){}]"),
                 TokenType::new("cls", r"[A-Z]\w+"),

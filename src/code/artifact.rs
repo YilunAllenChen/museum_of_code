@@ -129,7 +129,7 @@ impl Component for ArticleComponent {
                 let x = html! {
                   <button
                     type="button"
-                    class="inline-flex w-full justify-center rounded-md bg-red-200 p-1 text-sm font-semibold text-black shadow-sm hover:bg-red-500"
+                    class="inline-flex w-full justify-center rounded-md bg-red-200 p-2 text-sm font-semibold text-black shadow-sm hover:bg-red-500"
                     onclick={ctx.link().callback(|_| ArticleMsg::Toggle(false))}
                   >
                     {"❌"}
@@ -143,7 +143,7 @@ impl Component for ArticleComponent {
                     ></div>
                     <div class="inset-0 z-10 w-100 overflow-y-auto">
                       <div class="flex items-end justify-center text-center sm:items-center sm:p-0">
-                        <div class="enter-unfold overflow-x-hidden relative transform overflow-hidden rounded-lg text-left shadow-xl transition-all w-full">
+                        <div class="ease-in overflow-x-hidden relative transform overflow-hidden rounded-lg text-left shadow-xl transition-all w-full">
                           <div class="bg-black px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                             <div class="justify-between">
                               <div class="mt-3 sm:ml-4 sm:mt-0 text-left">

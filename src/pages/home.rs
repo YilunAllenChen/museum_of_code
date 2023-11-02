@@ -55,7 +55,7 @@ impl Component for Home {
                             </button>
                         </div>
                     </div>
-                    <div class="bg-gray-800 lg:pl-20 text-gray-300 p-4 md:py-8 mb-8 rounded-md justify-left items-left">
+                    <div class="bg-gray-800 md:p-12 mx-auto max-w-xl text-gray-300 p-4 md:py-8 mb-8 rounded-md justify-left items-left">
                         <div class="mx-auto text-sm md:text-lg font-mono text-center w-3/4 py-2 bg-gray-700 ring ring-8 ring-gray-800 rounded relative -top-8 md:-top-12 text-gray-300">{"⭐ Featured Artifact ⭐"}</div>
                         <pre>
                             {formatted_haskell}

@@ -3,21 +3,6 @@ html {
   background-color: black;
 }
 
-/* animations */
-@keyframes unfold {
-  from {
-    width: 50%;
-  }
-
-  to {
-    width: 100%;
-  }
-}
-
-.enter-unfold {
-  animation: unfold 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  animation-delay: 0.1s;
-}
 
 @keyframes enter_bottom {
   from {
@@ -29,7 +14,7 @@ html {
   }
 }
 
-.enter-exit-bottom {
+.animate-enter-bottom {
   animation: enter_bottom 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
@@ -73,8 +58,12 @@ pre {
   white-space: pre-wrap;
 }
 
+.num {
+  color: #ff9e64
+}
+
 .cls {
-  color: #00eeee;
+  color: #f7768e;
 }
 
 .op {
@@ -82,16 +71,19 @@ pre {
 }
 
 .var {
-  color: #8888ff;
+  color: #7dcfff;
 }
 
 .str {
-  color: #337733;
+  color: #9ece6a;
 }
 
-.bind,
+.bind {
+  color: #bb9af7;
+}
+
 .control {
-  color: #aa55ff;
+  color: #bb9af7;
   font-weight: bold;
 }
 

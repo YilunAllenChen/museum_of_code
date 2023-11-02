@@ -49,7 +49,7 @@ impl Component for Nav {
     fn view(&self, ctx: &Context<Self>) -> Html {
         if !self.show_sidebar {
             html! {
-                <div class="select-none z-30 enter-exit-bottom fixed left-2 bottom-4 left-4">
+                <div class="select-none z-30 animate-enter-bottom fixed left-2 bottom-4 left-4">
                 <div class="flex-none rounded-full bg-blue-500/20 p-1">
                   <button
                       class="w-12 h-12 bg-blue-700 text-white rounded-full flex items-center text-2xl justify-center"

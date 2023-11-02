@@ -150,7 +150,7 @@ impl Component for HallComponent {
         let menu_button = match self.menu_active {
             true => html! {""},
             false => html!(
-                <div class="select-none z-30 enter-exit-bottom fixed left-16 bottom-4 left-20 ">
+                <div class="select-none z-30 animate-enter-bottom fixed left-16 bottom-4 left-20 ">
                 <div class="flex-none rounded-full bg-cyan-500/20 p-1">
                     <button
                         class="w-12 h-12 bg-cyan-500 text-white rounded-full text-2xl flex items-center justify-center"
