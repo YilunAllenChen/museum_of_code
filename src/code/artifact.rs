@@ -56,37 +56,21 @@ impl Component for ArticleComponent {
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {
-        let dot_and_text = match ctx.props().article.status {
-            EntryStatus::OnExhibit => {
-                html! {
-                    <div class="mt-1 flex items-center gap-x-1.5">
-                      <p class="text-xs leading-5 text-gray-200">{"On Exhibit"}</p>
-                      <div class="flex-none rounded-full bg-emerald-500/20 p-1">
-                        <div class="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
-                      </div>
-                    </div>
-                }
-            }
-            EntryStatus::StagedForExhibit => {
-                html! {
-                    <div class="mt-1 flex items-center gap-x-1.5">
-                      <p class="text-xs leading-5 text-gray-200">{"Staged"}</p>
-                      <div class="flex-none rounded-full bg-yellow-500/20 p-1">
-                        <div class="h-1.5 w-1.5 rounded-full bg-yellow-500"></div>
-                      </div>
-                    </div>
-                }
-            }
-            EntryStatus::Maintenance => {
-                html! {
-                    <div class="mt-1 flex items-center gap-x-1.5">
-                      <p class="text-xs leading-5 text-gray-200">{"Maintenance"}</p>
-                      <div class="flex-none rounded-full bg-red-500/20 p-1">
-                        <div class="h-1.5 w-1.5 rounded-full bg-red-500"></div>
-                      </div>
-                    </div>
-                }
-            }
+
+        let (dot_color, text) = match ctx.props().article.status {
+            EntryStatus::OnExhibit => ("emerald", "On Exhibit"),
+            EntryStatus::StagedForExhibit => ("yellow", "Staged"),
+            EntryStatus::Maintenance => ("red", "Maintenance"),
+        };
+        let outer_dot_class = format!("rounded-full bg-{dot_color}-500/20 p-1");
+        let inner_dot_class = format!("h-1.5 w-1.5 rounded-full bg-{dot_color}-500");
+        let dot_and_text = html! {
+            <div class="mt-1 flex items-center gap-x-1.5">
+              <p class="text-xs flex-none leading-5 text-gray-400">{text}</p>
+              <div class={outer_dot_class}>
+                <div class={inner_dot_class}></div>
+              </div>
+            </div>
         };
 
         let tags: Html = ctx
@@ -195,21 +179,26 @@ impl Component for ArticleComponent {
             <>
               <li
                   id={ctx.props().article.title.clone()}
-                  class="flex justify-between gap-x-6 py-5"
+                  class="py-5 w-full"
                   onclick={ctx.link().callback(|_| ArticleMsg::Toggle(true))}
               >
-                  <div class="flex min-w-0 gap-x-4">
-                      {Html::from_html_unchecked(ctx.props().article.language.icon().into())}
-                      <div class="min-w-0 flex-auto">
-                      <p class="text-sm leading-6 text-gray-100">{ctx.props().article.title.clone()}</p>
-                      <p class="mt-1 truncate text-xs leading-5 text-gray-300">
-                      {Html::from_html_unchecked(ctx.props().article.language.to_tag().into())}
-                      {tags}
-                      </p>
+                  <div class="flex gap-x-2 md:gap-x-4">
+                    {Html::from_html_unchecked(ctx.props().article.language.icon().into())}
+                    <div class="w-full space-y-1">
+                      <div class="flex flex-auto">
+                        <p class="text-sm flex-1 leading-6 text-gray-100 w-100">{ctx.props().article.title.clone()}</p>
+                        <div class="items-end">
+                            {dot_and_text}
+                        </div>
                       </div>
-                  </div>
-                  <div class="shrink-0 flex flex-col items-end">
-                      {dot_and_text}
+                      <div class="flex-none max-w-1/2 overflow-hidden">
+                        <div class="flex">
+                          <p class="truncate flex-auto">
+                          {Html::from_html_unchecked(ctx.props().article.language.to_tag().into())}{tags}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
               </li>
               {rendered}

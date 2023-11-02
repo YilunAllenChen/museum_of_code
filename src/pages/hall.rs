@@ -14,7 +14,7 @@ pub struct HallComponent {
 pub struct HallProps {}
 
 pub enum HallMsg {
-    ToggleMenu,
+    ToggleMenu(bool),
     GoToHall(Option<ExhibitionHall>),
 }
 
@@ -37,8 +37,8 @@ impl Component for HallComponent {
 
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
-            HallMsg::ToggleMenu => {
-                self.menu_active = !self.menu_active;
+            HallMsg::ToggleMenu(act) => {
+                self.menu_active = act;
                 true
             }
             HallMsg::GoToHall(hall) => {
@@ -79,7 +79,7 @@ impl Component for HallComponent {
                     let hall_name = hall.to_string();
                     html! {
                         <button
-                            class="block w-full text-left md:pl-8 py-2 text:base md:text-xl text-gray-400"
+                            class="block w-full text-left md:pl-8 py-2 text:base md:text-xl text-gray-400 hover:text-gray-200 hover:font-semibold"
                             role="menuitem"
                             onclick={ctx.link().callback(move |_| HallMsg::GoToHall(Some(hall.clone())))}
                         >
@@ -91,7 +91,9 @@ impl Component for HallComponent {
                 html! {
                     <div class="relative z-40" aria-labelledby="modal-title" role="dialog" aria-modal="true">
                     <div class="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity"></div>
-                    <div class="fixed inset-0 z-50 w-screen overflow-y-auto">
+                    <div class="fixed inset-0 z-50 w-screen overflow-y-auto" onclick={
+                        ctx.link().callback(|_| HallMsg::ToggleMenu(false))
+                    }>
                       <div class="flex enter-exit-bottom min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                         <div class="w-full overflow-hidden rounded-lg text-left sm:max-w-2xl">
                           <div class="bg-black px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
@@ -103,7 +105,7 @@ impl Component for HallComponent {
                                     {desc}
                                 </div>
                             </div>
-                            <div class="mt-3 sm:mt-0 w-full divide-y divide-gray-700 space-y-1">
+                            <div class="mt-3 px-6 sm:mt-0 w-full divide-y divide-gray-700 space-y-1">
                                 {page_buttons}
                             </div>
 
@@ -118,7 +120,7 @@ impl Component for HallComponent {
                                 <button
                                     type="button"
                                     class="text-center mt-4 md:mb-4 w-full rounded-md bg-red-100 px-3 py-2 text-sm text-black hover:bg-red-500"
-                                    onclick={ctx.link().callback(|_| HallMsg::ToggleMenu)}
+                                    onclick={ctx.link().callback(|_| HallMsg::ToggleMenu(false))}
                                     >
                                 {"❌"}
                                 </button>
@@ -130,6 +132,20 @@ impl Component for HallComponent {
                   </div>
                 }
             }
+        };
+        let menu_button = match self.menu_active {
+            true => html! {""},
+            false => html!(
+                <div class="select-none z-30 enter-exit-bottom fixed left-16 bottom-4 left-20 ">
+                <div class="flex-none rounded-full bg-cyan-500/20 p-1">
+                    <button
+                        class="w-12 h-12 bg-cyan-500 text-white rounded-full text-2xl flex items-center justify-center"
+                        onclick={ctx.link().callback(|_| HallMsg::ToggleMenu(true))}>
+                    {"🏛️"}
+                    </button>
+                </div>
+                </div>
+            ),
         };
 
         let mut loaded_articles = built_yaml.artifacts;
@@ -149,28 +165,13 @@ impl Component for HallComponent {
             })
             .collect::<Vec<Html>>();
 
-        let menu_button = match self.menu_active {
-            true => html! {""},
-            false => html!(
-                <div class="select-none z-30 enter-exit-bottom fixed bottom-1 left-16 md:bottom-4 md:left-20 ">
-                <div class="flex-none rounded-full bg-cyan-500/20 p-1">
-                    <button
-                        class="w-12 h-12 bg-cyan-500 text-white rounded-full text-xl flex items-center justify-center"
-                        onclick={ctx.link().callback(|_| HallMsg::ToggleMenu)}>
-                    {"🏛️"}
-                    </button>
-                </div>
-                </div>
-            ),
-        };
-
         html! {
             <>
             {menu}
             {menu_button}
 
             // menu block for mobile devices
-            <div class="z-10 fixed w-full h-16 bottom-0 bg-black/80 md:hidden"/>
+            <div class="z-10 fixed w-full h-20 bottom-0 bg-black/80 md:hidden"/>
 
             <div class="ease-in bg-black h-full">
                 <div id={HALLROOT} class="text-center">
@@ -186,7 +187,7 @@ impl Component for HallComponent {
                 </ul>
 
                 <div class="my-20 mx-12 text-center text-gray-300 space-y-4">
-                    <p>{"You've reached the end of the this room."}</p>
+                    <p>{"You've reached the end of the this hall."}</p>
                     <p>{"Hope you enjoyed your visit!"}</p>
                     <p>{"If you want to see more, check out the other halls!"}</p>
                 </div>

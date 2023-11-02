@@ -30,7 +30,7 @@ impl Component for Contact {
 
         html! {
             <div class="ease-in bg-black h-full">
-                <figure class="m-4 md:mx-auto md:my-16 md:w-3/4 lg:w-1/2 pb-12 bg-slate-200 rounded-xl px-2 md:px-8 bg-slate-800">
+                <figure class="m-4 md:mx-auto md:my-16 md:w-3/4 lg:w-1/2 pb-12 bg-slate-800 rounded-xl px-2 md:px-8 bg-slate-800">
                     <div class="mt-12 pt-16 self-center text-left divide-y divide-gray-500 space-y-8 md:space-y-8">
                         <p class="text-2xl text-center md:text-4xl font-bold tracking-tight text-gray-100">{"Getting Involved"}</p>
                         <div class="text-center px-8 divide-y divide-gray-700 space-y-8">

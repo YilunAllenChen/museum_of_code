@@ -28,12 +28,12 @@ impl Component for About {
         let navigator = ctx.link().navigator().unwrap();
         let nav = |page| Callback::from(move |_| navigator.push(&page));
 
-        let title_cls = "text-lg md:text-xl lg:text-4xl py-4 font-semibold text-gray-100";
+        let title_cls = "text-lg md:text-xl lg:text-2xl py-4 font-semibold text-gray-100";
         let text_cls = "py-2 text-gray-300 text-sm md:text-base leading-relaxed";
 
         html! {
         <div class="ease-in bg-black h-full">
-            <figure class="m-4 md:mx-auto md:my-16 md:w-3/4 lg:w-1/2 pb-12 bg-slate-200 rounded-xl px-8 bg-slate-800">
+            <figure class="m-4 md:mx-auto md:my-16 md:w-3/4 lg:w-1/2 pb-12 bg-slate-800 rounded-xl px-8 bg-slate-800">
             <div class="pt-4 self-center md:pt-6text-left divide-y divide-gray-700 space-y-8 md:space-y-12">
                 <div>
                     <h1 class={title_cls}>{"What is the Museum of Code?"}</h1>
