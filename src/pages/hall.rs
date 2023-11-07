@@ -106,6 +106,22 @@ impl Component for HallComponent {
             })
             .collect::<Vec<Html>>();
 
+        let tips = match articles.len() {
+            0 => html! {
+                <div class="my-20 mx-12 text-center text-gray-300 space-y-4">
+                    <p>{"This room seems to be empty 🤔..."}</p>
+                    <p>{"Did you forget to clear your filter (🏷️)?"}</p>
+                </div>
+            },
+            _ => html! {
+                <div class="my-20 mx-12 text-center text-gray-300 space-y-4">
+                    <p>{"You've reached the end of the this room."}</p>
+                    <p>{"Hope you enjoyed your visit!"}</p>
+                    <p>{"If you want to see more, check out the other halls (🏛️)!"}</p>
+                </div>
+            },
+        };
+
         let emitter = ctx.link().clone();
         let nav_cb = Callback::from(move |msg| emitter.send_message(msg));
 
@@ -169,11 +185,7 @@ impl Component for HallComponent {
                     {articles}
                 </ul>
 
-                <div class="my-20 mx-12 text-center text-gray-300 space-y-4">
-                    <p>{"You've reached the end of the this room."}</p>
-                    <p>{"Hope you enjoyed your visit!"}</p>
-                    <p>{"If you want to see more, check out the other halls (🏛️)!"}</p>
-                </div>
+                {tips}
 
                 <div class="mt-36 mb-20 text-center text-gray-600">
                 {"Museum of Code © 2023, All Rights Reserved"}
