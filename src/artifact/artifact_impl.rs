@@ -2,7 +2,8 @@ use yew::prelude::*;
 
 use crate::{
     artifact::artifact_model::EntryStatus,
-    html_utils::{make_tag, scroll::try_scroll_to},
+    html_utils::{render_text_tag, scroll::try_scroll_to},
+    pages::HallMsg,
 };
 
 use super::artifact_model::Article;
@@ -17,9 +18,10 @@ pub enum ArticleMsg {
     Toggle(bool),
 }
 
-#[derive(Properties, Deserialize, Debug)]
+#[derive(Properties, Debug)]
 pub struct ArticleProps {
     pub article: Article,
+    pub hall_cb: Callback<HallMsg>,
 }
 
 impl PartialEq for ArticleProps {
@@ -78,27 +80,43 @@ impl Component for ArticleComponent {
             .props()
             .article
             .tags
-            .iter()
+            .clone()
+            .into_iter()
             .map(|tag| {
-                Html::from_html_unchecked(
-                    make_tag(
-                        tag,
-                        match tag.as_str() {
-                            "ADT" => "green",
-                            "Recursion" => "yellow",
-                            "Sorting" => "blue",
-                            "Graph" => "purple",
-                            "Math" => "sky",
-                            "Concurrency" => "cyan",
-                            "OS" | "Dangerous" | "Bare Metal" => "red",
-                            _ => "gray",
-                        },
-                    )
-                    .into(),
-                )
+                let tag_clone = tag.clone();
+                let emitter = ctx.props().hall_cb.clone();
+                html! {
+                <span
+                    class="pointer-events-auto"
+                    onclick={move |e: MouseEvent| {
+                        e.stop_propagation();
+                        emitter.emit(HallMsg::ToggleTag(tag_clone.clone()))}}
+                >
+                    {Html::from_html_unchecked(
+                        render_text_tag(&tag).into()
+                    )}
+                </span>
+                }
             })
             .collect();
 
+        let emitter = ctx.props().hall_cb.clone();
+        let language_clone = ctx.props().article.language.clone();
+        let language_tag = html! {
+          <span
+            class="pointer-events-auto"
+            onclick={move |e: MouseEvent| {
+                e.stop_propagation();
+                emitter.emit(HallMsg::ToggleTag(language_clone.to_string().into()))
+            }}
+          >
+            {Html::from_html_unchecked(
+                ctx.props().article.language.to_tag().into()
+            )}
+          </span>
+        };
+
+        // actual article
         let rendered = match self.show {
             true => {
                 let content = match ctx.props().article.status {
@@ -196,7 +214,8 @@ impl Component for ArticleComponent {
                         <div class="flex-none overflow-hidden">
                           <div class="flex w-72 lg:w-96">
                             <p class="truncate flex-auto">
-                              {Html::from_html_unchecked(ctx.props().article.language.to_tag().into())}{tags}
+                                {language_tag}
+                                {tags}
                             </p>
                           </div>
                         </div>

@@ -9,7 +9,7 @@ pub use wip::Wip;
 
 mod hall;
 mod hall_components;
-pub use hall::HallComponent;
+pub use hall::{HallComponent, HallMsg};
 
 mod nav;
 pub use nav::Nav;

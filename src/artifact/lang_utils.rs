@@ -1,5 +1,5 @@
 use super::Language;
-use crate::html_utils::make_tag;
+use crate::html_utils::render_text_tag;
 
 impl PartialOrd for Language {
     fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
@@ -14,6 +14,19 @@ impl Ord for Language {
 }
 
 impl Language {
+    pub fn to_string(&self) -> String {
+        match self {
+            Language::Haskell => "Haskell".to_string(),
+            Language::Rust => "Rust".to_string(),
+            Language::Python => "Python".to_string(),
+            Language::Go => "Go".to_string(),
+            Language::C => "C".to_string(),
+            Language::OCaml => "OCaml".to_string(),
+            Language::Bash => "Bash".to_string(),
+            Language::Clojure => "Clojure".to_string(),
+        }
+    }
+
     pub fn icon(&self) -> &'static str {
         // https://devicon.dev/
         match self {
@@ -39,16 +52,7 @@ impl Language {
     }
 
     pub fn to_tag(&self) -> String {
-        match self {
-            Language::Haskell => make_tag("Haskell", "purple"),
-            Language::Rust => make_tag("Rust", "orange"),
-            Language::Python => make_tag("Python", "yellow"),
-            Language::Go => make_tag("Go", "cyan"),
-            Language::C => make_tag("C", "gray"),
-            Language::OCaml => make_tag("OCaml", "blue"),
-            Language::Bash => make_tag("Bash", "green"),
-            Language::Clojure => make_tag("Clojure", "purple"),
-        }
+        render_text_tag(&self.to_string())
     }
 }
 

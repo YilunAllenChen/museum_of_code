@@ -1,12 +1,14 @@
 use yew::prelude::*;
 
 use crate::artifact::{ArticleComponent, BuiltYaml, ExhibitionHall};
+use crate::html_utils::render_text_tag;
 use crate::html_utils::scroll::try_scroll_to;
 use crate::pages::hall_components::HallNav;
 
 pub struct HallComponent {
     active_hall: Option<ExhibitionHall>,
     menu_active: bool,
+    filter_tags: Vec<String>,
 }
 
 #[derive(Properties, PartialEq)]
@@ -14,6 +16,8 @@ pub struct HallProps {}
 
 pub enum HallMsg {
     GoToHall(Option<ExhibitionHall>),
+    ToggleTag(String),
+    ClearTags,
 }
 
 static HALLROOT: &str = "hall_entrance";
@@ -26,6 +30,7 @@ impl Component for HallComponent {
         Self {
             active_hall: None,
             menu_active: false,
+            filter_tags: vec![],
         }
     }
 
@@ -38,6 +43,20 @@ impl Component for HallComponent {
             HallMsg::GoToHall(hall) => {
                 self.active_hall = hall;
                 self.menu_active = false;
+                try_scroll_to(HALLROOT);
+                true
+            }
+            HallMsg::ToggleTag(tag) => {
+                if self.filter_tags.contains(&tag) {
+                    self.filter_tags.retain(|t| t != &tag);
+                } else {
+                    self.filter_tags.push(tag);
+                }
+                try_scroll_to(HALLROOT);
+                true
+            }
+            HallMsg::ClearTags => {
+                self.filter_tags = vec![];
                 try_scroll_to(HALLROOT);
                 true
             }
@@ -55,7 +74,7 @@ impl Component for HallComponent {
         };
         let desc = match &self.active_hall {
             Some(hall) => hall.desc(),
-            None => "You're currently viewing all available artifacts. Select a hall (🏛️) at bottom left to view its artifacts.",
+            None => "You're currently viewing all artifacts. Select a hall (🏛️), or click on the tags to filter the artifacts."
         };
 
         let mut loaded_articles = built_yaml.artifacts;
@@ -68,9 +87,21 @@ impl Component for HallComponent {
                 (_, None) => true,
                 (None, _) => false,
             })
+            .filter(|article| match &self.filter_tags.len() {
+                0 => true,
+                _ => {
+                    let mut article_tags = article.tags.clone();
+                    article_tags.push(article.language.to_string());
+                    self.filter_tags
+                        .iter()
+                        .all(|tag| article_tags.contains(tag))
+                }
+            })
             .map(|article| {
+                let emitter = ctx.link().clone();
+                let hall_cb = Callback::from(move |msg| emitter.send_message(msg));
                 html! {
-                    <ArticleComponent article={article}/>
+                    <ArticleComponent {hall_cb}  article={article}/>
                 }
             })
             .collect::<Vec<Html>>();
@@ -78,12 +109,52 @@ impl Component for HallComponent {
         let emitter = ctx.link().clone();
         let nav_cb = Callback::from(move |msg| emitter.send_message(msg));
 
+        let clear_filter_button = match self.filter_tags.len() {
+            0 => html! {},
+            _ => {
+                let clear_individual_tags = self
+                    .filter_tags
+                    .iter()
+                    .map(|tag| {
+                        let tagc= tag.clone();
+                        html! {
+                            <div
+                                onclick={ctx.link().callback(move |_| HallMsg::ToggleTag(tagc.clone()))}
+                            >
+                            {
+                                Html::from_html_unchecked(
+                                    render_text_tag(&tag).into()
+                                )
+                            }
+                            </div>
+                        }
+                    })
+                    .collect::<Html>();
+                html! {
+                    <div class="select-none z-30 animate-enter-bottom fixed left-36 bottom-4">
+                    <div class="flex gap-x-2">
+                        <div class="flex-none rounded-full bg-indigo-500/20 p-1">
+                            <button
+                                class="w-12 h-12 bg-indigo-500 text-white rounded-full text-2xl flex items-center justify-center"
+                                onclick={ctx.link().callback(|_| HallMsg::ClearTags)}>
+                            {"🏷️"}
+                            </button>
+                        </div>
+                        <div class="grid grid-rows-2 grid-flow-col gap-0">
+                            {clear_individual_tags}
+                        </div>
+                    </div>
+                    </div>
+                }
+            }
+        };
+
         html! {
             <>
             <HallNav active_hall_name={hall_name.clone()} hall_cb={nav_cb}/>
+            {clear_filter_button}
 
-            // menu block for mobile devices
-            <div class="z-10 fixed w-full h-20 bottom-0 bg-black/80 md:hidden"/>
+            <div class="z-10 fixed w-full h-20 bottom-0 bg-black/80"/>
 
             <div class="ease-in bg-black h-full">
                 <div id={HALLROOT} class="text-center">

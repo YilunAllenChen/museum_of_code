@@ -1,4 +1,3 @@
-use log::info;
 use yew::prelude::*;
 use yew_router::scope_ext::RouterScopeExt;
 
@@ -33,7 +32,6 @@ impl Component for Nav {
     fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::ToggleSidebar(show) => {
-                info!("Sidebar toggled: {}", show);
                 self.show_sidebar = show;
                 true
             }
