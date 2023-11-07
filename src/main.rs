@@ -4,7 +4,7 @@ use log::info;
 use yew::prelude::*;
 use yew_router::prelude::*;
 
-mod code;
+mod artifact;
 mod html_utils;
 mod pages;
 use pages::{Contact, HallComponent, Home, Nav, Wip};

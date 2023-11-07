@@ -3,7 +3,7 @@ use std::path::Path;
 extern crate regex;
 use regex::Regex;
 
-include!("src/code/artifact_model.rs");
+include!("src/artifact/artifact_model.rs");
 
 pub struct TokenType {
     name: &'static str,
@@ -95,10 +95,7 @@ pub fn highlight(lang: &Language, code: &str) -> String {
                     "control",
                     r"\b(if|else|match|for|while|in|return|fn|struct|enum|impl|trait|use|pub|mod|as|from|break|continue)\b",
                 ),
-                TokenType::new(
-                    "bind",
-                    r"\b(package|import|func)\b",
-                ),
+                TokenType::new("bind", r"\b(package|import|func)\b"),
                 TokenType::new("op", r"->|\||<-|\.\.|::|:|=|@|~|\+\+|>|<"),
                 TokenType::new("structs", r"[\[\](){}]"),
                 TokenType::new("cls", r"[A-Z]\w+"),
@@ -113,10 +110,7 @@ pub fn highlight(lang: &Language, code: &str) -> String {
                     "control",
                     r"\b(if|else|match|for|while|in|return|fn|struct|enum|impl|trait|use|pub|mod|as|from|break|continue)\b",
                 ),
-                TokenType::new(
-                    "bind",
-                    r"\b(float|long|const|int)\b",
-                ),
+                TokenType::new("bind", r"\b(float|long|const|int)\b"),
                 TokenType::new("op", r"->|\||<-|\.\.|::|:|=|@|~|\+\+|>|<"),
                 TokenType::new("structs", r"[\[\](){}]"),
                 TokenType::new("cls", r"[A-Z]\w+"),

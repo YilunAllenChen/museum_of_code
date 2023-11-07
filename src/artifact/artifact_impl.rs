@@ -1,7 +1,7 @@
 use yew::prelude::*;
 
 use crate::{
-    code::artifact_model::EntryStatus,
+    artifact::artifact_model::EntryStatus,
     html_utils::{make_tag, scroll::try_scroll_to},
 };
 
