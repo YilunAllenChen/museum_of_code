@@ -139,7 +139,7 @@ impl Component for HallComponent {
                             >
                             {
                                 Html::from_html_unchecked(
-                                    render_text_tag(&tag).into()
+                                    render_text_tag(tag).into()
                                 )
                             }
                             </div>

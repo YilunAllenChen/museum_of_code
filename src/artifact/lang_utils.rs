@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use super::Language;
 use crate::html_utils::render_text_tag;
 
@@ -13,20 +15,23 @@ impl Ord for Language {
     }
 }
 
-impl Language {
-    pub fn to_string(&self) -> String {
-        match self {
-            Language::Haskell => "Haskell".to_string(),
-            Language::Rust => "Rust".to_string(),
-            Language::Python => "Python".to_string(),
-            Language::Go => "Go".to_string(),
-            Language::C => "C".to_string(),
-            Language::OCaml => "OCaml".to_string(),
-            Language::Bash => "Bash".to_string(),
-            Language::Clojure => "Clojure".to_string(),
-        }
+impl Display for Language {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let lan_str = match self {
+            Language::Haskell => "Haskell",
+            Language::Rust => "Rust",
+            Language::Python => "Python",
+            Language::Go => "Go",
+            Language::C => "C",
+            Language::OCaml => "OCaml",
+            Language::Bash => "Bash",
+            Language::Clojure => "Clojure",
+        };
+        write!(f, "{}", lan_str)
     }
+}
 
+impl Language {
     pub fn icon(&self) -> &'static str {
         // https://devicon.dev/
         match self {
