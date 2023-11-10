@@ -4,14 +4,26 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, PartialEq, Debug, Deserialize, Serialize, Eq)]
 pub enum Language {
-    Haskell,
-    Rust,
-    Python,
-    Go,
-    C,
-    OCaml,
     Bash,
+    C,
     Clojure,
+    Elixir,
+    Elm,
+    Go,
+    Haskell,
+    Java,
+    JavaScript,
+    Kotlin,
+    Swift,
+    Scala,
+    Erlang,
+    Lua,
+    Julia,
+    Zig,
+    Python,
+    OCaml,
+    Rust,
+    Ruby,
 }
 
 #[derive(Deserialize, Debug, Serialize)]
@@ -98,6 +110,12 @@ pub struct Article {
     pub code: String,
     pub desc: String,
     pub hall: Option<ExhibitionHall>,
+}
+
+impl Article {
+    pub fn id(&self) -> String {
+        format!("{:?} : {}", self.language, self.title)
+    }
 }
 
 #[derive(Debug, Serialize, Deserialize)]

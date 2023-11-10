@@ -1,0 +1,19 @@
+title: Hello World!
+language: Lua
+status: OnExhibit
+hall: HallOfHelloWorld
+tags: []
+code: |-
+  print("Hello World!")
+desc: |-
+  Lua is a lightweight, multi-paradigm programming language
+  designed primarily for embedded use in applications. It is
+  cross-platform, and is designed to be extensible and
+  embeddable.
+
+  It is arguably the fastest scripting language in the world,
+  and has a very small set of reserved keywords, making it
+  easy to learn.
+
+  You can find Lua in many places, including the World of Warcraft
+  game engine, the Roblox game engine, and the Redis database.

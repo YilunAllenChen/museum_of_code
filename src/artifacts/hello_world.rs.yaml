@@ -1,0 +1,19 @@
+title: Hello World!
+language: Rust
+status: OnExhibit
+hall: HallOfHelloWorld
+tags: []
+code: |-
+  fn main() {
+      println!("Hello World!");
+  }
+desc: |-
+  Ranked the most loved language by StackOverflow users for the past 6 years
+  in a row, Rust is a systems programming language that is designed to be
+  safe, blazingly fast, productive and still maintain the low-level control
+  that C and C++ provide.
+
+  Inspired by the likes of Haskell and ML, Rust also has a powerful type system
+  and supports functional programming paradigms. Although it is a relatively
+  young language, it has already been used in production by many companies, and
+  even in the Linux kernel itself.

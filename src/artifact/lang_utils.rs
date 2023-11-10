@@ -26,34 +26,36 @@ impl Display for Language {
             Language::OCaml => "OCaml",
             Language::Bash => "Bash",
             Language::Clojure => "Clojure",
+            Language::Elixir => "Elixir",
+            Language::Elm => "Elm",
+            Language::Java => "Java",
+            Language::JavaScript => "JavaScript",
+            Language::Ruby => "Ruby",
+            Language::Kotlin => "Kotlin",
+            Language::Swift => "Swift",
+            Language::Scala => "Scala",
+            Language::Erlang => "Erlang",
+            Language::Lua => "Lua",
+            Language::Julia => "Julia",
+            Language::Zig => "Zig",
         };
         write!(f, "{}", lan_str)
     }
 }
 
 impl Language {
-    pub fn icon(&self) -> &'static str {
+    pub fn icon(&self) -> String {
         // https://devicon.dev/
-        match self {
-            Language::Haskell => {
-                r#"<i class="devicon-haskell-plain colored" style="font-size: 3rem"></i>"#
-            }
-            Language::Rust => r#"<i class="devicon-rust-plain" style="font-size: 3rem"></i>"#,
-            Language::Python => {
-                r#"<i class="devicon-python-plain colored" style="font-size: 3rem"></i>"#
-            }
-            Language::Go => r#"<i class="devicon-go-plain colored" style="font-size: 3rem"></i>"#,
-            Language::C => r#"<i class="devicon-c-plain colored" style="font-size: 3rem"></i>"#,
-            Language::OCaml => {
-                r#"<i class="devicon-ocaml-plain colored" style="font-size: 3rem"></i>"#
-            }
-            Language::Bash => {
-                r#"<i class="devicon-bash-plain colored" style="font-size: 3rem"></i>"#
-            }
-            Language::Clojure => {
-                r#"<i class="devicon-clojure-plain colored" style="font-size: 3rem"></i>"#
-            }
-        }
+        let colored = match self {
+            Language::Rust => "",
+            _ => "colored",
+        };
+        let lang_lower = format!("{:?}", self).to_lowercase();
+
+        format!(
+            r#"<i class="devicon-{}-plain {}" style="font-size: 3rem"></i>"#,
+            lang_lower, colored
+        )
     }
 
     pub fn to_tag(&self) -> String {

@@ -1,0 +1,15 @@
+title: Hello World!
+language: Ruby
+status: OnExhibit
+hall: HallOfHelloWorld
+tags: []
+code: |-
+  puts "Hello World!"
+desc: |-
+  Ruby is a dynamic, reflective, object-oriented, general-purpose
+  programming language. It was designed around developer productivity
+  and happiness, and has a clean and expressive syntax that is easy
+  to read and write.
+
+  Like Python, Ruby is a great language for beginners, and is still
+  used by many professional developers today.

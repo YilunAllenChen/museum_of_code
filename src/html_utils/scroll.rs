@@ -1,5 +1,6 @@
 use web_sys::{window, ScrollBehavior, ScrollIntoViewOptions};
 
+/// Try to to the element with the given id.
 pub fn try_scroll_to(id: &str) {
     match window() {
         Some(window) => {

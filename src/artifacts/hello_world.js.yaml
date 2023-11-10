@@ -1,0 +1,17 @@
+title: Hello World
+language: JavaScript
+status: OnExhibit
+hall: HallOfHelloWorld
+tags: []
+code: |-
+  console.log("Hello World!");
+desc: |-
+  The modern internet would not be possible without JavaScript.
+  It is the language of the web, and is used to make web pages
+  interactive and dynamic.
+
+  You'll find it surprising that JavaScript was originally
+  designed in just 10 days, and was originally intended to be
+  a simple scripting language for web pages. Today, it is
+  a developer favorite, and its reach extends far beyond
+  the web browser.

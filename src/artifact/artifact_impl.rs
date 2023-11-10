@@ -49,7 +49,7 @@ impl Component for ArticleComponent {
 
                 // Scroll to the article if it is toggled on
                 if tf {
-                    let article_id = ctx.props().article.title.clone();
+                    let article_id = ctx.props().article.id();
                     try_scroll_to(&article_id);
                 }
                 true
@@ -197,7 +197,7 @@ impl Component for ArticleComponent {
         html! {
             <>
               <li
-                  id={ctx.props().article.title.clone()}
+                  id={ctx.props().article.id()}
                   class="py-5 w-full"
                   onclick={ctx.link().callback(|_| ArticleMsg::Toggle(true))}
               >

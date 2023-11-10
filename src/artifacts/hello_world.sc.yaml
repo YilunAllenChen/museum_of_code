@@ -1,0 +1,16 @@
+title: Hello World!
+language: Scala
+status: OnExhibit
+hall: HallOfHelloWorld
+tags: []
+code: |-
+  object HelloWorld {
+    def main(args: Array[String]): Unit = {
+      println("Hello World!")
+    }
+  }
+desc: |-
+  A language that runs on the Java Virtual Machine, Scala
+  is a modern, statically typed programming language that
+  is designed to be concise, safe, interoperable with Java,
+  and functional.

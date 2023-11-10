@@ -1,0 +1,16 @@
+title: Hello World!
+language: Erlang
+status: OnExhibit
+hall: HallOfHelloWorld
+tags: []
+code: |-
+  -module(hello_world).
+  -export([main/0]).
+
+  main() ->
+      io:fwrite("Hello World!~n").
+desc: |-
+  Erlang is a functional programming language that runs on
+  the BEAM virtual machine. It is designed to be concurrent,
+  fault-tolerant, and distributed, and is used in many
+  large-scale telecommunication systems.

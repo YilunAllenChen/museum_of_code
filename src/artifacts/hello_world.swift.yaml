@@ -1,0 +1,15 @@
+title: Hello World!
+language: Swift
+status: OnExhibit
+hall: HallOfHelloWorld
+tags: []
+code: |-
+  print("Hello World!")
+desc: |-
+  Swift is a modern, statically typed programming language
+  that runs on the LLVM compiler. It is designed to be concise,
+  safe, interoperable with Objective-C, and is developed by
+  Apple Inc. for use in their products.
+
+  It is also the language of choice if one wants to develop iOS and
+  macOS applications.

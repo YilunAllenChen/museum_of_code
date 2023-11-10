@@ -1,0 +1,17 @@
+title: Hello World
+language: Java
+status: OnExhibit
+hall: HallOfHelloWorld
+tags: []
+code: |-
+  class HelloWorld {
+      public static void main(String[] args) {
+          System.out.println("Hello, World!"); 
+      }
+  }
+desc: |-
+  The classic Hello World program in Java.
+
+  Despite the verbosity, Java is a very popular language for
+  beginners, and is used in many high school and college
+  introductory programming courses.

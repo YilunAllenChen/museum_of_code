@@ -1,0 +1,23 @@
+title: Hello World!
+language: Go
+status: OnExhibit
+hall: HallOfHelloWorld
+tags: []
+code: |-
+  package main
+
+  import "fmt"
+
+  func main() {
+    fmt.Println("Hello World!")
+  }
+desc: |-
+  Go was designed to be "the modern C/C++", and is known
+  for its speed and simplicity. It is widely used in
+  the industry, and is the language of choice for
+  many cloud-based applications.
+
+  Its concurrency primitives make it easy to write
+  programs that can harness the full power of modern
+  multi-core processors, and it compiles extremely
+  quickly thanks to cutting-edge dependency analysis research.

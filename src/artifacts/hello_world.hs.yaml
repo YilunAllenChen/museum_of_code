@@ -1,0 +1,16 @@
+title: Hello World!
+language: Haskell
+status: OnExhibit
+hall: HallOfHelloWorld
+tags: []
+code: |-
+  main = putStrLn "Hello World!"
+desc: |-
+  Haskell is a purely functional programming language, which means
+  that it is based on functions and not on objects or statements
+  like most other languages. It is also a lazy language, which means
+  that it only evaluates expressions when it needs to.
+
+  Although Haskell is not used as much in industry, it is truly a
+  beautiful, inspirational, and thought-provoking language that
+  challenges the way you think about programming.
