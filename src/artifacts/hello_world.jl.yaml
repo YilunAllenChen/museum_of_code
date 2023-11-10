@@ -6,12 +6,6 @@ tags: []
 code: |-
   println("Hello World!")
 desc: |-
-  Julia is a modern, high-level, high-performance programming
-  language that is designed to be fast, dynamic, and expressive.
-  It is used for scientific computing, and is a popular choice
-  amongst data scientists.
+  Julia is a modern, high-level, high-performance programming language that is designed to be fast, dynamic, and expressive. It is used for scientific computing, and is a popular choice amongst data scientists.
 
-  Unlike other languages, Julia is a just-in-time (JIT) compiled language, 
-  which means that it is compiled on the fly, and is able to achieve
-  performance that is comparable to C, while still retaining the
-  ease of use of a high-level language.
+  Unlike other languages, Julia is a just-in-time (JIT) compiled language, which means that it is compiled on the fly, and is able to achieve performance that is comparable to C, while still retaining the ease of use of a high-level language.

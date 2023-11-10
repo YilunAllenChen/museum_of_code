@@ -17,29 +17,7 @@ impl Ord for Language {
 
 impl Display for Language {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let lan_str = match self {
-            Language::Haskell => "Haskell",
-            Language::Rust => "Rust",
-            Language::Python => "Python",
-            Language::Go => "Go",
-            Language::C => "C",
-            Language::OCaml => "OCaml",
-            Language::Bash => "Bash",
-            Language::Clojure => "Clojure",
-            Language::Elixir => "Elixir",
-            Language::Elm => "Elm",
-            Language::Java => "Java",
-            Language::JavaScript => "JavaScript",
-            Language::Ruby => "Ruby",
-            Language::Kotlin => "Kotlin",
-            Language::Swift => "Swift",
-            Language::Scala => "Scala",
-            Language::Erlang => "Erlang",
-            Language::Lua => "Lua",
-            Language::Julia => "Julia",
-            Language::Zig => "Zig",
-        };
-        write!(f, "{}", lan_str)
+        write!(f, "{:?}", self)
     }
 }
 
@@ -53,6 +31,7 @@ impl Language {
             Language::Ruby => "colored scale-75",
             Language::Zig => "colored scale-90",
             Language::Elixir => "text-purple-500",
+            Language::Perl => "text-indigo-600",
             _ => "colored",
         };
         let lang_lower = format!("{:?}", self).to_lowercase();

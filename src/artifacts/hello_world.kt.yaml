@@ -8,11 +8,6 @@ code: |-
       println("Hello World!")
   }
 desc: |-
-  Kotlin is a modern, statically typed programming language
-  that runs on the Java Virtual Machine. It is designed to
-  be concise, safe, interoperable with Java, and is
-  developed by JetBrains, the company behind the popular
-  IntelliJ IDEA IDE.
+  Kotlin is a modern, statically typed programming language that runs on the Java Virtual Machine. It is designed to be concise, safe, interoperable with Java, and is developed by JetBrains, the company behind the popular IntelliJ IDEA IDE.
 
-  Afterall, who can say no to a language that literally
-  has the word "fun" when you declare a function?
+  Afterall, who can say no to a language that literally has the word "fun" when you declare a function?

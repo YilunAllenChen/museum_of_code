@@ -6,13 +6,6 @@ tags: []
 code: |-
   IO.puts "Hello World!"
 desc: |-
-  Elixir is a functional, concurrent, general-purpose programming
-  language that runs on the Erlang virtual machine. It is built on
-  top of Erlang, and is designed for building scalable and
-  maintainable applications.
+  Elixir is a functional, concurrent, general-purpose programming language that runs on the Erlang virtual machine. It is built on top of Erlang, and is designed for building scalable and maintainable applications.
   
-  Elixir is a dynamic language, and is designed to be simple,
-  elegant, and powerful. Its concurrency model makes it easy to
-  write programs that can run on multiple cores, and Its
-  metaprogramming capabilities allow developers to extend the
-  language to suit their needs.
+  Elixir is a dynamic language, and is designed to be simple, elegant, and powerful. Its concurrency model makes it easy to write programs that can run on multiple cores, and Its metaprogramming capabilities allow developers to extend the language to suit their needs.

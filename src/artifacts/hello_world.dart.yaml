@@ -1,0 +1,13 @@
+title: Hello World!
+language: Dart
+status: OnExhibit
+hall: HallOfHelloWorld
+tags: []
+code: |-
+  void main() {
+    print('Hello World!');
+  }
+desc: |-
+  Dart is a modern, object-oriented, class-based, garbage-collected programming language that runs on the Dart VM and can be transpiled to JavaScript. It is designed to be fast, easy to learn, and scalable to large applications.
+
+  It is also the language of choice if one wants to develop Flutter applications - a cross-platform mobile application framework that allows one to develop Android and iOS applications using a single codebase.

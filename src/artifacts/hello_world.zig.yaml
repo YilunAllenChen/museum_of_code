@@ -10,11 +10,7 @@ code: |-
       try stdout.print("Hello World!\n");
   }
 desc: |-
-  Having the ambition to be a better C, Zig is a modern,
-  statically typed programming language that is designed
-  to be concise, safe, and interoperable with C.
+  Having the ambition to be a better C, Zig is a modern, statically typed programming language that is designed to be concise, safe, and interoperable with C.
 
-  It has a similar design philosophy to C, but with a
-  focus on getting rid of undefined behavior and hidden
-  code paths.
+  It has a similar design philosophy to C, but with a focus on getting rid of undefined behavior and hidden code paths.
 

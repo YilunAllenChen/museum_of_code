@@ -12,6 +12,4 @@ code: |-
 desc: |-
   The classic Hello World program in Java.
 
-  Despite the verbosity, Java is a very popular language for
-  beginners, and is used in many high school and college
-  introductory programming courses.
+  Despite the verbosity, Java is a very popular language for beginners, and is used in many high school and college introductory programming courses.

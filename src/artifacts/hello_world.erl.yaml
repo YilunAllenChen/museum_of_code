@@ -10,7 +10,4 @@ code: |-
   main() ->
       io:fwrite("Hello World!~n").
 desc: |-
-  Erlang is a functional programming language that runs on
-  the BEAM virtual machine. It is designed to be concurrent,
-  fault-tolerant, and distributed, and is used in many
-  large-scale telecommunication systems.
+  Erlang is a functional programming language that runs on the BEAM virtual machine. It is designed to be concurrent, fault-tolerant, and distributed, and is used in many large-scale telecommunication systems.

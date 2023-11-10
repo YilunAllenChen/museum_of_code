@@ -6,10 +6,6 @@ tags: []
 code: |-
   (println "Hello World!")
 desc: |-
-  Clojure is a dialect of Lisp, and is a functional programming
-  language that runs on the Java Virtual Machine, famous for
-  its use of parentheses.
+  Clojure is a dialect of Lisp, and is a functional programming language that runs on the Java Virtual Machine, famous for its use of parentheses.
 
-  It is a dynamic language, and is designed to be simple, elegant, 
-  and powerful. Even today, it remains a popular choice amongst
-  financial institutions.
+  It is a dynamic language, and is designed to be simple, elegant, and powerful. Even today, it remains a popular choice amongst financial institutions.

@@ -6,7 +6,6 @@ tags: []
 code: |-
   print("Hello World!")
 desc: |-
-  The simple program above prints "Hello World!" to the screen -
-  no boilerplate required, just a single line of code.
+  The simple program above prints "Hello World!" to the screen - no boilerplate required, just a single line of code.
 
   The simplicity makes Python a great language for beginners.

@@ -10,7 +10,4 @@ code: |-
     }
   }
 desc: |-
-  A language that runs on the Java Virtual Machine, Scala
-  is a modern, statically typed programming language that
-  is designed to be concise, safe, interoperable with Java,
-  and functional.
+  A language that runs on the Java Virtual Machine, Scala is a modern, statically typed programming language that is designed to be concise, safe, interoperable with Java, and functional.

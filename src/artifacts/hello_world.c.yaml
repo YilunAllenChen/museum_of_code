@@ -11,11 +11,6 @@ code: |-
       return 0;
   }
 desc: |-
-  The favorite language of systems programmers, C is a low-level
-  language that is used to write operating systems, compilers, and
-  other programs that require direct access to the computer's hardware.
+  The favorite language of systems programmers, C is a low-level language that is used to write operating systems, compilers, and other programs that require direct access to the computer's hardware.
 
-  It is almost always a requirement for computer science majors to
-  take a course in C programming, because of its logical affinity
-  with the underlying hardware. If you understand C, you understand
-  how a computer works.
+  It is almost always a requirement for computer science majors to take a course in C programming, because of its logical affinity with the underlying hardware. If you understand C, you understand how a computer works.

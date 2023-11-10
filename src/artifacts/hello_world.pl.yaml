@@ -1,0 +1,12 @@
+title: Hello World!
+language: Perl
+status: OnExhibit
+hall: HallOfHelloWorld
+tags: []
+code: |-
+  #!/usr/bin/perl
+  use strict;
+  use warnings;
+  print "Hello World!\n";
+desc: |-
+  Perl is a family of two high-level, general-purpose, interpreted, dynamic programming languages. Perl 5 is used for graphics programming, system administration, network programming, finance, bioinformatics, and other applications. Perl 6 is used for its Unicode support and emphasis on concurrency and parallelism.

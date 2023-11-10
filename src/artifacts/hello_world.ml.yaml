@@ -6,9 +6,6 @@ tags: []
 code: |-
   print_endline "Hello World!"
 desc: |-
-  OCaml is a popular choice for people who want to learn functional
-  programming. Unlike other languages, Ocaml has very few parentheses
-  and brackets, which almost makes it look like plain English.
+  OCaml is a popular choice for people who want to learn functional programming. Unlike other languages, Ocaml has very few parentheses and brackets, which almost makes it look like plain English.
 
-  However, it is ridiculously expressive, very fast, and has a
-  powerful type system that can catch many errors at compile time.
+  However, it is ridiculously expressive, very fast, and has a powerful type system that can catch many errors at compile time.
