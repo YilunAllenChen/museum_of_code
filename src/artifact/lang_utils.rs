@@ -48,6 +48,11 @@ impl Language {
         // https://devicon.dev/
         let colored = match self {
             Language::Rust => "",
+            Language::Lua => "text-blue-500",
+            Language::Bash => "text-gray-500",
+            Language::Ruby => "colored scale-75",
+            Language::Zig => "colored scale-90",
+            Language::Elixir => "text-purple-500",
             _ => "colored",
         };
         let lang_lower = format!("{:?}", self).to_lowercase();
