@@ -4,7 +4,7 @@ use yew_router::scope_ext::RouterScopeExt;
 use crate::Route;
 
 pub struct Nav {
-    show_sidebar: bool,
+    show_nav: bool,
 }
 
 #[derive(Properties, PartialEq)]
@@ -20,9 +20,7 @@ impl Component for Nav {
     type Properties = NavProps;
 
     fn create(_ctx: &Context<Self>) -> Self {
-        Self {
-            show_sidebar: false,
-        }
+        Self { show_nav: false }
     }
 
     fn changed(&mut self, _ctx: &Context<Self>, _old_props: &Self::Properties) -> bool {
@@ -32,11 +30,11 @@ impl Component for Nav {
     fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::ToggleSidebar(show) => {
-                self.show_sidebar = show;
+                self.show_nav = show;
                 true
             }
             Msg::SelectPage(page) => {
-                self.show_sidebar = false;
+                self.show_nav = false;
                 let navigator = ctx.link().navigator().unwrap();
                 navigator.push(&page);
                 true
@@ -45,7 +43,7 @@ impl Component for Nav {
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {
-        if !self.show_sidebar {
+        if !self.show_nav {
             html! {
                 <div class="select-none z-30 animate-enter-bottom fixed left-2 bottom-4 left-4">
                 <div class="flex-none rounded-full bg-blue-500/20 p-1">

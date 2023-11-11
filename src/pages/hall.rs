@@ -1,9 +1,10 @@
+use std::collections::HashSet;
+
 use yew::prelude::*;
 
 use crate::artifact::{ArticleComponent, BuiltYaml, ExhibitionHall};
-use crate::html_utils::render_text_tag;
 use crate::html_utils::scroll::try_scroll_to;
-use crate::pages::hall_components::HallNav;
+use crate::pages::hall_components::{FilterMgmtMenu, HallNav};
 
 pub struct HallComponent {
     active_hall: Option<ExhibitionHall>,
@@ -68,13 +69,26 @@ impl Component for HallComponent {
         let yaml = include_str!("../artifacts/build/compiled.yaml");
         let built_yaml: BuiltYaml = serde_yaml::from_str(yaml).unwrap();
 
+        let mut all_available_tags = built_yaml
+            .artifacts
+            .iter()
+            .flat_map(|article| {
+                let mut article_tags = article.tags.clone();
+                article_tags.push(article.language.to_string());
+                article_tags
+            })
+            .collect::<Vec<String>>();
+        let set: HashSet<_> = all_available_tags.drain(..).collect(); // dedup
+        all_available_tags.extend(set);
+        all_available_tags.sort();
+
         let hall_name = match &self.active_hall {
             Some(hall) => hall.to_string(),
             None => "The Everything Hall".to_string(),
         };
         let desc = match &self.active_hall {
             Some(hall) => hall.desc(),
-            None => "You're currently viewing all artifacts. Select a hall (🏛️), or click on the tags to filter the artifacts."
+            None => "You're currently viewing all artifacts. Select a hall ( 🏛️ ), or click on the tags ( 🏷️ ) to filter the artifacts."
         };
 
         let mut loaded_articles = built_yaml.artifacts;
@@ -110,65 +124,47 @@ impl Component for HallComponent {
             0 => html! {
                 <div class="my-20 mx-12 text-center text-gray-300 space-y-4">
                     <p>{"This room seems to be empty 🤔..."}</p>
-                    <p>{"Did you forget to clear your filter (🏷️)?"}</p>
+                    <p>{"Did you forget to clear your filter ( 🏷️ )?"}</p>
                 </div>
             },
-            _ => html! {
-                <div class="my-20 mx-12 text-center text-gray-300 space-y-4">
-                    <p>{"You've reached the end of the this room."}</p>
-                    <p>{"Hope you enjoyed your visit!"}</p>
-                    <p>{"If you want to see more, check out the other halls (🏛️)!"}</p>
-                </div>
-            },
-        };
-
-        let emitter = ctx.link().clone();
-        let nav_cb = Callback::from(move |msg| emitter.send_message(msg));
-
-        let clear_filter_button = match self.filter_tags.len() {
-            0 => html! {},
             _ => {
-                let clear_individual_tags = self
-                    .filter_tags
-                    .iter()
-                    .map(|tag| {
-                        let tagc= tag.clone();
-                        html! {
-                            <div
-                                onclick={ctx.link().callback(move |_| HallMsg::ToggleTag(tagc.clone()))}
-                            >
-                            {
-                                Html::from_html_unchecked(
-                                    render_text_tag(tag).into()
-                                )
-                            }
-                            </div>
-                        }
-                    })
-                    .collect::<Html>();
+                let see_more = match self.filter_tags.len() {
+                    0 => html! {
+                        <p>
+                        {"If you want to see more, check out the other halls ( 🏛️ )!"}
+                        </p>
+                    },
+                    _ => html! {
+                        <p>
+                        {"If you want to see more, check out the other halls ( 🏛️ ), or clear some of your active filters ( 🏷️ )!"}
+                        </p>
+                    },
+                };
                 html! {
-                    <div class="select-none z-30 animate-enter-bottom fixed left-36 bottom-4">
-                    <div class="flex gap-x-2">
-                        <div class="flex-none rounded-full bg-indigo-500/20 p-1">
-                            <button
-                                class="w-12 h-12 bg-indigo-500 text-white rounded-full text-2xl flex items-center justify-center"
-                                onclick={ctx.link().callback(|_| HallMsg::ClearTags)}>
-                            {"🏷️"}
-                            </button>
-                        </div>
-                        <div class="grid grid-rows-2 grid-flow-col gap-0">
-                            {clear_individual_tags}
-                        </div>
-                    </div>
+                    <div class="my-20 mx-12 text-center text-gray-300 space-y-4">
+                        <p>{"You've reached the end of the this room."}</p>
+                        <p>{"Hope you enjoyed your visit!"}</p>
+                        {see_more}
                     </div>
                 }
             }
         };
 
+        let emitter = ctx.link().clone();
+        let nav_cb = Callback::from(move |msg| emitter.send_message(msg));
+
+        let emitter = ctx.link().clone();
+        let filter_mgmt_cb = Callback::from(move |msg| emitter.send_message(msg));
+
         html! {
             <>
             <HallNav active_hall_name={hall_name.clone()} hall_cb={nav_cb}/>
-            {clear_filter_button}
+            <FilterMgmtMenu
+                available_tags={all_available_tags}
+                filter_tags={self.filter_tags.clone()}
+                hall_msg_cb={filter_mgmt_cb}
+            />
+
 
             <div class="z-10 fixed w-full h-20 bottom-0 bg-black/80"/>
 
