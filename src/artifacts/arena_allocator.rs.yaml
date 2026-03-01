@@ -1,0 +1,29 @@
+title: Arena Allocator
+language: Rust
+status: OnExhibit
+hall: HallOfSpeed
+tags: ["Memory", "Systems"]
+code: |-
+  pub struct Arena {
+      buf: Vec<u8>,
+      offset: usize,
+  }
+
+  impl Arena {
+      pub fn new(capacity: usize) -> Self {
+          Self { buf: vec![0; capacity], offset: 0 }
+      }
+
+      pub fn alloc(&mut self, bytes: usize) -> Option<&mut [u8]> {
+          if self.offset + bytes > self.buf.len() {
+              return None;
+          }
+          let start = self.offset;
+          self.offset += bytes;
+          Some(&mut self.buf[start..self.offset])
+      }
+  }
+desc: |-
+  Arena allocation is a bump-pointer strategy: allocation is cheap, deallocation is usually done all at once.
+
+  This pattern appears in parsers, compilers, and game engines where many short-lived allocations share a lifetime.

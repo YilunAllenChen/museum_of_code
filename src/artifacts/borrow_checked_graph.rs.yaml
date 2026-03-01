@@ -1,0 +1,33 @@
+title: Borrow-Checked Graph API
+language: Rust
+status: OnExhibit
+hall: HallOfSafety
+tags: ["Graph", "Borrowing"]
+code: |-
+  #[derive(Copy, Clone, Debug)]
+  struct NodeId(usize);
+
+  struct Graph {
+      adj: Vec<Vec<NodeId>>,
+  }
+
+  impl Graph {
+      fn new() -> Self { Self { adj: vec![] } }
+
+      fn add_node(&mut self) -> NodeId {
+          self.adj.push(vec![]);
+          NodeId(self.adj.len() - 1)
+      }
+
+      fn add_edge(&mut self, a: NodeId, b: NodeId) {
+          self.adj[a.0].push(b);
+      }
+
+      fn neighbors(&self, n: NodeId) -> &[NodeId] {
+          &self.adj[n.0]
+      }
+  }
+desc: |-
+  Instead of exposing raw references to internal nodes, this API uses stable node IDs.
+
+  The borrow checker then enforces safe mutation and access patterns at compile time, reducing invalid-reference bugs.

@@ -1,0 +1,19 @@
+title: Y Combinator
+language: JavaScript
+status: OnExhibit
+hall: HallOfExpressiveness
+tags: ["Functional", "Recursion"]
+code: |-
+  const Y = (f) =>
+    ((x) => f((...args) => x(x)(...args)))
+    ((x) => f((...args) => x(x)(...args)));
+
+  const factorial = Y((recur) => (n) =>
+    n <= 1 ? 1 : n * recur(n - 1)
+  );
+
+  console.log(factorial(6)); // 720
+desc: |-
+  The Y combinator is a fixed-point combinator: it enables recursion without naming functions directly.
+
+  It is one of the most famous ideas in lambda calculus, and a classic artifact of expressive functional programming.

@@ -1,0 +1,12 @@
+title: Ruby Quine
+language: Ruby
+status: OnExhibit
+hall: HallOfTroll
+tags: ["Self-Reference", "Metaprogramming"]
+code: |-
+  s = 's = %p; puts s %% s'
+  puts s % s
+desc: |-
+  A quine is a program that prints its own source code.
+
+  It is delightfully impractical, mildly mind-bending, and perfect for the Hall of Troll.

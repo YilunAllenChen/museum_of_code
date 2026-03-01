@@ -1,0 +1,24 @@
+title: Railway-Oriented Validation
+language: OCaml
+status: OnExhibit
+hall: HallOfSafety
+tags: ["Result", "Validation"]
+code: |-
+  let ( let* ) r f = match r with
+    | Ok x -> f x
+    | Error e -> Error e
+
+  let non_empty s =
+    if String.length s = 0 then Error "empty" else Ok s
+
+  let has_at s =
+    if String.contains s '@' then Ok s else Error "missing @"
+
+  let validate_email s =
+    let* x = non_empty s in
+    let* y = has_at x in
+    Ok y
+desc: |-
+  Railway-oriented programming models success and failure as two explicit tracks.
+
+  Chaining `Result` values makes unhappy paths impossible to ignore and keeps validation logic composable.

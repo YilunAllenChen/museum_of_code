@@ -1,0 +1,26 @@
+title: Crash-Only Supervisor Tree
+language: Erlang
+status: OnExhibit
+hall: HallOfSafety
+tags: ["Fault Tolerance", "Concurrency"]
+code: |-
+  -module(example_sup).
+  -behaviour(supervisor).
+  -export([start_link/0, init/1]).
+
+  start_link() ->
+      supervisor:start_link({local, ?MODULE}, ?MODULE, []).
+
+  init([]) ->
+      Worker = #{
+          id => worker1,
+          start => {example_worker, start_link, []},
+          restart => permanent,
+          shutdown => 5000,
+          type => worker
+      },
+      {ok, {{one_for_one, 5, 10}, [Worker]}}.
+desc: |-
+  Erlang systems often embrace "let it crash": workers are simple, supervisors handle recovery.
+
+  This supervision tree pattern is a cornerstone of highly available telecom and distributed systems.

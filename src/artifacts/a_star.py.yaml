@@ -1,0 +1,25 @@
+title: A* Pathfinding
+language: Python
+status: OnExhibit
+hall: HallOfSpeed
+tags: ["Graph", "Heuristic"]
+code: |-
+  import heapq
+
+  def a_star(start, goal, neighbors, h):
+      pq = [(h(start), 0, start)]
+      best = {start: 0}
+      while pq:
+          _, g, node = heapq.heappop(pq)
+          if node == goal:
+              return g
+          for nxt, w in neighbors(node):
+              ng = g + w
+              if ng < best.get(nxt, float("inf")):
+                  best[nxt] = ng
+                  heapq.heappush(pq, (ng + h(nxt), ng, nxt))
+      return None
+desc: |-
+  A* combines Dijkstra's best-known distance with a heuristic guess toward the goal.
+
+  With a good heuristic, it can dramatically reduce search work while still finding optimal paths.

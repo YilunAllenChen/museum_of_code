@@ -1,0 +1,18 @@
+title: SQL Injection Demo and Fix
+language: Java
+status: OnExhibit
+hall: HallOfSafety
+tags: ["Security", "Database"]
+code: |-
+  // Unsafe: user input is concatenated directly into SQL.
+  String unsafe = "SELECT * FROM users WHERE email = '" + email + "'";
+
+  // Safe: parameterized query prevents injection.
+  String safe = "SELECT * FROM users WHERE email = ?";
+  PreparedStatement ps = conn.prepareStatement(safe);
+  ps.setString(1, email);
+  ResultSet rs = ps.executeQuery();
+desc: |-
+  This artifact shows a common vulnerability and its standard remediation.
+
+  Prepared statements separate SQL structure from untrusted data, blocking many injection attacks by construction.

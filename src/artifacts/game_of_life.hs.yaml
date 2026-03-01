@@ -1,0 +1,23 @@
+title: Game of Life
+language: Haskell
+status: OnExhibit
+hall: HallOfArt
+tags: ["Cellular Automata", "Recursion"]
+code: |-
+  type Cell = (Int, Int)
+  type Board = [Cell]
+
+  neighbors (x, y) =
+    [(x + dx, y + dy) | dx <- [-1..1], dy <- [-1..1], (dx, dy) /= (0, 0)]
+
+  liveNeighbors b c = length [n | n <- neighbors c, n `elem` b]
+
+  survives b c = let k = liveNeighbors b c in c `elem` b && (k == 2 || k == 3)
+  born b c = let k = liveNeighbors b c in c `notElem` b && k == 3
+
+  step b = [c | c <- candidates, survives b c || born b c]
+    where candidates = concatMap neighbors b ++ b
+desc: |-
+  Conway's Game of Life is a classic cellular automaton where simple rules create complex behavior.
+
+  Haskell's list transformations make each generation update compact and expressive.

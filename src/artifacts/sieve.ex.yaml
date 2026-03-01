@@ -1,0 +1,21 @@
+title: Sieve of Eratosthenes
+language: Elixir
+status: OnExhibit
+hall: HallOfExpressiveness
+tags: ["Math", "Recursion"]
+code: |-
+  defmodule Primes do
+    def up_to(n), do: sieve(Enum.to_list(2..n))
+
+    defp sieve([]), do: []
+    defp sieve([h | t]) do
+      [h | sieve(Enum.reject(t, &(rem(&1, h) == 0)))]
+    end
+  end
+
+  IO.inspect(Primes.up_to(30))
+desc: |-
+  This is the classical sieve written in a pipeline-friendly, recursive Elixir style.
+
+  It demonstrates how clear list transformations can make mathematical algorithms feel almost declarative.
+

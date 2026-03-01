@@ -1,0 +1,25 @@
+title: Boids Flocking
+language: Julia
+status: OnExhibit
+hall: HallOfArt
+tags: ["Simulation", "Emergence"]
+code: |-
+  using LinearAlgebra
+
+  mutable struct Boid
+      p::Vector{Float64}
+      v::Vector{Float64}
+  end
+
+  function step!(boids, dt)
+      for b in boids
+          center = sum((x.p for x in boids)) / length(boids)
+          align = sum((x.v for x in boids)) / length(boids)
+          b.v += 0.01 * (center - b.p) + 0.05 * (align - b.v)
+          b.p += dt * b.v
+      end
+  end
+desc: |-
+  Boids simulate flocking behavior with simple local rules.
+
+  The result is emergent choreography: lifelike collective motion from tiny, composable updates.
