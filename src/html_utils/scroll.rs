@@ -6,8 +6,8 @@ pub fn try_scroll_to(id: &str) {
         Some(window) => {
             let document = window.document().unwrap();
             if let Some(element) = document.get_element_by_id(id) {
-                let mut options = ScrollIntoViewOptions::new();
-                options.behavior(ScrollBehavior::Smooth);
+                let options = ScrollIntoViewOptions::new();
+                options.set_behavior(ScrollBehavior::Smooth);
                 element.scroll_into_view_with_scroll_into_view_options(&options);
             }
         }
